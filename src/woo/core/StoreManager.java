@@ -2,11 +2,11 @@ package woo.core;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.Map;
+import java.util.Collection;
+import java.util.HashMap;
 
-import woo.core.exception.UnavailableFileException;
-import woo.core.exception.MissingFileAssociationException;
-import woo.core.exception.ImportFileException;
-import woo.core.exception.BadEntryException;
+import woo.core.exception.*;
 
 /**
  * StoreManager: façade for the core classes.
@@ -25,6 +25,29 @@ public class StoreManager {
     
   }
   //FIXME define other methods
+
+  public Store getStore(){
+    return _store;
+  }
+
+  public Cliente getCliente(String id) throws InvalidClientKeyException{
+    return _store.getCliente(id);
+  }
+
+  public int getData(){
+    return _store.getData();
+  }
+
+  public void avancarData(int dias) throws InvalidDateToAdvanceException{
+      _store.avancarData(dias);
+  }
+  public Collection<Cliente> getTodosClientes(){
+    return _store.getTodosClientes();
+  }
+
+  public Collection<Produto> getTodosProdutos(){
+    return _store.getTodosProdutos();
+  }
 
   /**
    * @throws IOException

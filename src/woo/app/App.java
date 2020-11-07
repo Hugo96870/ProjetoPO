@@ -25,7 +25,6 @@ public class App {
 
     Menu menu = new woo.app.main.Menu(storefront);
     menu.open();
-
     IO.close();
   }
 

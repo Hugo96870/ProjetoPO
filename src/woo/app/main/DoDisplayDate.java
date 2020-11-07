@@ -4,6 +4,7 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.core.StoreManager;
+import woo.app.main.Message;
 //FIXME import other classes
 
 /**
@@ -19,7 +20,10 @@ public class DoDisplayDate extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DialogException {
+  public final void execute(){
+    String aux = Message.currentDate(_receiver.getData());
+    _display.addLine(aux);
+    _display.display();
     //FIXME implement command
   }
 }

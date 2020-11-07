@@ -4,6 +4,8 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.core.StoreManager;
+import woo.core.Produto;
+import java.util.Collection;
 //FIXME import other classes
 
 /**
@@ -20,6 +22,11 @@ public class DoShowAllProducts extends Command<StoreManager> {
 
   @Override
   public final void execute() throws DialogException {
+    Collection<Produto> produtos = _receiver.getTodosProdutos();
+    for(Produto pr : produtos){
+      _display.addLine(pr.toString());
+      _display.display();
+    }
     //FIXME implement command
   }
 
