@@ -27,7 +27,7 @@ public class DoShowAllClients extends Command<StoreManager> {
   public void execute() throws DialogException {
     Collection<Cliente> clientesAux = _receiver.getTodosClientes();
     for(Cliente cl : clientesAux){
-      _display.addLine(cl.toString());
+      _display.addLine(cl.toStringCliente());
     }
     _display.display();
     //FIXME implement command

@@ -26,7 +26,7 @@ public class DoShowSuppliers extends Command<StoreManager> {
   public void execute() {
     Collection<Fornecedor> fornecedores = _receiver.getTodosFornecedores();
     for(Fornecedor fr: fornecedores){
-      _display.addLine(fr.toString());
+      _display.addLine(fr.toStringFornecedor());
     }
     _display.display();
     //FIXME implement command

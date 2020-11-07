@@ -17,6 +17,11 @@ public class Produto{
         _tipo = tipo;
     }
 
+    public String toStringProduto(){
+        return _tipo + "|" + _idProduto + "|" + _fornecedor.getId() + "|" + _preco +
+                "|" + _precoCritico + "|" + _quantidade + "|";
+    }
+
     public int getPreco(){
         return _preco;
     }

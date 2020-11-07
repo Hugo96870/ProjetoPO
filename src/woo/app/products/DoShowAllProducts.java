@@ -24,7 +24,7 @@ public class DoShowAllProducts extends Command<StoreManager> {
   public final void execute(){
     Collection<Produto> produtos = _receiver.getTodosProdutos();
     for(Produto pr : produtos){
-      _display.addLine(pr.toString());
+      _display.addLine(pr.toStringProduto());
     }
     _display.display();
     //FIXME implement command

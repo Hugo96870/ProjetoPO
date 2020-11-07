@@ -54,6 +54,12 @@ public class StoreManager {
     return _store.getTodosProdutos();
   }
 
+  public void registarCliente(String id, String nome, String morada) throws ClientKeyDuplicatedException{
+    _store.registarCliente(id, nome, morada);
+  }
+
+
+
   /**
    * @throws IOException
    * @throws FileNotFoundException

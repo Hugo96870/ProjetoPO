@@ -30,7 +30,7 @@ public class DoShowClient extends Command<StoreManager> {
     _form.parse();
     try {
       Cliente cl = _receiver.getCliente(_idCliente.value());
-      _display.popup(cl.toString());
+      _display.popup(cl.toStringCliente());
     } catch (InvalidClientKeyException e) {
       throw new UnknownClientKeyException(e.getMessage());
     }

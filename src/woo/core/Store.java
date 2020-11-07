@@ -52,6 +52,16 @@ public class Store implements Serializable {
     return _produtos.values();
   }
 
+  public void registarCliente(String id, String nome, String morada) throws ClientKeyDuplicatedException{
+    if(_clientes.containsKey(id)) {
+      throw new ClientKeyDuplicatedException(id);
+    }
+    else{
+      Cliente cl = new Cliente(id, nome, morada);
+      _clientes.put(id, cl);
+    }
+  }
+
   public int getData(){
     return _data;
   }

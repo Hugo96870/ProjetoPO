@@ -1,5 +1,7 @@
 package woo.core;
 
+import woo.app.suppliers.Message;
+
 public class Fornecedor{
     private String _idFornecedor;
     private String _nome;
@@ -11,6 +13,14 @@ public class Fornecedor{
         _nome = nome;
         _morada = morada;
         _estadoAtividade = true;
+    }
+
+    public String toStringFornecedor(){
+        String string = _idFornecedor + "|" + _nome + "|" + _morada + "|";
+        if (_estadoAtividade)
+            return string + Message.yes();
+        else
+            return string + Message.no();
     }
 
     public String getNome(){
