@@ -21,12 +21,12 @@ public class DoShowAllProducts extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DialogException {
+  public final void execute(){
     Collection<Produto> produtos = _receiver.getTodosProdutos();
     for(Produto pr : produtos){
       _display.addLine(pr.toString());
-      _display.display();
     }
+    _display.display();
     //FIXME implement command
   }
 

@@ -28,8 +28,8 @@ public class DoShowAllClients extends Command<StoreManager> {
     Collection<Cliente> clientesAux = _receiver.getTodosClientes();
     for(Cliente cl : clientesAux){
       _display.addLine(cl.toString());
-      _display.display();
     }
+    _display.display();
     //FIXME implement command
   }
 }

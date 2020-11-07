@@ -3,7 +3,11 @@ package woo.app.suppliers;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
+import woo.core.Fornecedor;
 import woo.core.StoreManager;
+import java.util.Collection;
+
+import java.util.Collection;
 //FIXME import other classes
 
 /**
@@ -19,7 +23,12 @@ public class DoShowSuppliers extends Command<StoreManager> {
   }
 
   @Override
-  public void execute() throws DialogException {
+  public void execute() {
+    Collection<Fornecedor> fornecedores = _receiver.getTodosFornecedores();
+    for(Fornecedor fr: fornecedores){
+      _display.addLine(fr.toString());
+    }
+    _display.display();
     //FIXME implement command
   }
 }

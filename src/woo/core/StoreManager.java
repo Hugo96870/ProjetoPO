@@ -2,6 +2,7 @@ package woo.core;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.text.CollationElementIterator;
 import java.util.Map;
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,6 +44,10 @@ public class StoreManager {
   }
   public Collection<Cliente> getTodosClientes(){
     return _store.getTodosClientes();
+  }
+
+  public Collection<Fornecedor> getTodosFornecedores(){
+    return _store.getTodosFornecedores();
   }
 
   public Collection<Produto> getTodosProdutos(){

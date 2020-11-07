@@ -44,6 +44,10 @@ public class Store implements Serializable {
     return _clientes.values();
   }
 
+  public Collection<Fornecedor> getTodosFornecedores(){
+    return _fornecedores.values();
+  }
+
   public Collection<Produto> getTodosProdutos(){
     return _produtos.values();
   }
