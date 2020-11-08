@@ -120,11 +120,12 @@ public class StoreManager {
           DuplicateProductKeyException, UnknownServiceLevelException, UnknownServiceTypeException {
     try {
       _store.importFile(textfile);
-    } catch (IOException | BadEntryException e) {
+    } catch (IOException  e) {
       throw new ImportFileException(textfile);
-    } finally {
-
+    } catch (BadEntryException e){
+      throw new ImportFileException(textfile);
     }
-  }
 
+  }
 }
+
