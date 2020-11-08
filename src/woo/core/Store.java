@@ -4,19 +4,21 @@ import woo.core.Cliente;
 import woo.core.Fornecedor;
 import woo.core.Produto;
 
-import java.util.Map;
+import java.util.*;
 import java.util.HashMap;
 import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
+import woo.core.MyParser;
+
 
 //FIXME import classes (cannot import from pt.tecnico or woo.app)
 import java.io.Serializable;
 
 import java.io.IOException;
+import java.util.TreeSet;
 
-import woo.core.exception.BadEntryException;
-import woo.core.exception.ClientKeyDuplicatedException;
-import woo.core.exception.InvalidClientKeyException;
-import woo.core.exception.InvalidDateToAdvanceException;
+import woo.core.exception.*;
 
 /**
  * Class Store implements a store.
@@ -34,7 +36,7 @@ public class Store implements Serializable {
   // FIXME define contructor(s)
 
   public Store(){
-    _clientes = new HashMap<>();
+    _clientes = new TreeMap<>();
     _produtos = new HashMap<>();
     _fornecedores = new HashMap<>();
     _data = 0;
@@ -86,8 +88,11 @@ public class Store implements Serializable {
    * @throws IOException
    * @throws BadEntryException
    */
-  void importFile(String txtfile) throws IOException, BadEntryException /* FIXME maybe other exceptions */ {
+
+  void importFile(String txtfile) throws IOException, BadEntryException {
     //FIXME implement method
+    MyParser parse = new MyParser(this);
+    parse.parseFile(txtfile);
   }
 
 }

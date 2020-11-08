@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Collection;
 import java.util.HashMap;
 
+import woo.app.exception.FileOpenFailedException;
 import woo.core.exception.*;
 
 /**
@@ -86,16 +87,17 @@ public class StoreManager {
    */
   public void load(String filename) throws UnavailableFileException {
     //FIXME implement serialization method
+
   }
 
   /**
    * @param textfile
    * @throws ImportFileException
    */
-  public void importFile(String textfile) throws ImportFileException {
+  public void importFile(String textfile) throws ImportFileException{
     try {
       _store.importFile(textfile);
-    } catch (IOException | BadEntryException /* FIXME maybe other exceptions */ e) {
+    } catch (IOException | BadEntryException e) {
       throw new ImportFileException(textfile);
     }
   }

@@ -12,16 +12,19 @@ import woo.core.StoreManager;
 public class DoSave extends Command<StoreManager> {
 
   //FIXME add input fields
+  private Input<String> _output;
 
   /** @param receiver */
   public DoSave(StoreManager receiver) {
     super(Label.SAVE, receiver);
     //FIXME init input fields
+    _output = _form.addStringInput(Message.newSaveAs());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
+    _form.parse();
     //FIXME implement command
   }
 }

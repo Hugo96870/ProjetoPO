@@ -1,8 +1,7 @@
 package woo.app.clients;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
+
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException; 
 import pt.tecnico.po.ui.Input; 
@@ -26,7 +25,7 @@ public class DoShowAllClients extends Command<StoreManager> {
   @Override
   public void execute() throws DialogException {
     Collection<Cliente> clientesAux = _receiver.getTodosClientes();
-    for(Cliente cl : clientesAux){
+    for(Cliente cl: clientesAux){
       _display.addLine(cl.toStringCliente());
     }
     _display.display();
