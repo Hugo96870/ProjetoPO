@@ -37,8 +37,8 @@ public class Store implements Serializable {
 
   public Store(){
     _clientes = new TreeMap<>();
-    _produtos = new HashMap<>();
-    _fornecedores = new HashMap<>();
+    _produtos = new TreeMap<>();
+    _fornecedores = new TreeMap<>();
     _data = 0;
   }
 

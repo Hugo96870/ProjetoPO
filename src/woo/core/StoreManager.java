@@ -79,9 +79,13 @@ public class StoreManager {
    * @throws IOException
    * @throws FileNotFoundException
    */
-  public void saveAs(String filename) throws MissingFileAssociationException, FileNotFoundException, IOException {
+  public void saveAs(String filename) throws MissingFileAssociationException, ImportFileException{
     _filename = filename;
-    save();
+    try {
+      save();
+    } catch(IOException e){
+      throw new ImportFileException(filename);
+    }
   }
 
   /**
