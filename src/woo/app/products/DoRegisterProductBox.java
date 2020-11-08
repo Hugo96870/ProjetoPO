@@ -34,7 +34,7 @@ public class DoRegisterProductBox extends Command<StoreManager> {
   public final void execute() throws DialogException {
     _form.parse();
     try{
-      _receiver.registarLivro(_idLivro, _autor, _titulo, _ISBN, _preco, _valorCritico, _idFornecedorLivro);
+      _receiver.registarCaixa(_idCaixa, _preco, _valorCritico, _idFornecedorCaixa, _tipoTransporte);
     }catch (ProductKeyDuplicatedException e){
       throw new DuplicateProductKeyException(e.getMessage());
     }
