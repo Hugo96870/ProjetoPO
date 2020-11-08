@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
+import woo.app.exception.DuplicateClientKeyException;
+import woo.app.exception.DuplicateSupplierKeyException;
 import woo.core.exception.BadEntryException;
+import woo.core.exception.ClientKeyDuplicatedException;
+import woo.core.exception.SupplierKeyDuplicatedException;
 // add here more imports if needed
 
 public class MyParser {
@@ -14,7 +18,7 @@ public class MyParser {
     _store = s;
   }
 
-  void parseFile(String fileName) throws IOException, BadEntryException /* may have other exceptions */ {
+  void parseFile(String fileName) throws IOException, BadEntryException, DuplicateClientKeyException, DuplicateSupplierKeyException /* may have other exceptions */ {
 
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
       String line;
@@ -24,7 +28,7 @@ public class MyParser {
     } 
   }
 
-  private void parseLine(String line) throws BadEntryException {
+  private void parseLine(String line) throws BadEntryException, DuplicateSupplierKeyException, DuplicateClientKeyException {
     String[] components = line.split("\\|");
 
     switch(components[0]) {
@@ -54,25 +58,35 @@ public class MyParser {
   }
 
   // Format: SUPPLIER|id|nome|endereço
-  private void parseSupplier(String line, String[] components)  throws BadEntryException {
+  private void parseSupplier(String line, String[] components)  throws BadEntryException, DuplicateSupplierKeyException {
     if (components.length != 4)
       throw new BadEntryException("Invalid number of fields in supplier description (4) " + line);
 
     String id = components[1];
     String name = components[2];
     String address = components[3];
-
+    try {
+      _store.registarFornecedor(id, name, address);
+    } catch(SupplierKeyDuplicatedException e){
+      throw new DuplicateSupplierKeyException(e.getMessage());
+    }
     // create/register supplier?
     // for example, _store.registerSupplier(id, name, address);
     // or use _store.registerSupplier(components[1];, components[2], components[3]);;
   }
 
   // Format: CLIENT|id|nome|endereço
-  private void parseClient(String line, String[] components) throws BadEntryException {
+  private void parseClient(String line, String[] components) throws BadEntryException, DuplicateClientKeyException {
     if (components.length != 4)
       throw new BadEntryException("Invalid number of fields (4) in client description: " + line);
-
-    // add code here
+    String id = components[1];
+    String name = components[2];
+    String address = components[3];
+    try {
+      _store.registarCliente(id, name, address);
+    } catch (ClientKeyDuplicatedException e ){
+      throw new DuplicateClientKeyException(e.getMessage());
+    }
   }
 
   // Format: BOX|id|tipo-de-serviço|id-fornecedor|preço|valor-crítico|exemplares

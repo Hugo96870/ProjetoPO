@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Collection;
 import java.util.HashMap;
 
+import woo.app.exception.DuplicateClientKeyException;
+import woo.app.exception.DuplicateSupplierKeyException;
 import woo.app.exception.FileOpenFailedException;
 import woo.core.exception.*;
 
@@ -101,11 +103,13 @@ public class StoreManager {
    * @param textfile
    * @throws ImportFileException
    */
-  public void importFile(String textfile) throws ImportFileException{
+  public void importFile(String textfile) throws ImportFileException, DuplicateClientKeyException, DuplicateSupplierKeyException {
     try {
       _store.importFile(textfile);
     } catch (IOException | BadEntryException e) {
       throw new ImportFileException(textfile);
+    } finally {
+
     }
   }
 

@@ -1,5 +1,7 @@
 package woo.core;
 
+import woo.app.exception.DuplicateClientKeyException;
+import woo.app.exception.DuplicateSupplierKeyException;
 import woo.core.Cliente;
 import woo.core.Fornecedor;
 import woo.core.Produto;
@@ -99,7 +101,7 @@ public class Store implements Serializable {
    * @throws BadEntryException
    */
 
-  void importFile(String txtfile) throws IOException, BadEntryException {
+  public void importFile(String txtfile) throws IOException, BadEntryException, DuplicateSupplierKeyException, DuplicateClientKeyException {
     //FIXME implement method
     MyParser parse = new MyParser(this);
     parse.parseFile(txtfile);

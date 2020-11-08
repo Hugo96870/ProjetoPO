@@ -3,12 +3,16 @@ package woo.app.main;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
+import woo.app.exception.DuplicateClientKeyException;
+import woo.app.exception.DuplicateSupplierKeyException;
 import woo.app.exception.FileOpenFailedException;
 import woo.core.StoreManager;
 import woo.core.exception.ImportFileException;
+import woo.core.exception.SupplierKeyDuplicatedException;
 import woo.core.exception.UnavailableFileException;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 //FIXME import other classes
 
@@ -29,7 +33,7 @@ public class DoOpen extends Command<StoreManager> {
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
-  public final void execute() throws FileOpenFailedException {
+  public final void execute() throws FileOpenFailedException, DuplicateClientKeyException, DuplicateSupplierKeyException {
     _form.parse();
     try {
       //FIXME implement command
