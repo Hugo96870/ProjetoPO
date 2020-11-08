@@ -1,43 +1,48 @@
 package woo.core;
 
-public class Contentor{
-    private String _idContentor;
-    private int _preco;
-    private int _valorCritico;
-    private String _idFornecedorContentor;
-    private tipoTransporte _tipoTransporte;
-    private qualidadeServico _qualidadeServico;
+import woo.core.exception.ServiceLevelUnknownException;
+import woo.core.exception.ServiceTypeUnknownException;
 
-    public Contentor(String id, int preco, int valorCritico, String fornecedor, tipoTransporte tipo, qualidadeServico qualidade){
-        _idContentor = id;
-        _preco = preco;
-        _valorCritico = valorCritico;
-        _idFornecedorContentor = fornecedor;
-        _tipoTransporte = tipo;
-        _qualidadeServico = qualidade;
+public class Contentor extends Produto{
+    private TipoTransporte _tipoTransporte;
+    private NivelServico _qualidadeServico;
+
+    public Contentor(String id, int preco, int valorCritico, String fornecedor, String tipo, String qualidade, int quantidade)
+                        throws ServiceLevelUnknownException, ServiceTypeUnknownException{
+        super(id, preco, valorCritico, quantidade, fornecedor, TipoDeProduto.CONTAINER);
+        if(tipo.equals("NORMAL"))
+            _tipoTransporte = TipoTransporte.NORMAL;
+        else if(tipo.equals("AIR"))
+            _tipoTransporte = TipoTransporte.AIR;
+        else if(tipo.equals("EXPRESS"))
+            _tipoTransporte = TipoTransporte.EXPRESS;
+        else if(tipo.equals("PERSONAL"))
+            _tipoTransporte = TipoTransporte.PERSONAL;
+        else
+            throw new ServiceTypeUnknownException(tipo);
+        if(qualidade.equals("B4"))
+            _qualidadeServico = NivelServico.B4;
+        else if(qualidade.equals("C4"))
+            _qualidadeServico = NivelServico.C4;
+        else if(qualidade.equals("C5"))
+            _qualidadeServico = NivelServico.C5;
+        else if(qualidade.equals("DL"))
+            _qualidadeServico = NivelServico.DL;
+        else
+            throw new ServiceLevelUnknownException(qualidade);
     }
 
-    public int getPreco(){
-        return _preco;
+    public String toStringProduto(){
+        return this.getTipo() + "|" + this.getId() + "|" + this.getFornecedor() + "|" + this.getPreco() +
+                "|" + this.getPrecoCritico() + "|" + this.getQuantidade() + "|" + this.getTipoTransporte() + "|" +
+                    this.getNivelServico();
     }
 
-    public int getValorCritico(){
-        return _valorCritico;
-    }
-
-    public String getIdContentor(){
-        return _idContentor;
-    }
-
-    public String getIdFornecedor(){
-        return _idFornecedorContentor;
-    }
-
-    public tipoTransporte getTipoTransporte(){
+    public TipoTransporte getTipoTransporte(){
         return _tipoTransporte;
     }
 
-    public qualidadeServico getQualidadeServico(){
+    public NivelServico getNivelServico(){
         return _qualidadeServico;
     }
 }

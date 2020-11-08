@@ -39,7 +39,8 @@ public class DoRegisterProductBook extends Command<StoreManager> {
   public final void execute() throws DuplicateProductKeyException {
     _form.parse();
     try{
-      _receiver.registarLivro(_idLivro, _autor, _titulo, _ISBN, _preco, _valorCritico, _idFornecedorLivro);
+      _receiver.registarLivro(_idLivro.value(), _autor.value(), _titulo.value(), _ISBN.value(),
+              _preco.value(), _valorCritico.value(), _idFornecedorLivro.value());
     }catch (ProductKeyDuplicatedException e){
       throw new DuplicateProductKeyException(e.getMessage());
     }

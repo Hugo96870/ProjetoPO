@@ -7,9 +7,7 @@ import java.util.Map;
 import java.util.Collection;
 import java.util.HashMap;
 
-import woo.app.exception.DuplicateClientKeyException;
-import woo.app.exception.DuplicateSupplierKeyException;
-import woo.app.exception.FileOpenFailedException;
+import woo.app.exception.*;
 import woo.core.exception.*;
 
 /**
@@ -65,6 +63,21 @@ public class StoreManager {
     _store.registarFornecedor(id, nome, morada);
   }
 
+  public void registarLivro(String id, String autor, String titulo, String ISBN, int preco, int valorCritico,
+                            String idFornecedor) throws ProductKeyDuplicatedException{
+    _store.registarLivro(id, autor, titulo, ISBN, preco, valorCritico, idFornecedor, 0);
+  }
+
+  public void registarContentor(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte,
+                                String nivelServico) throws ProductKeyDuplicatedException, ServiceLevelUnknownException,
+                                ServiceTypeUnknownException{
+    _store.registarContentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, 0);
+  }
+
+  public void registarCaixa(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte)
+          throws ProductKeyDuplicatedException, ServiceTypeUnknownException{
+    _store.registarCaixa(id, preco, valorCritico, idFornecedor, tipoTransporte, 0);
+  }
 
   /**
    * @throws IOException
@@ -103,7 +116,8 @@ public class StoreManager {
    * @param textfile
    * @throws ImportFileException
    */
-  public void importFile(String textfile) throws ImportFileException, DuplicateClientKeyException, DuplicateSupplierKeyException {
+  public void importFile(String textfile) throws ImportFileException, DuplicateClientKeyException, DuplicateSupplierKeyException,
+          DuplicateProductKeyException, UnknownServiceLevelException, UnknownServiceTypeException {
     try {
       _store.importFile(textfile);
     } catch (IOException | BadEntryException e) {

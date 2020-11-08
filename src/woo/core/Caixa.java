@@ -1,27 +1,34 @@
 package woo.core;
 
+import woo.app.exception.UnknownServiceTypeException;
+import woo.core.exception.ServiceTypeUnknownException;
+
+import java.security.Provider;
+
 public class Caixa extends Produto{
-    private String _idFornecedorCaixa;
-    private tipoTransporte _tipoTransporte;
+    private TipoTransporte _tipoTransporte;
 
-    public Caixa(String id, int preco, int valorCritico, String fornecedor, tipoTransporte tipo){~
-        super(id, preco, valorCritico, )
-        _idCaixa = id;
-        _preco = preco;
-        _valorCritico = valorCritico;
-        _idFornecedorCaixa = fornecedor;
-        _tipoTransporte = tipo;
+    public Caixa(String id, int preco, int valorCritico, String fornecedor, String tipo, int quantidade)
+                    throws ServiceTypeUnknownException {
+        super(id, preco, valorCritico, quantidade, fornecedor, TipoDeProduto.BOX);
+        if(tipo.equals("NORMAL"))
+            _tipoTransporte = TipoTransporte.NORMAL;
+        else if(tipo.equals("AIR"))
+            _tipoTransporte = TipoTransporte.AIR;
+        else if(tipo.equals("EXPRESS"))
+            _tipoTransporte = TipoTransporte.EXPRESS;
+        else if(tipo.equals("PERSONAL"))
+            _tipoTransporte = TipoTransporte.PERSONAL;
+        else
+            throw new ServiceTypeUnknownException(tipo);
     }
 
-    public String getIdCaixa(){
-        return _idCaixa;
+    public String toStringProduto() {
+        return this.getTipo() + "|" + this.getId() + "|" + this.getFornecedor() + "|" + this.getPreco() +
+                "|" + this.getPrecoCritico() + "|" + this.getQuantidade() + "|" + this.getTipoTransporte();
     }
 
-    public String getIdFornecedor(){
-        return _idFornecedorCaixa;
-    }
-
-    public tipoTransporte getTipoTransporte(){
+    public TipoTransporte getTipoTransporte(){
         return _tipoTransporte;
     }
 }

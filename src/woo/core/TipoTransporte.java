@@ -1,5 +1,5 @@
 package woo.core;
 
-public enum tipoTransporte{
+public enum TipoTransporte{
     NORMAL, AIR, EXPRESS, PERSONAL   
 }

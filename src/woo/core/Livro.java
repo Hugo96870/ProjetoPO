@@ -1,37 +1,30 @@
 package woo.core;
 
-public class Livro{
+public class Livro extends Produto{
     private String _autor;
-    private int _preco;
-    private int _valorCritico;
-    private String _idLivro;
-    private String _idFornecedorLivro;
+    private String _titulo;
+    private String _ISBN;
 
-    public Livro(String id, int preco, int valorCritico, String fornecedor, String autor){
+    public Livro(String id, int preco, int valorCritico, String fornecedor, String autor, String ISBN, String titulo, int quantidade){
+        super(id, preco, valorCritico, quantidade, fornecedor, TipoDeProduto.BOOK);
         _autor = autor;
-        _preco = preco;
-        _valorCritico = valorCritico;
-        _idFornecedorLivro = fornecedor;
-        _idLivro = id;
+        _ISBN=ISBN;
+        _titulo=titulo;
     }
 
-    public int getPreco(){
-        return _preco;
-    }
-
-    public int getValorCritico(){
-        return _valorCritico;
-    }
-
-    public String getIdLivro(){
-        return _idLivro;
-    }
-
-    public String getIdFornecedor(){
-        return _idFornecedorLivro;
+    public String toStringProduto(){
+        return this.getTipo() + "|" + this.getId() + "|" + this.getFornecedor() + "|" + this.getPreco() +
+                "|" + this.getPrecoCritico() + "|" + this.getQuantidade() + "|" + this.getTitulo() + "|" +
+                this.getAutor() + "|" + this.getISBN();
     }
 
     public String getAutor(){
         return _autor;
+    }
+    public String getISBN(){
+        return _ISBN;
+    }
+    public String getTitulo(){
+        return _titulo;
     }
 }

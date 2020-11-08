@@ -4,8 +4,12 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.DuplicateProductKeyException;
+import woo.app.exception.UnknownServiceLevelException;
+import woo.app.exception.UnknownServiceTypeException;
 import woo.core.StoreManager;
 import woo.core.exception.ProductKeyDuplicatedException;
+import woo.core.exception.ServiceLevelUnknownException;
+import woo.core.exception.ServiceTypeUnknownException;
 //FIXME import other classes
 
 /**
@@ -33,13 +37,18 @@ public class DoRegisterProductContainer extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DuplicateProductKeyException {
+  public final void execute() throws DuplicateProductKeyException, UnknownServiceTypeException, UnknownServiceLevelException {
     _form.parse();
     try{
-      _receiver.registarContentor(_idContentor, _preco, _valorCritico, _idFornecedorContentor, _tipoTransporte, _qualidadeServico);
+      _receiver.registarContentor(_idContentor.value(), _preco.value(), _valorCritico.value(),
+              _idFornecedorContentor.value(), _tipoTransporte.value(), _qualidadeServico.value());
     }
     catch (ProductKeyDuplicatedException e){
       throw new DuplicateProductKeyException(e.getMessage());
+    } catch (ServiceTypeUnknownException e){
+      throw new UnknownServiceTypeException(_tipoTransporte.value());
+    } catch (ServiceLevelUnknownException e){
+      throw new UnknownServiceLevelException(_qualidadeServico.value());
     }
     //FIXME implement command
   }

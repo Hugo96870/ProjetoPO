@@ -1,5 +1,5 @@
 package woo.core;
 
-public enum nivelServico{
+public enum NivelServico{
     B4, C4, C5, DL;  
 }

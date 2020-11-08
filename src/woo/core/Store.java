@@ -1,11 +1,11 @@
 package woo.core;
 
-import woo.app.exception.DuplicateClientKeyException;
-import woo.app.exception.DuplicateSupplierKeyException;
+import woo.app.exception.*;
 import woo.core.Cliente;
 import woo.core.Fornecedor;
 import woo.core.Produto;
 
+import java.security.Provider;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Collection;
@@ -76,6 +76,40 @@ public class Store implements Serializable {
     }
   }
 
+  public void registarLivro(String id, String autor, String titulo, String ISBN, int preco, int valorCritico, String idFornecedor,
+                            int quantidade) throws ProductKeyDuplicatedException{
+    if(_produtos.containsKey(id)){
+      throw new ProductKeyDuplicatedException(id);
+    }
+    else{
+      Produto pr = new Livro(id, preco, valorCritico, idFornecedor, autor, ISBN, titulo, quantidade);
+      _produtos.put(id,pr);
+    }
+  }
+
+  public void registarContentor(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte,
+                                String nivelServico, int quantidade) throws ProductKeyDuplicatedException, ServiceTypeUnknownException,
+                                ServiceLevelUnknownException{
+    if(_produtos.containsKey(id)){
+      throw new ProductKeyDuplicatedException(id);
+    }
+    else{
+      Produto pr = new Contentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, quantidade);
+      _produtos.put(id,pr);
+    }
+  }
+
+  public void registarCaixa(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte, int quantidade)
+          throws ProductKeyDuplicatedException, ServiceTypeUnknownException{
+    if(_produtos.containsKey(id)){
+      throw new ProductKeyDuplicatedException(id);
+    }
+    else{
+      Produto pr = new Caixa(id, preco, valorCritico, idFornecedor, tipoTransporte, quantidade);
+      _produtos.put(id,pr);
+    }
+  }
+
   public int getData(){
     return _data;
   }
@@ -101,7 +135,8 @@ public class Store implements Serializable {
    * @throws BadEntryException
    */
 
-  public void importFile(String txtfile) throws IOException, BadEntryException, DuplicateSupplierKeyException, DuplicateClientKeyException {
+  public void importFile(String txtfile) throws IOException, BadEntryException, DuplicateSupplierKeyException, DuplicateClientKeyException,
+          DuplicateProductKeyException, UnknownServiceTypeException, UnknownServiceLevelException {
     //FIXME implement method
     MyParser parse = new MyParser(this);
     parse.parseFile(txtfile);

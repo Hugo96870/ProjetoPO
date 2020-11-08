@@ -3,12 +3,11 @@ package woo.core;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.security.Provider;
+import java.time.chrono.IsoChronology;
 
-import woo.app.exception.DuplicateClientKeyException;
-import woo.app.exception.DuplicateSupplierKeyException;
-import woo.core.exception.BadEntryException;
-import woo.core.exception.ClientKeyDuplicatedException;
-import woo.core.exception.SupplierKeyDuplicatedException;
+import woo.app.exception.*;
+import woo.core.exception.*;
 // add here more imports if needed
 
 public class MyParser {
@@ -18,7 +17,8 @@ public class MyParser {
     _store = s;
   }
 
-  void parseFile(String fileName) throws IOException, BadEntryException, DuplicateClientKeyException, DuplicateSupplierKeyException /* may have other exceptions */ {
+  void parseFile(String fileName) throws IOException, BadEntryException, DuplicateClientKeyException, DuplicateSupplierKeyException,
+          DuplicateProductKeyException, UnknownServiceLevelException, UnknownServiceTypeException/* may have other exceptions */ {
 
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
       String line;
@@ -28,7 +28,8 @@ public class MyParser {
     } 
   }
 
-  private void parseLine(String line) throws BadEntryException, DuplicateSupplierKeyException, DuplicateClientKeyException {
+  private void parseLine(String line) throws BadEntryException, DuplicateSupplierKeyException, DuplicateClientKeyException,
+          DuplicateProductKeyException, UnknownServiceTypeException, UnknownServiceLevelException {
     String[] components = line.split("\\|");
 
     switch(components[0]) {
@@ -90,28 +91,70 @@ public class MyParser {
   }
 
   // Format: BOX|id|tipo-de-serviço|id-fornecedor|preço|valor-crítico|exemplares
-  private void parseBox(String line, String[] components) throws BadEntryException {
+  private void parseBox(String line, String[] components) throws BadEntryException, DuplicateProductKeyException,
+                        UnknownServiceTypeException{
     if (components.length != 7)
       throw new BadEntryException("wrongr number of fields in box description  (7) " + line);
 
-    // ...
-    int price = Integer.parseInt(components[4]);
+
+    String id = components[1];
+    String tipo = components[2];
+    String fornecedor = components[3];
+    int preco = Integer.parseInt(components[4]);
+    int valorCritico = Integer.parseInt(components[5]);
+    int quantidade = Integer.parseInt(components[6]);
+    try{
+      _store.registarCaixa(id, preco, valorCritico, fornecedor, tipo, quantidade);
+    } catch(ProductKeyDuplicatedException e){
+      throw new DuplicateProductKeyException(id);
+    } catch (ServiceTypeUnknownException e){
+      throw new UnknownServiceTypeException(tipo);
+    }
+
     // add code here
   }
 
   // Format: BOOK|id|título|autor|isbn|id-fornecedor|preço|valor-crítico|exemplares
-  private void parseBook(String line, String[] components) throws BadEntryException {
+  private void parseBook(String line, String[] components) throws BadEntryException, DuplicateProductKeyException{
    if (components.length != 9)
       throw new BadEntryException("Invalid number of fields (9) in box description: " + line);
 
-   // add code here
+    String id = components[1];
+    String titulo = components[2];
+    String autor = components[3];
+    String ISBN = components[4];
+    String fornecedor = components[5];
+    int preco = Integer.parseInt(components[6]);
+    int valorCritico = Integer.parseInt(components[7]);
+    int quantidade = Integer.parseInt(components[8]);
+    try {
+      _store.registarLivro(id, autor, titulo, ISBN, preco, valorCritico, fornecedor, quantidade);
+    } catch (ProductKeyDuplicatedException e){
+      throw new DuplicateProductKeyException(id);
+    }
   }
 
   // Format: CONTAINER|id|tipo-de-serviço|nível-de-serviço|id-fornecedor|preço|valor-crítico|exemplares
-  private void parseContainer(String line, String[] components) throws BadEntryException {
+  private void parseContainer(String line, String[] components) throws BadEntryException, DuplicateProductKeyException,
+                              UnknownServiceTypeException, UnknownServiceLevelException{
     if (components.length != 8)
       throw new BadEntryException("Invalid number of fields (8) in container description: " + line);
 
-    // add code here
+    String id = components[1];
+    String tipo = components[2];
+    String nivel = components[3];
+    String fornecedor = components[4];
+    int preco = Integer.parseInt(components[5]);
+    int valorCritico = Integer.parseInt(components[6]);
+    int quantidade = Integer.parseInt(components[7]);
+    try{
+      _store.registarContentor(id, preco, valorCritico, fornecedor, tipo, nivel, quantidade);
+    } catch(ProductKeyDuplicatedException e){
+      throw new DuplicateProductKeyException(id);
+    } catch (ServiceTypeUnknownException e){
+      throw new UnknownServiceTypeException(tipo);
+    } catch (ServiceLevelUnknownException e){
+      throw new UnknownServiceLevelException(nivel);
+    }
   }
 }

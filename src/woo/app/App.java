@@ -3,8 +3,7 @@ package woo.app;
 import static pt.tecnico.po.ui.Dialog.IO;
 
 import pt.tecnico.po.ui.Menu;
-import woo.app.exception.DuplicateClientKeyException;
-import woo.app.exception.DuplicateSupplierKeyException;
+import woo.app.exception.*;
 import woo.core.StoreManager;
 import woo.core.exception.ImportFileException;
 
@@ -19,7 +18,8 @@ public class App {
     if (datafile != null) {
       try {
         storefront.importFile(datafile);
-      } catch (ImportFileException | DuplicateSupplierKeyException | DuplicateClientKeyException e) {
+      } catch (ImportFileException | DuplicateSupplierKeyException | DuplicateClientKeyException | DuplicateProductKeyException |
+              UnknownServiceTypeException | UnknownServiceLevelException e) {
         // no behavior described: just present the problem
         e.printStackTrace();
       }

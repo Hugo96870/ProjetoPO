@@ -5,20 +5,20 @@ public class Produto{
     private int _precoCritico;
     private String _idProduto;
     private int _quantidade;
-    private Fornecedor _fornecedor;
+    private String _idFornecedor;
     private TipoDeProduto _tipo;
 
-    public Produto(String id, int preco, int precoCritico, int quantidade, Fornecedor fornecedor, TipoDeProduto tipo){
+    public Produto(String id, int preco, int precoCritico, int quantidade, String idFornecedor, TipoDeProduto tipo){
         _quantidade = quantidade;
         _preco = preco;
         _idProduto = id;
         _precoCritico = precoCritico;
-        _fornecedor = fornecedor;
+        _idFornecedor = idFornecedor;
         _tipo = tipo;
     }
 
     public String toStringProduto(){
-        return _tipo + "|" + _idProduto + "|" + _fornecedor.getId() + "|" + _preco +
+        return _tipo + "|" + _idProduto + "|" + _idFornecedor + "|" + _preco +
                 "|" + _precoCritico + "|" + _quantidade + "|";
     }
 
@@ -38,7 +38,11 @@ public class Produto{
         return _idProduto;
     }
 
-    public Fornecedor getFornecedor(){
-        return _fornecedor;
+    public String getFornecedor(){
+        return _idFornecedor;
+    }
+
+    public TipoDeProduto getTipo(){
+        return _tipo;
     }
 }

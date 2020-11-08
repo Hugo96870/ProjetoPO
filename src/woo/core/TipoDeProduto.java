@@ -1,5 +1,5 @@
 package woo.core;
 
 public enum TipoDeProduto{
-    BOX,CONTAINER,BOOk;
+    BOX,CONTAINER,BOOK;
 }
