@@ -1,6 +1,6 @@
 package woo.core;
 
-public class Produto{
+public class    Produto{
     private int _preco;
     private int _precoCritico;
     private String _idProduto;

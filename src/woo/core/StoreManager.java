@@ -59,6 +59,9 @@ public class StoreManager {
     _store.registarCliente(id, nome, morada);
   }
 
+  public void registarFornecedor(String id, String nome, String morada) throws SupplierKeyDuplicatedException{
+    _store.registarFornecedor(id, nome, morada);
+  }
 
 
   /**

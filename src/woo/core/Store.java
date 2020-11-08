@@ -64,6 +64,16 @@ public class Store implements Serializable {
     }
   }
 
+  public void registarFornecedor(String id, String nome, String morada) throws SupplierKeyDuplicatedException {
+    if (_fornecedores.containsKey(id)) {
+      throw new SupplierKeyDuplicatedException(id);
+    }
+    else {
+      Fornecedor fr = new Fornecedor(id, nome, morada);
+      _fornecedores.put(id, fr);
+    }
+  }
+
   public int getData(){
     return _data;
   }
