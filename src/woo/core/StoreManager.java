@@ -90,6 +90,9 @@ public class StoreManager implements Serializable{
   public void save() throws IOException, FileNotFoundException{
     //FIXME implement serialization method
     ObjectOutputStream obOut = null;
+    if (_store.getFileName() == ""){
+      throw new FileNotFoundException();
+    }
     try{
       FileOutputStream fpout;
       fpout = new FileOutputStream(_filename);
@@ -108,7 +111,7 @@ public class StoreManager implements Serializable{
    * @throws IOException
    * @throws FileNotFoundException
    */
-  public void saveAs(String filename) throws MissingFileAssociationException, ImportFileException{
+  public void saveAs(String filename) throws MissingFileAssociationException{
     _filename = filename;
     try {
       load(filename);
@@ -126,17 +129,14 @@ public class StoreManager implements Serializable{
       FileInputStream fpin = new FileInputStream(filename);
       InflaterInputStream inflateIn = new InflaterInputStream(fpin);
       ObjectInputStream obIN = new ObjectInputStream(inflateIn);
-      _store = obIN.readObject();
+      _store = (Store)obIN.readObject();
       save();
-    } catch(FileNotFoundException e){
+    } catch(FileNotFoundException |ClassNotFoundException e){
       throw new UnavailableFileException(filename);
     } catch(IOException e){
       throw new UnavailableFileException(filename);
-    } catch(ClassNotFoundException e){
-
     }
     //FIXME implement serialization method
-
   }
 
   /**

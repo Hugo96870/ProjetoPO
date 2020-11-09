@@ -5,9 +5,7 @@ import woo.core.Cliente;
 import woo.core.Fornecedor;
 import woo.core.Produto;
 
-import java.security.Provider;
 import java.util.*;
-import java.util.HashMap;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
@@ -42,7 +40,7 @@ public class Store implements Serializable {
     _clientes = new TreeMap<>();
     _produtos = new TreeMap<>();
     _fornecedores = new TreeMap<>();
-    _filename = null;
+    _filename = "";
     _data = 0;
   }
   public String getFileName(){

@@ -22,26 +22,32 @@ public class DoSave extends Command<StoreManager> {
   //FIXME add input fields
   private Input<String> _output;
 
-  /** @param receiver */
+  /**
+   * @param receiver
+   */
   public DoSave(StoreManager receiver) {
     super(Label.SAVE, receiver);
     //FIXME init input fields
     _output = _form.addStringInput(Message.newSaveAs());
   }
 
-  /** @see pt.tecnico.po.ui.Command#execute() */
+  /**
+   * @see pt.tecnico.po.ui.Command#execute()
+   */
   @Override
-  public final void execute() throws FileOpenFailedException{
+  public final void execute() throws FileOpenFailedException {
     _form.parse();
     try {
-      if(_receiver.getStore().getFileName()==null)
+      _receiver.save();
+    } catch (FileNotFoundException e) {
+      try {
         _receiver.saveAs(_output.value());
-      else{
-        _receiver.saveAs(_receiver.getStore().getFileName());
+      } catch (MissingFileAssociationException q) {
+        throw new FileOpenFailedException(q.getMessage());
       }
-    } catch(MissingFileAssociationException | ImportFileException e){
-      throw new FileOpenFailedException(e.getMessage());
+    } catch (IOException ex) {
+      throw new FileOpenFailedException(ex.getMessage());
+      //FIXME implement command
     }
-    //FIXME implement command
   }
 }
