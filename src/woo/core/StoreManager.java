@@ -1,30 +1,33 @@
 package woo.core;
 
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.text.CollationElementIterator;
 import java.util.Map;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
 
 import woo.app.exception.*;
 import woo.core.exception.*;
 
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  * StoreManager: façade for the core classes.
  */
-public class StoreManager {
+public class StoreManager implements Serializable{
 
   /** Current filename. */
   private String _filename = "";
 
   /** The actual store. */
-  private Store _store = new Store();
+  private Store _store;
 
   //FIXME define other attributes
   //FIXME define constructor(s)
   public StoreManager(){
-    
+      _store = new Store();
   }
   //FIXME define other methods
 
@@ -84,8 +87,19 @@ public class StoreManager {
    * @throws FileNotFoundException
    * @throws MissingFileAssociationException
    */
-  public void save() throws IOException, FileNotFoundException, MissingFileAssociationException {
+  public void save() throws IOException, FileNotFoundException{
     //FIXME implement serialization method
+    ObjectOutputStream obOut = null;
+    try{
+      FileOutputStream fpout;
+      fpout = new FileOutputStream(_filename);
+      obOut = new ObjectOutputStream(fpout);
+      obOut.writeObject(_store);
+      } finally{
+      if (obOut!=null){
+        obOut.close();
+      }
+    }
   }
 
   /**
@@ -97,9 +111,9 @@ public class StoreManager {
   public void saveAs(String filename) throws MissingFileAssociationException, ImportFileException{
     _filename = filename;
     try {
-      save();
-    } catch(IOException e){
-      throw new ImportFileException(filename);
+      load(filename);
+    } catch(UnavailableFileException e){
+      throw new MissingFileAssociationException();
     }
   }
 
@@ -108,6 +122,19 @@ public class StoreManager {
    * @throws UnavailableFileException
    */
   public void load(String filename) throws UnavailableFileException {
+    try {
+      FileInputStream fpin = new FileInputStream(filename);
+      InflaterInputStream inflateIn = new InflaterInputStream(fpin);
+      ObjectInputStream obIN = new ObjectInputStream(inflateIn);
+      _store = obIN.readObject();
+      save();
+    } catch(FileNotFoundException e){
+      throw new UnavailableFileException(filename);
+    } catch(IOException e){
+      throw new UnavailableFileException(filename);
+    } catch(ClassNotFoundException e){
+
+    }
     //FIXME implement serialization method
 
   }

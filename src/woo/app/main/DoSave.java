@@ -34,7 +34,11 @@ public class DoSave extends Command<StoreManager> {
   public final void execute() throws FileOpenFailedException{
     _form.parse();
     try {
-      _receiver.saveAs(_output.value());
+      if(_receiver.getStore().getFileName()==null)
+        _receiver.saveAs(_output.value());
+      else{
+        _receiver.saveAs(_receiver.getStore().getFileName());
+      }
     } catch(MissingFileAssociationException | ImportFileException e){
       throw new FileOpenFailedException(e.getMessage());
     }

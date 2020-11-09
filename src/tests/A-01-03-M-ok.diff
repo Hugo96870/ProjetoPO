@@ -1,23 +1,5 @@
 *** tests/A-01-03-M-ok.out	2020-10-30 22:41:57.000000000 +0000
---- tests/A-01-03-M-ok.outhyp	2020-11-08 23:40:12.965896100 +0000
-***************
-*** 10,16 ****
-  9 - Menu de Consultas
-  10 - Ver Saldo Global
-  0 - Sair
-! Escolha uma opção: Ficheiro a abrir: Menu Principal
-  1 - Abrir
-  2 - Guardar
-  3 - Mostrar Data
---- 10,17 ----
-  9 - Menu de Consultas
-  10 - Ver Saldo Global
-  0 - Sair
-! Escolha uma opção: Ficheiro a abrir: Abrir: Operação inválida: Problema ao abrir 'app01.woo'.
-! Menu Principal
-  1 - Abrir
-  2 - Guardar
-  3 - Mostrar Data
+--- tests/A-01-03-M-ok.outhyp	2020-11-09 10:24:09.229905100 +0000
 ***************
 *** 29,41 ****
   4 - Activa/desactivar notificações de um produto
@@ -33,7 +15,7 @@
   1 - Mostrar cliente
   2 - Mostrar clientes
   3 - Registar cliente
---- 30,36 ----
+--- 29,35 ----
   4 - Activa/desactivar notificações de um produto
   5 - Mostrar transacções do cliente
   0 - Sair
@@ -53,7 +35,7 @@
   1 - Mostrar fornecedores
   2 - Registar
   3 - Permitir/inibir transacções
---- 55,61 ----
+--- 54,60 ----
   3 - Permitir/inibir transacções
   4 - Consultar transacções
   0 - Sair

@@ -2,7 +2,9 @@ package woo.core;
 
 import woo.app.suppliers.Message;
 
-public class Fornecedor{
+import java.io.Serializable;
+
+public class Fornecedor implements Serializable{
     private String _idFornecedor;
     private String _nome;
     private String _morada;

@@ -1,6 +1,8 @@
 package woo.core;
 
-public class Cliente{
+import java.io.Serializable;
+
+public class Cliente implements Serializable{
     private String _idCliente;
     private String _nome;
     private String _morada;

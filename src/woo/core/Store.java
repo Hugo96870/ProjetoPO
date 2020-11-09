@@ -31,6 +31,7 @@ public class Store implements Serializable {
   private static final long serialVersionUID = 202009192006L;
 
   // FIXME define attributes
+    private String _filename;
     private int _data;
     private Map<String, Cliente> _clientes;
     private Map<String, Produto> _produtos;
@@ -41,7 +42,11 @@ public class Store implements Serializable {
     _clientes = new TreeMap<>();
     _produtos = new TreeMap<>();
     _fornecedores = new TreeMap<>();
+    _filename = null;
     _data = 0;
+  }
+  public String getFileName(){
+    return _filename;
   }
 
   public Collection<Cliente> getTodosClientes(){

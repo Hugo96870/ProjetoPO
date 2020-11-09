@@ -1,6 +1,8 @@
 package woo.core;
 
-public class Produto{
+import java.io.Serializable;
+
+public abstract class Produto implements Serializable {
     private int _preco;
     private int _precoCritico;
     private String _idProduto;
