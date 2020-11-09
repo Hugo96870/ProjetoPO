@@ -1,6 +1,8 @@
 package woo.core;
 
-public class Livro extends Produto{
+import java.io.Serializable;
+
+public class Livro extends Produto implements Serializable {
     private String _autor;
     private String _titulo;
     private String _ISBN;

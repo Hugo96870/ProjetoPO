@@ -12,6 +12,7 @@ import woo.core.exception.UnavailableFileException;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
 //FIXME import other classes
 
 /**
@@ -31,13 +32,14 @@ public class DoOpen extends Command<StoreManager> {
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
-  public final void execute() throws FileOpenFailedException, DuplicateClientKeyException, DuplicateSupplierKeyException,
-          DuplicateProductKeyException, UnknownServiceLevelException, UnknownServiceTypeException {
+  public final void execute() throws FileOpenFailedException {
     _form.parse();
     try {
       //FIXME implement command
-      _receiver.importFile(_input.value());
-    } catch (ImportFileException e){
+      _receiver.load(_input.value());
+    } catch (IOException e){
+      throw new FileOpenFailedException(e.getMessage());
+    } catch (UnavailableFileException e){
       throw new FileOpenFailedException(e.getMessage());
     }
   }

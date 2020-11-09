@@ -43,6 +43,11 @@ public class Store implements Serializable {
     _filename = "";
     _data = 0;
   }
+
+  public void setFileName(String filename){
+    _filename=filename;
+  }
+
   public String getFileName(){
     return _filename;
   }

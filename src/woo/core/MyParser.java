@@ -22,9 +22,9 @@ public class MyParser {
 
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
       String line;
-      
-      while ((line = reader.readLine()) != null)
+      while ((line = reader.readLine()) != null) {
         parseLine(line);
+      }
     } 
   }
 

@@ -90,17 +90,16 @@ public class StoreManager implements Serializable{
   public void save() throws IOException, FileNotFoundException{
     //FIXME implement serialization method
     ObjectOutputStream obOut = null;
-    if (_store.getFileName() == ""){
+    if (_filename.equals("")){
       throw new FileNotFoundException();
     }
     try{
-      FileOutputStream fpout;
-      fpout = new FileOutputStream(_filename);
+      FileOutputStream fpout = new FileOutputStream(_filename);
       obOut = new ObjectOutputStream(fpout);
       obOut.writeObject(_store);
       } finally{
-      if (obOut!=null){
-        obOut.close();
+        if (obOut!=null){
+          obOut.close();
       }
     }
   }
@@ -112,10 +111,12 @@ public class StoreManager implements Serializable{
    * @throws FileNotFoundException
    */
   public void saveAs(String filename) throws MissingFileAssociationException{
-    _filename = filename;
+    _filename=filename;
     try {
-      load(filename);
-    } catch(UnavailableFileException e){
+      save();
+    } catch(FileNotFoundException e){
+      throw new MissingFileAssociationException();
+    } catch(IOException e){
       throw new MissingFileAssociationException();
     }
   }
@@ -124,17 +125,19 @@ public class StoreManager implements Serializable{
    * @param filename
    * @throws UnavailableFileException
    */
-  public void load(String filename) throws UnavailableFileException {
+  public void load(String filename) throws IOException, UnavailableFileException {
+    ObjectInputStream obIN = null;
     try {
       FileInputStream fpin = new FileInputStream(filename);
-      InflaterInputStream inflateIn = new InflaterInputStream(fpin);
-      ObjectInputStream obIN = new ObjectInputStream(inflateIn);
-      _store = (Store)obIN.readObject();
-      save();
-    } catch(FileNotFoundException |ClassNotFoundException e){
+      obIN = new ObjectInputStream(fpin);
+      Object obj = obIN.readObject();
+      _store = (Store)obj;
+    } catch(ClassNotFoundException | IOException e){
       throw new UnavailableFileException(filename);
-    } catch(IOException e){
-      throw new UnavailableFileException(filename);
+    }finally{
+      if (obIN != null){
+        obIN.close();
+      }
     }
     //FIXME implement serialization method
   }
@@ -152,7 +155,6 @@ public class StoreManager implements Serializable{
     } catch (BadEntryException e){
       throw new ImportFileException(textfile);
     }
-
   }
 }
 

@@ -1,9 +1,13 @@
 package woo.core;
 
+import java.io.Serializable;
+
 import woo.core.exception.ServiceLevelUnknownException;
 import woo.core.exception.ServiceTypeUnknownException;
 
-public class Contentor extends Produto{
+import java.io.SerializablePermission;
+
+public class Contentor extends Produto implements Serializable{
     private TipoTransporte _tipoTransporte;
     private NivelServico _qualidadeServico;
 
