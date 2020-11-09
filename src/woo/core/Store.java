@@ -1,23 +1,11 @@
 package woo.core;
 
 import woo.app.exception.*;
-import woo.core.Cliente;
-import woo.core.Fornecedor;
-import woo.core.Produto;
-
 import java.util.*;
 import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
-import woo.core.MyParser;
 
-
-//FIXME import classes (cannot import from pt.tecnico or woo.app)
 import java.io.Serializable;
-
 import java.io.IOException;
-import java.util.TreeSet;
-
 import woo.core.exception.*;
 
 /**
@@ -28,13 +16,11 @@ public class Store implements Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202009192006L;
 
-  // FIXME define attributes
     private String _filename;
     private int _data;
     private Map<String, Cliente> _clientes;
     private Map<String, Produto> _produtos;
     private Map<String, Fornecedor> _fornecedores;
-  // FIXME define contructor(s)
 
   public Store(){
     _clientes = new TreeMap<>();
@@ -42,10 +28,6 @@ public class Store implements Serializable {
     _fornecedores = new TreeMap<>();
     _filename = "";
     _data = 0;
-  }
-
-  public void setFileName(String filename){
-    _filename=filename;
   }
 
   public String getFileName(){
@@ -135,7 +117,6 @@ public class Store implements Serializable {
     }
     _data += dias;
   }
-  // FIXME define methods
 
   /**
    * @param txtfile filename to be loaded.
@@ -143,9 +124,9 @@ public class Store implements Serializable {
    * @throws BadEntryException
    */
 
-  public void importFile(String txtfile) throws IOException, BadEntryException, DuplicateSupplierKeyException, DuplicateClientKeyException,
-          DuplicateProductKeyException, UnknownServiceTypeException, UnknownServiceLevelException {
-    //FIXME implement method
+  public void importFile(String txtfile) throws IOException, BadEntryException, DuplicateSupplierKeyException,
+          DuplicateClientKeyException, DuplicateProductKeyException, UnknownServiceTypeException,
+          UnknownServiceLevelException {
     MyParser parse = new MyParser(this);
     parse.parseFile(txtfile);
   }

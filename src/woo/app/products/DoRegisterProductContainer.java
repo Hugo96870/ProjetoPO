@@ -1,7 +1,6 @@
 package woo.app.products;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.DuplicateProductKeyException;
 import woo.app.exception.UnknownServiceLevelException;
@@ -10,7 +9,6 @@ import woo.core.StoreManager;
 import woo.core.exception.ProductKeyDuplicatedException;
 import woo.core.exception.ServiceLevelUnknownException;
 import woo.core.exception.ServiceTypeUnknownException;
-//FIXME import other classes
 
 /**
  * Register container.
@@ -23,7 +21,6 @@ public class DoRegisterProductContainer extends Command<StoreManager> {
   private Input<String> _idFornecedorContentor;
   private Input<String> _tipoTransporte;
   private Input<String> _qualidadeServico;
-  //FIXME add input fields
 
   public DoRegisterProductContainer(StoreManager receiver) {
     super(Label.REGISTER_CONTAINER, receiver);
@@ -33,7 +30,6 @@ public class DoRegisterProductContainer extends Command<StoreManager> {
     _idFornecedorContentor = _form.addStringInput(Message.requestSupplierKey());
     _tipoTransporte = _form.addStringInput(Message.requestServiceType());
     _qualidadeServico = _form.addStringInput(Message.requestServiceLevel());
-    //FIXME init input fields
   }
 
   @Override
@@ -50,6 +46,5 @@ public class DoRegisterProductContainer extends Command<StoreManager> {
     } catch (ServiceLevelUnknownException e){
       throw new UnknownServiceLevelException(_qualidadeServico.value());
     }
-    //FIXME implement command
   }
 }

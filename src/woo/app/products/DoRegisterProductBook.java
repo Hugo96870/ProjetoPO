@@ -1,12 +1,10 @@
 package woo.app.products;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.DuplicateProductKeyException;
 import woo.core.StoreManager;
 import woo.core.exception.ProductKeyDuplicatedException;
-//FIXME import other classes
 
 /**
  * Register book.
@@ -21,7 +19,6 @@ public class DoRegisterProductBook extends Command<StoreManager> {
   private Input<Integer> _valorCritico;
   private Input<String>_idFornecedorLivro;
 
-  //FIXME add input fields
 
   public DoRegisterProductBook(StoreManager receiver) {
     super(Label.REGISTER_BOOK, receiver);
@@ -32,7 +29,6 @@ public class DoRegisterProductBook extends Command<StoreManager> {
     _preco = _form.addIntegerInput(Message.requestPrice());
     _valorCritico = _form.addIntegerInput(Message.requestStockCriticalValue());
     _idFornecedorLivro = _form.addStringInput(Message.requestSupplierKey());
-    //FIXME init input fields
   }
 
   @Override
@@ -44,6 +40,5 @@ public class DoRegisterProductBook extends Command<StoreManager> {
     }catch (ProductKeyDuplicatedException e){
       throw new DuplicateProductKeyException(e.getMessage());
     }
-    //FIXME implement command
   }
 }

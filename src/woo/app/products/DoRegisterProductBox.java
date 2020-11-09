@@ -1,15 +1,12 @@
 package woo.app.products;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.DuplicateProductKeyException;
-import woo.app.exception.UnknownServiceLevelException;
 import woo.app.exception.UnknownServiceTypeException;
 import woo.core.StoreManager;
 import woo.core.exception.ProductKeyDuplicatedException;
 import woo.core.exception.ServiceTypeUnknownException;
-//FIXME import other classes
 
 /**
  * Register box.
@@ -21,7 +18,6 @@ public class DoRegisterProductBox extends Command<StoreManager> {
   private Input<Integer> _valorCritico;
   private Input<String> _idFornecedorCaixa;
   private Input<String> _tipoTransporte;
-  //FIXME add input fields
 
   public DoRegisterProductBox(StoreManager receiver) {
     super(Label.REGISTER_BOX, receiver);
@@ -30,7 +26,6 @@ public class DoRegisterProductBox extends Command<StoreManager> {
     _valorCritico = _form.addIntegerInput(Message.requestStockCriticalValue());
     _idFornecedorCaixa = _form.addStringInput(Message.requestSupplierKey());
     _tipoTransporte = _form.addStringInput(Message.requestServiceType());
-    //FIXME init input fields
   }
 
   @Override
@@ -44,6 +39,5 @@ public class DoRegisterProductBox extends Command<StoreManager> {
     }catch(ServiceTypeUnknownException e){
       throw new UnknownServiceTypeException(_tipoTransporte.value());
     }
-    //FIXME implement command
   }
 }

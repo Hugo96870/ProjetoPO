@@ -1,17 +1,10 @@
 package woo.core;
 
 import java.io.*;
-import java.text.CollationElementIterator;
-import java.util.Map;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.zip.Inflater;
-import java.util.zip.InflaterInputStream;
 
 import woo.app.exception.*;
 import woo.core.exception.*;
-
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * StoreManager: façade for the core classes.
@@ -24,12 +17,9 @@ public class StoreManager implements Serializable{
   /** The actual store. */
   private Store _store;
 
-  //FIXME define other attributes
-  //FIXME define constructor(s)
   public StoreManager(){
       _store = new Store();
   }
-  //FIXME define other methods
 
   public Store getStore(){
     return _store;
@@ -88,7 +78,6 @@ public class StoreManager implements Serializable{
    * @throws MissingFileAssociationException
    */
   public void save() throws IOException, FileNotFoundException{
-    //FIXME implement serialization method
     ObjectOutputStream obOut = null;
     if (_filename.equals("")){
       throw new FileNotFoundException();
@@ -134,20 +123,20 @@ public class StoreManager implements Serializable{
       _store = (Store)obj;
     } catch(ClassNotFoundException | IOException e){
       throw new UnavailableFileException(filename);
-    }finally{
+    } finally{
       if (obIN != null){
         obIN.close();
       }
     }
-    //FIXME implement serialization method
   }
 
   /**
    * @param textfile
    * @throws ImportFileException
    */
-  public void importFile(String textfile) throws ImportFileException, DuplicateClientKeyException, DuplicateSupplierKeyException,
-          DuplicateProductKeyException, UnknownServiceLevelException, UnknownServiceTypeException {
+  public void importFile(String textfile) throws ImportFileException, DuplicateClientKeyException,
+          DuplicateSupplierKeyException, DuplicateProductKeyException, UnknownServiceLevelException,
+          UnknownServiceTypeException {
     try {
       _store.importFile(textfile);
     } catch (IOException  e) {

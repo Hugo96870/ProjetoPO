@@ -7,11 +7,12 @@ public class Livro extends Produto implements Serializable {
     private String _titulo;
     private String _ISBN;
 
-    public Livro(String id, int preco, int valorCritico, String fornecedor, String autor, String ISBN, String titulo, int quantidade){
+    public Livro(String id, int preco, int valorCritico, String fornecedor, String autor, String ISBN, String titulo,
+                 int quantidade){
         super(id, preco, valorCritico, quantidade, fornecedor, TipoDeProduto.BOOK);
         _autor = autor;
-        _ISBN=ISBN;
-        _titulo=titulo;
+        _ISBN = ISBN;
+        _titulo = titulo;
     }
 
     public String toStringProduto(){

@@ -16,9 +16,9 @@ public class Cliente implements Serializable{
         _nome = nome;
         _morada = morada;
         _pontos = 0;
-        _estatuto="NORMAL";
-        _valorComprado=0;
-        _valorPago=0;
+        _estatuto = "NORMAL";
+        _valorComprado = 0;
+        _valorPago = 0;
     }
 
     public String toStringCliente(){

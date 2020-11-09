@@ -1,9 +1,7 @@
 package woo.core;
 
-import woo.app.exception.UnknownServiceTypeException;
 import woo.core.exception.ServiceTypeUnknownException;
 import java.io.Serializable;
-import java.security.Provider;
 
 public class Caixa extends Produto implements Serializable{
     private TipoTransporte _tipoTransporte;

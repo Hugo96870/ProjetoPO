@@ -5,14 +5,12 @@ import java.io.Serializable;
 import woo.core.exception.ServiceLevelUnknownException;
 import woo.core.exception.ServiceTypeUnknownException;
 
-import java.io.SerializablePermission;
-
 public class Contentor extends Produto implements Serializable{
     private TipoTransporte _tipoTransporte;
     private NivelServico _qualidadeServico;
 
-    public Contentor(String id, int preco, int valorCritico, String fornecedor, String tipo, String qualidade, int quantidade)
-                        throws ServiceLevelUnknownException, ServiceTypeUnknownException{
+    public Contentor(String id, int preco, int valorCritico, String fornecedor, String tipo, String qualidade,
+                     int quantidade) throws ServiceLevelUnknownException, ServiceTypeUnknownException{
         super(id, preco, valorCritico, quantidade, fornecedor, TipoDeProduto.CONTAINER);
         if(tipo.equals("NORMAL"))
             _tipoTransporte = TipoTransporte.NORMAL;
@@ -24,6 +22,7 @@ public class Contentor extends Produto implements Serializable{
             _tipoTransporte = TipoTransporte.PERSONAL;
         else
             throw new ServiceTypeUnknownException(tipo);
+
         if(qualidade.equals("B4"))
             _qualidadeServico = NivelServico.B4;
         else if(qualidade.equals("C4"))
