@@ -17,7 +17,7 @@ public class Store implements Serializable {
   private static final long serialVersionUID = 202009192006L;
 
     private String _filename;
-    private int _data;
+    private int _data = 0;
     private Map<String, Cliente> _clientes;
     private Map<String, Produto> _produtos;
     private Map<String, Fornecedor> _fornecedores;
@@ -27,7 +27,6 @@ public class Store implements Serializable {
     _produtos = new TreeMap<>();
     _fornecedores = new TreeMap<>();
     _filename = "";
-    _data = 0;
   }
 
   public String getFileName(){
@@ -47,12 +46,12 @@ public class Store implements Serializable {
   }
 
   public void registarCliente(String id, String nome, String morada) throws ClientKeyDuplicatedException{
-    if(_clientes.containsKey(id)) {
+    if(_clientes.containsKey(id) || _clientes.containsKey(id.toLowerCase()) || _clientes.containsKey(id.toUpperCase())) {
       throw new ClientKeyDuplicatedException(id);
     }
     else{
       Cliente cl = new Cliente(id, nome, morada);
-      _clientes.put(id, cl);
+      _clientes.put(id.toUpperCase(), cl);
     }
   }
 

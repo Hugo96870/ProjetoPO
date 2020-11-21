@@ -25,11 +25,12 @@ public class DoOpen extends Command<StoreManager> {
   public final void execute() throws FileOpenFailedException {
     _form.parse();
     try {
+      _receiver.setFilename(_input.value());
       _receiver.load(_input.value());
     } catch (IOException e){
-      throw new FileOpenFailedException(e.getMessage());
+      throw new FileOpenFailedException(_input.value());
     } catch (UnavailableFileException e){
-      throw new FileOpenFailedException(e.getMessage());
+      throw new FileOpenFailedException(_input.value());
     }
   }
 }

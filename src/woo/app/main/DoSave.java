@@ -33,6 +33,7 @@ public class DoSave extends Command<StoreManager> {
       _receiver.save();
     } catch (FileNotFoundException e) {
       try {
+        _receiver.setFilename(_output.value());
         _receiver.saveAs(_output.value());
       } catch (MissingFileAssociationException q) {
         throw new FileOpenFailedException(q.getMessage());

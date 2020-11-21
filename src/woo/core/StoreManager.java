@@ -17,6 +17,10 @@ public class StoreManager implements Serializable{
   /** The actual store. */
   private Store _store;
 
+  public void setFilename(String nome){
+    _filename = nome;
+  }
+
   public StoreManager(){
       _store = new Store();
   }
