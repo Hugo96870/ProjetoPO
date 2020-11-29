@@ -10,16 +10,19 @@ import woo.core.StoreManager;
  * Change product price.
  */
 public class DoChangePrice extends Command<StoreManager> {
+  private Input<String> _idProduto;
+  private Input<Integer> _preco;
 
-  //FIXME add input fields
-  
   public DoChangePrice(StoreManager receiver) {
     super(Label.CHANGE_PRICE, receiver);
-    //FIXME init input fields
+    _preco = _form.addIntegerInput(Message.requestPrice());
+    _idProduto = _form.addStringInput(Message.requestProductKey());
   }
 
   @Override
-  public final void execute() throws DialogException {
-    //FIXME implement command
+  public final void execute(){
+    _form.parse();
+    if(_preco.value() > 0)
+      _receiver.mudarPreco(_preco.value(), _idProduto.value());
   }
 }

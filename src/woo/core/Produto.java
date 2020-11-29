@@ -47,4 +47,8 @@ public abstract class Produto implements Serializable {
     public TipoDeProduto getTipo(){
         return _tipo;
     }
+
+    public void mudarPreco(int preco){
+        _preco = preco;
+    }
 }

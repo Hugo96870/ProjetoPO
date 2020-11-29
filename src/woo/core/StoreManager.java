@@ -76,6 +76,10 @@ public class StoreManager implements Serializable{
     _store.registarCaixa(id, preco, valorCritico, idFornecedor, tipoTransporte, 0);
   }
 
+  public void mudarPreco(int preco, String id){
+    _store.mudarPreco(preco, id);
+  }
+
   /**
    * @throws IOException
    * @throws FileNotFoundException

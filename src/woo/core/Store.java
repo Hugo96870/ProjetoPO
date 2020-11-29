@@ -15,6 +15,8 @@ public class Store implements Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202009192006L;
 
+    private int _saldoContabilistico;
+    private int _saldoDisponivel;
     private String _filename;
     private int _data = 0;
     private Map<String, Cliente> _clientes;
@@ -114,6 +116,22 @@ public class Store implements Serializable {
       throw new InvalidDateToAdvanceException(dias);
     }
     _data += dias;
+  }
+
+  public void mudarPreco(int preco, String id){
+    for (Produto p: _produtos.values()){
+      if(id.equals(p.getId())){
+        p.mudarPreco(preco);
+      }
+    }
+  }
+
+  public int getSaldoContabilistico(){
+    return _saldoContabilistico;
+  }
+
+  public int getSaldoDisponivel(){
+    return _saldoDisponivel;
   }
 
   /**
