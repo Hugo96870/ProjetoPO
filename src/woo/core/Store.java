@@ -2,7 +2,6 @@ package woo.core;
 
 import woo.app.exception.*;
 import java.util.*;
-import java.util.Collection;
 
 import java.io.Serializable;
 import java.io.IOException;

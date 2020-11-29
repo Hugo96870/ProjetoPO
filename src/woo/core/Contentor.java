@@ -12,24 +12,24 @@ public class Contentor extends Produto implements Serializable{
     public Contentor(String id, int preco, int valorCritico, String fornecedor, String tipo, String qualidade,
                      int quantidade) throws ServiceLevelUnknownException, ServiceTypeUnknownException{
         super(id, preco, valorCritico, quantidade, fornecedor, TipoDeProduto.CONTAINER);
-        if(tipo.equals("NORMAL"))
+        if("NORMAL".equals(tipo))
             _tipoTransporte = TipoTransporte.NORMAL;
-        else if(tipo.equals("AIR"))
+        else if("AIR".equals(tipo))
             _tipoTransporte = TipoTransporte.AIR;
-        else if(tipo.equals("EXPRESS"))
+        else if("EXPRESS".equals(tipo))
             _tipoTransporte = TipoTransporte.EXPRESS;
-        else if(tipo.equals("PERSONAL"))
+        else if("PERSONAL".equals(tipo))
             _tipoTransporte = TipoTransporte.PERSONAL;
         else
             throw new ServiceTypeUnknownException(tipo);
 
-        if(qualidade.equals("B4"))
+        if("B4".equals(qualidade))
             _qualidadeServico = NivelServico.B4;
-        else if(qualidade.equals("C4"))
+        else if("C4".equals(qualidade))
             _qualidadeServico = NivelServico.C4;
-        else if(qualidade.equals("C5"))
+        else if("C5".equals(qualidade))
             _qualidadeServico = NivelServico.C5;
-        else if(qualidade.equals("DL"))
+        else if("DL".equals(qualidade))
             _qualidadeServico = NivelServico.DL;
         else
             throw new ServiceLevelUnknownException(qualidade);

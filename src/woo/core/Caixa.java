@@ -9,13 +9,13 @@ public class Caixa extends Produto implements Serializable{
     public Caixa(String id, int preco, int valorCritico, String fornecedor, String tipo, int quantidade)
                     throws ServiceTypeUnknownException {
         super(id, preco, valorCritico, quantidade, fornecedor, TipoDeProduto.BOX);
-        if(tipo.equals("NORMAL"))
+        if("NORMAL".equals(tipo))
             _tipoTransporte = TipoTransporte.NORMAL;
-        else if(tipo.equals("AIR"))
+        else if("AIR".equals(tipo))
             _tipoTransporte = TipoTransporte.AIR;
-        else if(tipo.equals("EXPRESS"))
+        else if("EXPRESS".equals(tipo))
             _tipoTransporte = TipoTransporte.EXPRESS;
-        else if(tipo.equals("PERSONAL"))
+        else if("PERSONAL".equals(tipo))
             _tipoTransporte = TipoTransporte.PERSONAL;
         else
             throw new ServiceTypeUnknownException(tipo);

@@ -19,10 +19,8 @@ public class UnavailableProductException extends DialogException {
   
   /** 
    * @param key the requested key
-   * @param requested
-   * @param avaliable
    */
-  public UnavailableProductException(String key, int requested, int avaliable) {
+  public UnavailableProductException(String key) {
     _key = key;
   }
 

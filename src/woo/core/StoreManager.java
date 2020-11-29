@@ -83,18 +83,15 @@ public class StoreManager implements Serializable{
    */
   public void save() throws IOException, FileNotFoundException{
     ObjectOutputStream obOut = null;
-    if (_filename.equals("")){
+    if ("".equals(_filename)){
       throw new FileNotFoundException();
     }
-    try{
-      FileOutputStream fpout = new FileOutputStream(_filename);
+    try(FileOutputStream fpout = new FileOutputStream(_filename)){
       obOut = new ObjectOutputStream(fpout);
       obOut.writeObject(_store);
-      } finally{
-        if (obOut!=null){
-          obOut.close();
+      fpout.close();
+      obOut.close();
       }
-    }
   }
 
   /**
@@ -120,17 +117,14 @@ public class StoreManager implements Serializable{
    */
   public void load(String filename) throws IOException, UnavailableFileException {
     ObjectInputStream obIN = null;
-    try {
-      FileInputStream fpin = new FileInputStream(filename);
+    try(FileInputStream fpin = new FileInputStream(filename)) {
       obIN = new ObjectInputStream(fpin);
       Object obj = obIN.readObject();
       _store = (Store)obj;
+      fpin.close();
+      obIN.close();
     } catch(ClassNotFoundException | IOException e){
       throw new UnavailableFileException(filename);
-    } finally{
-      if (obIN != null){
-        obIN.close();
-      }
     }
   }
 
@@ -143,9 +137,7 @@ public class StoreManager implements Serializable{
           UnknownServiceTypeException {
     try {
       _store.importFile(textfile);
-    } catch (IOException  e) {
-      throw new ImportFileException(textfile);
-    } catch (BadEntryException e){
+    } catch (IOException | BadEntryException e) {
       throw new ImportFileException(textfile);
     }
   }

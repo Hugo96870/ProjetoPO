@@ -27,9 +27,7 @@ public class DoOpen extends Command<StoreManager> {
     try {
       _receiver.setFilename(_input.value());
       _receiver.load(_input.value());
-    } catch (IOException e){
-      throw new FileOpenFailedException(_input.value());
-    } catch (UnavailableFileException e){
+    } catch (IOException | UnavailableFileException e){
       throw new FileOpenFailedException(_input.value());
     }
   }
