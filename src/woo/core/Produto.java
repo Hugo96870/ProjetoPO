@@ -51,4 +51,8 @@ public abstract class Produto implements Serializable {
     public void mudarPreco(int preco){
         _preco = preco;
     }
+
+    public void removerQuantidade(int quantidade){
+        _quantidade-=quantidade;
+    }
 }

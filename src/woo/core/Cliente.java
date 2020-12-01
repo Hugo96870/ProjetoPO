@@ -1,5 +1,7 @@
 package woo.core;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.io.Serializable;
 
 public class Cliente implements Serializable{
@@ -10,6 +12,7 @@ public class Cliente implements Serializable{
     private int _valorPago;
     private int _valorComprado;
     private int _pontos;
+    private List<Transacao> _transacoes;
     
     public Cliente(String id, String nome, String morada){
         _idCliente = id;
@@ -19,6 +22,7 @@ public class Cliente implements Serializable{
         _estatuto = "NORMAL";
         _valorComprado = 0;
         _valorPago = 0;
+        _transacoes = new LinkedList<>();
     }
 
     public String toStringCliente(){
@@ -52,5 +56,12 @@ public class Cliente implements Serializable{
 
     public int getPontos(){
         return _pontos;
+    }
+    
+    public List<Transacao> getTransacoes(){
+        return _transacoes;
+    }
+    public void adicionarTransacao(Venda v){
+        _transacoes.add(v);
     }
 }

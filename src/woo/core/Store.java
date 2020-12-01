@@ -15,8 +15,8 @@ public class Store implements Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202009192006L;
 
-    private int _saldoContabilistico;
-    private int _saldoDisponivel;
+    private double _saldoContabilistico;
+    private double _saldoDisponivel;
     private String _filename;
     private int _data = 0;
     private Map<String, Cliente> _clientes;
@@ -74,6 +74,8 @@ public class Store implements Serializable {
     else{
       Produto pr = new Livro(id, preco, valorCritico, idFornecedor, autor, ISBN, titulo, quantidade);
       _produtos.put(id,pr);
+      Fornecedor f = getFornecedor(idFornecedor);
+      f.adicionarProduto(pr.getId());
     }
   }
 
@@ -86,6 +88,8 @@ public class Store implements Serializable {
     else{
       Produto pr = new Contentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, quantidade);
       _produtos.put(id,pr);
+      Fornecedor f = getFornecedor(idFornecedor);
+      f.adicionarProduto(pr.getId());
     }
   }
 
@@ -97,6 +101,8 @@ public class Store implements Serializable {
     else{
       Produto pr = new Caixa(id, preco, valorCritico, idFornecedor, tipoTransporte, quantidade);
       _produtos.put(id,pr);
+      Fornecedor f = getFornecedor(idFornecedor);
+      f.adicionarProduto(pr.getId());
     }
   }
 
@@ -126,12 +132,69 @@ public class Store implements Serializable {
     }
   }
 
-  public int getSaldoContabilistico(){
+  public double getSaldoContabilistico(){
     return _saldoContabilistico;
   }
 
-  public int getSaldoDisponivel(){
+  public double getSaldoDisponivel(){
     return _saldoDisponivel;
+  }
+
+  public Produto getProduto(String id){
+    for(Produto p: _produtos.values()){
+      if(id.equals(p.getId()))
+        return p;
+    }
+    return null;
+  }
+
+  public void registarVenda(Cliente c, int dataLimite, Produto p, int quantidade, int dia) throws ProductUnavailableException{
+    if (quantidade > p.getQuantidade()){
+      throw new ProductUnavailableException(p.getId());
+    }
+    Venda v = new Venda(p, quantidade, dataLimite, dia);
+    c.adicionarTransacao(v);
+  }
+
+  public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
+                                throws SupplierUnauthorizedException, SupplierWrongException{
+    Fornecedor fornecedor = null;
+    for(Fornecedor f: _fornecedores.values()){
+      if(idFornecedor.equals(f.getId()))
+        fornecedor = f;
+    }
+    if(fornecedor == null){
+      throw new NullPointerException();
+    }
+    if(!(fornecedor.getEstado()))
+      throw new SupplierUnauthorizedException(fornecedor.getId());
+
+    List<String> idProdutos = fornecedor.getProdutos();
+
+    for(String p : produtos){
+      if(!(idProdutos.contains(p)))
+        throw new SupplierWrongException(idFornecedor, p);
+    }
+
+    Encomenda e = new Encomenda(produtos, fornecedor, quantidades, custo);
+    fornecedor.adicionarTransacao(e);
+  }
+
+  public void adicionarSaldo(int valor){
+    _saldoContabilistico += valor;
+    _saldoDisponivel += valor;
+  }
+
+  public void adicionarSaldoContabilistico(int valor){
+    _saldoContabilistico += valor;
+  }
+
+  public Fornecedor getFornecedor(String id){
+    for (Fornecedor f: _fornecedores.values()){
+      if(id.equals(f.getId()))
+        return f;
+    }
+    return null;
   }
 
   /**

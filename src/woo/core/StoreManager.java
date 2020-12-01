@@ -2,6 +2,7 @@ package woo.core;
 
 import java.io.*;
 import java.util.Collection;
+import java.util.List;
 
 import woo.app.exception.*;
 import woo.core.exception.*;
@@ -19,6 +20,11 @@ public class StoreManager implements Serializable{
 
   public void setFilename(String nome){
     _filename = nome;
+  }
+
+  public Produto getProduto(String id){
+    Produto p = _store.getProduto(id);
+    return p;
   }
 
   public StoreManager(){
@@ -78,6 +84,23 @@ public class StoreManager implements Serializable{
 
   public void mudarPreco(int preco, String id){
     _store.mudarPreco(preco, id);
+  }
+
+  public void registarVenda(Cliente c, int dataLimite, Produto p, int quantidade) throws ProductUnavailableException{
+    _store.registarVenda(c, dataLimite, p, quantidade, getData());
+  }
+
+  public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
+          throws SupplierUnauthorizedException, SupplierWrongException{
+    _store.registarEncomenda(produtos, quantidades, idFornecedor, custo);
+  }
+
+  public void adicionarSaldo(int valor){
+    _store.adicionarSaldo(valor);
+  }
+
+  public void adicionarSaldoContabilistico(int valor){
+    _store.adicionarSaldoContabilistico(valor);
   }
 
   /**

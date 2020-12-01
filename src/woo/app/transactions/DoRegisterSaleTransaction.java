@@ -3,24 +3,44 @@ package woo.app.transactions;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
+import woo.app.exception.UnavailableProductException;
+import woo.app.exception.UnknownClientKeyException;
 import woo.core.StoreManager;
-//FIXME import other classes
+import woo.core.*;
+import woo.core.exception.InvalidClientKeyException;
+import woo.core.exception.ProductUnavailableException;
 
 /**
  * Register sale.
  */
 public class DoRegisterSaleTransaction extends Command<StoreManager> {
 
-  //FIXME add input fields
+  private Input<String> _idCliente;
+  private Input<Integer> _dataLimite;
+  private Input<String> _idProduto;
+  private Input<Integer> _quantidade;
 
   public DoRegisterSaleTransaction(StoreManager receiver) {
     super(Label.REGISTER_SALE_TRANSACTION, receiver);
-    //FIXME init input fields
+    _idCliente = _form.addStringInput(Message.requestClientKey());
+    _dataLimite = _form.addIntegerInput(Message.requestPaymentDeadline());
+    _idProduto = _form.addStringInput(Message.requestProductKey());
+    _quantidade = _form.addIntegerInput(Message.requestAmount());
   }
 
   @Override
-  public final void execute() throws DialogException {
-    //FIXME implement command
+  public final void execute() throws UnavailableProductException, UnknownClientKeyException {
+    _form.parse();
+    try{
+      Produto p = _receiver.getProduto(_idProduto.value());
+      Cliente c = _receiver.getCliente(_idCliente.value());
+      _receiver.registarVenda(c, _dataLimite.value(), p, _quantidade.value());
+      _receiver.adicionarSaldoContabilistico(p.getPreco()*_quantidade.value());
+    }catch (InvalidClientKeyException e){
+      throw new UnknownClientKeyException(e.getMessage());
+    }catch (ProductUnavailableException e){
+      throw new UnavailableProductException(_idProduto.value());
+    }
   }
 
 }
