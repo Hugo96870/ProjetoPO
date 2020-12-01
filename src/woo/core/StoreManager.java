@@ -103,6 +103,18 @@ public class StoreManager implements Serializable{
     _store.adicionarSaldoContabilistico(valor);
   }
 
+  public Collection<Venda> getVendas(){
+    return _store.getVendas();
+  }
+
+  public Collection<Encomenda> getEncomendas(){
+    return _store.getEncomendas();
+  }
+
+  public void pagar(Venda v){
+    _store.pagar(v);
+  }
+
   /**
    * @throws IOException
    * @throws FileNotFoundException

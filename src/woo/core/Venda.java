@@ -1,26 +1,34 @@
 package woo.core;
 
+import woo.app.suppliers.Message;
+
 public class Venda extends Transacao{
     private Produto _produto;
     private int _quantidade;
-    private int _dataPagamento;
-    private boolean _paga;
+    private int _dataLimite;
+    private String _paga;
     private int _dia;
+    private String _idCliente;
+    private int _custoBase;
+    private int _custofinal;
+    private int _dataPagamento;
 
-    public Venda(Produto p, int quantidade, int data, int dia){
+    public Venda(Produto p, int quantidade, int data, int dia, String idCliente, int custo){
         super();
         _produto = p;
         _quantidade = quantidade;
-        _dataPagamento = data;
-        _paga = false;
+        _dataLimite = data;
+        _paga = Message.no();
         _dia = dia;
+        _idCliente = idCliente;
+        _custoBase = custo;
     }
 
     public int getDia(){
         return _dia;
     }
 
-    public boolean getEstado(){
+    public String getEstado(){
         return _paga;
     }
 
@@ -32,8 +40,27 @@ public class Venda extends Transacao{
         return _produto;
     }
 
-    public int getDataPagamento(){
-        return _dataPagamento;
+    public int getDataLimite(){
+        return _dataLimite;
+    }
+
+    public String toStringTransacao(){
+        return this.getID() + "|" + this._idCliente + "|" + this._produto.getId() + "|" + this._quantidade +
+                "|" + this._custoBase + "|" + this._custofinal + "|" + this._dataLimite + "|" + this._paga +
+                "|" + this._dataPagamento;
+
+    }
+
+    public void mudarEstado(){
+        _paga = Message.yes();
+    }
+
+    public void setDataPagamento(int dia){
+        _dataPagamento = dia;
+    }
+
+    public void setValorFinal(int valor){
+        _custofinal = valor;
     }
 
 }

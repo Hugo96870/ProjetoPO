@@ -22,11 +22,15 @@ public class Store implements Serializable {
     private Map<String, Cliente> _clientes;
     private Map<String, Produto> _produtos;
     private Map<String, Fornecedor> _fornecedores;
+    private Map<Integer, Venda> _transacoesV;
+    private Map<Integer, Encomenda> _transacoesE;
 
   public Store(){
     _clientes = new TreeMap<>();
     _produtos = new TreeMap<>();
     _fornecedores = new TreeMap<>();
+    _transacoesE = new TreeMap<>();
+    _transacoesV = new TreeMap<>();
     _filename = "";
   }
 
@@ -148,12 +152,22 @@ public class Store implements Serializable {
     return null;
   }
 
+  public Collection<Venda> getVendas(){
+    return _transacoesV.values();
+  }
+
+  public Collection<Encomenda> getEncomendas(){
+    return _transacoesE.values();
+  }
+
   public void registarVenda(Cliente c, int dataLimite, Produto p, int quantidade, int dia) throws ProductUnavailableException{
     if (quantidade > p.getQuantidade()){
       throw new ProductUnavailableException(p.getId());
     }
-    Venda v = new Venda(p, quantidade, dataLimite, dia);
+    int custoBase = p.getPreco()*quantidade;
+    Venda v = new Venda(p, quantidade, dataLimite, dia, c.getIdCliente(), custoBase);
     c.adicionarTransacao(v);
+    _transacoesV.put(v.getID(), v);
   }
 
   public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
@@ -176,13 +190,23 @@ public class Store implements Serializable {
         throw new SupplierWrongException(idFornecedor, p);
     }
 
-    Encomenda e = new Encomenda(produtos, fornecedor, quantidades, custo);
+    Encomenda e = new Encomenda(produtos, fornecedor, quantidades, custo, getData());
     fornecedor.adicionarTransacao(e);
+    _transacoesE.put(e.getID(), e);
   }
 
   public void adicionarSaldo(int valor){
-    _saldoContabilistico += valor;
-    _saldoDisponivel += valor;
+    _saldoContabilistico -= valor;
+    _saldoDisponivel -= valor;
+  }
+
+  public void pagar(Venda v){
+    v.mudarEstado();
+    v.setDataPagamento(getData());
+    int custobase = v.getProduto().getPreco() * v.getQuantidade();
+    int custoreal = custobase;
+    //Falta codigo
+    v.setValorFinal(custoreal);
   }
 
   public void adicionarSaldoContabilistico(int valor){

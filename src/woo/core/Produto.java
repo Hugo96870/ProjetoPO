@@ -24,6 +24,10 @@ public abstract class Produto implements Serializable {
                 "|" + _precoCritico + "|" + _quantidade + "|";
     }
 
+    public String toStringProdutoTransacao(){
+        return _idProduto+ "|" + _quantidade;
+    }
+
     public int getPreco(){
         return _preco;
     }
