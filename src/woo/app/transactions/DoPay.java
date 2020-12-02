@@ -3,7 +3,9 @@ package woo.app.transactions;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
+import woo.app.exception.UnknownClientKeyException;
 import woo.core.*;
+import woo.core.exception.InvalidClientKeyException;
 
 import javax.print.DocFlavor;
 import java.util.Collection;
@@ -22,15 +24,20 @@ public class DoPay extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute(){
+  public final void execute() throws UnknownClientKeyException{
     _form.parse();
 
     Collection<Venda> _vendas = _receiver.getVendas();
 
     for (Venda v : _vendas) {
       if (v.getID() == _id.value()) {
-        if("NAO".equals(v.getEstado()))
-          _receiver.pagar(v);
+        if("NAO".equals(v.getEstado())) {
+          try {
+            _receiver.pagar(v);
+          } catch(InvalidClientKeyException e){
+            throw new UnknownClientKeyException(e.getMessage());
+          }
+        }
         break;
       }
     }

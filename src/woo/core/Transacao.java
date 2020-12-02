@@ -9,9 +9,6 @@ public class Transacao{
         _idContador += 1;
     }
 
-    public  String toStringVenda(){}
-    public String toStringEncomenda(){}
-
     public int getID(){
         return _id;
     }
