@@ -22,7 +22,7 @@ public class DoPay extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DialogException {
+  public final void execute(){
     _form.parse();
 
     Collection<Venda> _vendas = _receiver.getVendas();

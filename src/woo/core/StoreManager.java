@@ -107,6 +107,10 @@ public class StoreManager implements Serializable{
     return _store.getVendas();
   }
 
+  public String mudarEstadoFornecedor(String id){
+    return _store.mudarEstadoFornecedor(id);
+  }
+
   public Collection<Encomenda> getEncomendas(){
     return _store.getEncomendas();
   }

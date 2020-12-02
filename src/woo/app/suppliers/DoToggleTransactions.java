@@ -11,16 +11,19 @@ import woo.core.StoreManager;
  */
 public class DoToggleTransactions extends Command<StoreManager> {
 
-  //FIXME add input fields
+  private Input<String> _id;
 
   public DoToggleTransactions(StoreManager receiver) {
     super(Label.TOGGLE_TRANSACTIONS, receiver);
-    //FIXME init input fields
+    _id = _form.addStringInput(Message.requestSupplierKey());
   }
 
   @Override
   public void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+    String s = _receiver.mudarEstadoFornecedor(_id.value());
+    _display.addLine(s);
+    _display.display();
   }
 
 }

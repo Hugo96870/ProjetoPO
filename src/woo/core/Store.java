@@ -200,13 +200,138 @@ public class Store implements Serializable {
     _saldoDisponivel -= valor;
   }
 
-  public void pagar(Venda v){
+  public void pagar(Venda v) throws InvalidClientKeyException{
     v.mudarEstado();
     v.setDataPagamento(getData());
-    int custobase = v.getProduto().getPreco() * v.getQuantidade();
-    int custoreal = custobase;
-    //Falta codigo
+    double custobase = v.getProduto().getPreco() * v.getQuantidade();
+    double custoreal = custobase;
+    if(v.getProduto().getTipo() == TipoDeProduto.BOOK) {
+      int dias = v.getDataLimite() - getData();
+      if (dias >= 3) {
+        custoreal *= 0.9;
+        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+      }
+      else if(dias >= 0) {
+        double valor = pagamentoP2(v, custobase, dias);
+        custoreal -= valor;
+        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+      }
+      else if(dias >= -3){
+        double valor = pagamentoP3(v, custobase, dias);
+        custoreal += valor;
+      }
+      else {
+        double valor = pagamentoP4(v, custobase, dias);
+        custoreal += valor;
+      }
+    }
+    else if(v.getProduto().getTipo() == TipoDeProduto.BOX) {
+      int dias = v.getDataLimite() - getData();
+      if (dias >= 5) {
+        custoreal *= 0.9;
+        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+      }
+      else if(dias >= 0) {
+        double valor = pagamentoP2(v, custobase, dias);
+        custoreal -= valor;
+        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+      }
+      else if(dias >= -5) {
+        double valor = pagamentoP3(v, custobase, dias);
+        custoreal += valor;
+      }
+      else {
+        double valor = pagamentoP4(v, custobase, dias);
+        custoreal += valor;
+      }
+    }
+    else if(v.getProduto().getTipo() == TipoDeProduto.CONTAINER) {
+      int dias = v.getDataLimite() - getData();
+      if (dias >= 8) {
+        custoreal *= 0.9;
+        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+      }
+      else if(dias >= 0) {
+        double valor = pagamentoP2(v, custobase, dias);
+        custoreal -= valor;
+        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+      }
+      else if(dias >= -8){
+        double valor = pagamentoP3(v, custobase, dias);
+        custoreal += valor;
+      }
+      else {
+        double valor = pagamentoP4(v, custobase, dias);
+        custoreal += valor;
+      }
+    }
+
+
     v.setValorFinal(custoreal);
+  }
+
+  public double pagamentoP2(Venda v, double custoBase, int dias) throws InvalidClientKeyException{
+    double valor = 0;
+    if("NORMAL".equals(getCliente(v.getIDCliente()).getEstatuto()))
+      valor = 0;
+    else if("SELECTION".equals(getCliente(v.getIDCliente()).getEstatuto()))
+      if (dias > 2)
+        valor = 0.05*custoBase;
+    else
+      valor = 0.1*custoBase;
+    return valor;
+  }
+
+  public double pagamentoP3(Venda v, double custoBase, int dias) throws InvalidClientKeyException{
+    double valor = 0;
+    if("NORMAL".equals(getCliente(v.getIDCliente()).getEstatuto())) {
+      double multa = (-1 * dias) * 0.05;
+      valor = custoBase * multa;
+    }
+    else if("SELECTION".equals(getCliente(v.getIDCliente()).getEstatuto())) {
+      if (dias == -1)
+        valor = 0;
+      else {
+        if(dias <= -2)
+          getCliente(v.getIDCliente()).mudarPontos(-(getCliente(v.getIDCliente()).getPontos() * 0.9));
+        double multa = 0.02 * (-1 * (dias + 1));
+        valor = custoBase * multa;
+      }
+    }
+    else{
+      valor = -1 *custoBase*0.05;
+    }
+    return valor;
+  }
+
+  public double pagamentoP4(Venda v, double custoBase, int dias) throws InvalidClientKeyException{
+    double valor = 0;
+    if("NORMAL".equals(getCliente(v.getIDCliente()).getEstatuto())) {
+      double multa = (-1 * dias) * 0.1;
+      valor = custoBase * multa;
+    }
+    else if("SELECTION".equals(getCliente(v.getIDCliente()).getEstatuto())){
+      if(dias <= -2)
+        getCliente(v.getIDCliente()).mudarPontos(-(getCliente(v.getIDCliente()).getPontos() * 0.9));
+      double multa = (-1 * dias) * 0.05;
+      valor = custoBase * multa;
+    }
+    else {
+      if(dias <= -15)
+        getCliente(v.getIDCliente()).mudarPontos(-(getCliente(v.getIDCliente()).getPontos() * 0.75));
+      valor = 0;
+    }
+    return valor;
+  }
+
+  public String mudarEstadoFornecedor(String id){
+    String s;
+    Fornecedor f = getFornecedor(id);
+    if(f.getEstado() == true)
+      s = f.setEstado(false);
+    else
+      s = f.setEstado(true);
+    return s;
   }
 
   public void adicionarSaldoContabilistico(int valor){

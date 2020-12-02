@@ -20,7 +20,7 @@ public class Encomenda extends Transacao{
         _data = data;
     }
 
-    public String toStringTransacao(){
+    public String toStringEncomenda(){
         return this.getID() + "|" + this._fornecedor.getId() + "|" + this._custoTotal + "|" + this._data;
     }
 

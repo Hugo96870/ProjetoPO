@@ -64,4 +64,18 @@ public class Cliente implements Serializable{
     public void adicionarTransacao(Venda v){
         _transacoes.add(v);
     }
+
+    public void mudarPontos(double pontos){
+        _pontos += pontos;
+        setEstatuto();
+    }
+
+    public void setEstatuto(){
+        if(_pontos > 25000)
+            _estatuto = "ELITE";
+        else if(2000 < _pontos)
+            _estatuto = "SELECTION";
+        else
+            _estatuto = "NORMAL";
+    }
 }

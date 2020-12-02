@@ -60,4 +60,12 @@ public class Fornecedor implements Serializable{
     public List<String> getProdutos(){
         return Collections.unmodifiableList(_produtos);
     }
+
+    public String setEstado(boolean valor){
+        _estadoAtividade = valor;
+        if(valor == false)
+            return Message.transactionsOff(this.getId());
+        else
+            return Message.transactionsOn(this.getId());
+    }
 }

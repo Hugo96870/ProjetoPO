@@ -46,6 +46,7 @@ public class DoRegisterOrderTransaction extends Command<StoreManager> {
       p = _receiver.getProduto(_idProduto.value());
       p.removerQuantidade(_quantidade.value());
       custoTotal += p.getPreco()*_quantidade.value();
+      _form.clear();
     }
     try {
       _receiver.registarEncomenda(produtos, quantidades, _idFornecedor.value(), custoTotal);

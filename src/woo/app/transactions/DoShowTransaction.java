@@ -34,7 +34,7 @@ public class DoShowTransaction extends Command<StoreManager> {
         t = v;
         Produto p = v.getProduto();
         _display.popup(p.toStringProduto());
-        _display.popup(v.toStringTransacao());
+        _display.popup(v.toStringVenda());
         break;
       }
     }
@@ -42,7 +42,7 @@ public class DoShowTransaction extends Command<StoreManager> {
     for(Encomenda e : _encomendas){
       if(e.getID() == _idTransacao.value()){
         t = e;
-        _display.popup(e.toStringTransacao());
+        _display.popup(e.toStringEncomenda());
         break;
       }
     }

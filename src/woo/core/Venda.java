@@ -10,7 +10,7 @@ public class Venda extends Transacao{
     private int _dia;
     private String _idCliente;
     private int _custoBase;
-    private int _custofinal;
+    private double _custofinal;
     private int _dataPagamento;
 
     public Venda(Produto p, int quantidade, int data, int dia, String idCliente, int custo){
@@ -44,7 +44,7 @@ public class Venda extends Transacao{
         return _dataLimite;
     }
 
-    public String toStringTransacao(){
+    public String toStringVenda(){
         return this.getID() + "|" + this._idCliente + "|" + this._produto.getId() + "|" + this._quantidade +
                 "|" + this._custoBase + "|" + this._custofinal + "|" + this._dataLimite + "|" + this._paga +
                 "|" + this._dataPagamento;
@@ -59,8 +59,12 @@ public class Venda extends Transacao{
         _dataPagamento = dia;
     }
 
-    public void setValorFinal(int valor){
+    public void setValorFinal(double valor){
         _custofinal = valor;
+    }
+
+    public String getIDCliente(){
+        return _idCliente;
     }
 
 }
