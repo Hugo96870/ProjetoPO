@@ -4,9 +4,11 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.DuplicateProductKeyException;
 import woo.app.exception.UnknownServiceTypeException;
+import woo.app.exception.UnknownSupplierKeyException;
 import woo.core.StoreManager;
 import woo.core.exception.ProductKeyDuplicatedException;
 import woo.core.exception.ServiceTypeUnknownException;
+import woo.core.exception.SupplierUnknownException;
 
 /**
  * Register box.
@@ -29,7 +31,7 @@ public class DoRegisterProductBox extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DuplicateProductKeyException, UnknownServiceTypeException{
+  public final void execute() throws DuplicateProductKeyException, UnknownServiceTypeException, UnknownSupplierKeyException{
     _form.parse();
     try{
       _receiver.registarCaixa(_idCaixa.value(), _preco.value(), _valorCritico.value(), _idFornecedorCaixa.value(),
@@ -38,6 +40,8 @@ public class DoRegisterProductBox extends Command<StoreManager> {
       throw new DuplicateProductKeyException(e.getMessage());
     }catch(ServiceTypeUnknownException e){
       throw new UnknownServiceTypeException(_tipoTransporte.value());
+    }catch(SupplierUnknownException e){
+      throw new UnknownSupplierKeyException(_idFornecedorCaixa.value());
     }
   }
 }

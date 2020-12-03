@@ -1,0 +1,50 @@
+*** tests/A-14-03-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-14-03-M-ok.outhyp	2020-12-03 15:05:29.395731400 +0000
+***************
+*** 28,41 ****
+  4 - Registar Livro
+  5 - Alterar Preço
+  0 - Sair
+! Escolha uma opção: Identificador do produto: Titulo do livro: Autor do livro: ISBN: Preço: Valor crítico para as existências: Identificador do fornecedor: Gestão de Produtos
+  1 - Visualizar
+  2 - Registar Caixa
+  3 - Registar Contentor
+  4 - Registar Livro
+  5 - Alterar Preço
+  0 - Sair
+! Escolha uma opção: Identificador do produto: Preço: Valor crítico para as existências: Identificador do fornecedor: Tipo de serviço: Qualidade de serviço: Gestão de Produtos
+  1 - Visualizar
+  2 - Registar Caixa
+  3 - Registar Contentor
+--- 28,41 ----
+  4 - Registar Livro
+  5 - Alterar Preço
+  0 - Sair
+! Escolha uma opção: Identificador do produto: Autor do livro: Titulo do livro: ISBN: Preço: Valor crítico para as existências: Identificador do fornecedor: Gestão de Produtos
+  1 - Visualizar
+  2 - Registar Caixa
+  3 - Registar Contentor
+  4 - Registar Livro
+  5 - Alterar Preço
+  0 - Sair
+! Escolha uma opção: Identificador do produto: Preço: Valor crítico para as existências: Identificador do fornecedor: Tipo de serviço: Tipo de serviço: Gestão de Produtos
+  1 - Visualizar
+  2 - Registar Caixa
+  3 - Registar Contentor
+***************
+*** 53,59 ****
+  BOX|4CO2|P2|16|20|0|PERSONAL
+  CONTAINER|7M5|P2|8|20|100|EXPRESS|B4
+  BOOK|B1937|P1|5|2|5|How to fix almost everything|Satoshi Yamada|1928374650
+! BOOK|Book1|P1|19|1|0|tt|aa|ibbn1234
+  CONTAINER|CONT2|P1|19|1|0|NORMAL|DL
+  BOX|DCAIXA|P2|19|1|0|EXPRESS
+  Gestão de Produtos
+--- 53,59 ----
+  BOX|4CO2|P2|16|20|0|PERSONAL
+  CONTAINER|7M5|P2|8|20|100|EXPRESS|B4
+  BOOK|B1937|P1|5|2|5|How to fix almost everything|Satoshi Yamada|1928374650
+! BOOK|Book1|P1|19|1|0|aa|tt|ibbn1234
+  CONTAINER|CONT2|P1|19|1|0|NORMAL|DL
+  BOX|DCAIXA|P2|19|1|0|EXPRESS
+  Gestão de Produtos

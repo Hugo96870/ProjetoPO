@@ -66,18 +66,18 @@ public class Store implements Serializable {
     }
     else {
       Fornecedor fr = new Fornecedor(id, nome, morada);
-      _fornecedores.put(id, fr);
+      _fornecedores.put(id.toUpperCase(), fr);
     }
   }
 
   public void registarLivro(String id, String autor, String titulo, String ISBN, int preco, int valorCritico, String idFornecedor,
-                            int quantidade) throws ProductKeyDuplicatedException{
+                            int quantidade) throws ProductKeyDuplicatedException, SupplierUnknownException{
     if(_produtos.containsKey(id)){
       throw new ProductKeyDuplicatedException(id);
     }
     else{
       Produto pr = new Livro(id, preco, valorCritico, idFornecedor, autor, ISBN, titulo, quantidade);
-      _produtos.put(id,pr);
+      _produtos.put(id.toUpperCase(),pr);
       Fornecedor f = getFornecedor(idFornecedor);
       f.adicionarProduto(pr.getId());
     }
@@ -85,26 +85,26 @@ public class Store implements Serializable {
 
   public void registarContentor(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte,
                                 String nivelServico, int quantidade) throws ProductKeyDuplicatedException, ServiceTypeUnknownException,
-                                ServiceLevelUnknownException{
+                                ServiceLevelUnknownException, SupplierUnknownException{
     if(_produtos.containsKey(id)){
       throw new ProductKeyDuplicatedException(id);
     }
     else{
       Produto pr = new Contentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, quantidade);
-      _produtos.put(id,pr);
+      _produtos.put(id.toUpperCase(),pr);
       Fornecedor f = getFornecedor(idFornecedor);
       f.adicionarProduto(pr.getId());
     }
   }
 
   public void registarCaixa(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte, int quantidade)
-          throws ProductKeyDuplicatedException, ServiceTypeUnknownException{
+          throws ProductKeyDuplicatedException, ServiceTypeUnknownException,SupplierUnknownException{
     if(_produtos.containsKey(id)){
       throw new ProductKeyDuplicatedException(id);
     }
     else{
       Produto pr = new Caixa(id, preco, valorCritico, idFornecedor, tipoTransporte, quantidade);
-      _produtos.put(id,pr);
+      _produtos.put(id.toUpperCase(),pr);
       Fornecedor f = getFornecedor(idFornecedor);
       f.adicionarProduto(pr.getId());
     }
@@ -115,10 +115,10 @@ public class Store implements Serializable {
   }
 
   public Cliente getCliente(String id) throws InvalidClientKeyException{
-    if(!(_clientes.containsKey(id))){
+    if(!(_clientes.containsKey(id.toUpperCase()))){
       throw new InvalidClientKeyException(id);
     }
-    return _clientes.get(id);
+    return _clientes.get(id.toUpperCase());
   }
 
   public void avancarData(int dias) throws InvalidDateToAdvanceException {
@@ -324,7 +324,7 @@ public class Store implements Serializable {
     return valor;
   }
 
-  public String mudarEstadoFornecedor(String id){
+  public String mudarEstadoFornecedor(String id) throws SupplierUnknownException{
     String s;
     Fornecedor f = getFornecedor(id);
     if(f.getEstado() == true)
@@ -338,10 +338,14 @@ public class Store implements Serializable {
     _saldoContabilistico += valor;
   }
 
-  public Fornecedor getFornecedor(String id){
-    for (Fornecedor f: _fornecedores.values()){
-      if(id.equals(f.getId()))
-        return f;
+  public Fornecedor getFornecedor(String id) throws SupplierUnknownException{
+    if(!_fornecedores.containsKey(id))
+      throw new SupplierUnknownException(id);
+    else {
+      for (Fornecedor f : _fornecedores.values()) {
+        if (id.equals(f.getId()))
+          return f;
+      }
     }
     return null;
   }
@@ -354,7 +358,7 @@ public class Store implements Serializable {
 
   public void importFile(String txtfile) throws IOException, BadEntryException, DuplicateSupplierKeyException,
           DuplicateClientKeyException, DuplicateProductKeyException, UnknownServiceTypeException,
-          UnknownServiceLevelException {
+          UnknownServiceLevelException, UnknownSupplierKeyException {
     MyParser parse = new MyParser(this);
     parse.parseFile(txtfile);
   }

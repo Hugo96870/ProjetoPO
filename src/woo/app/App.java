@@ -19,7 +19,7 @@ public class App {
       try {
         storefront.importFile(datafile);
       } catch (ImportFileException | DuplicateSupplierKeyException | DuplicateClientKeyException | DuplicateProductKeyException |
-              UnknownServiceTypeException | UnknownServiceLevelException e) {
+              UnknownServiceTypeException | UnknownServiceLevelException | UnknownSupplierKeyException e) {
         // no behavior described: just present the problem
         e.printStackTrace();
       }

@@ -3,8 +3,10 @@ package woo.app.products;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.DuplicateProductKeyException;
+import woo.app.exception.UnknownSupplierKeyException;
 import woo.core.StoreManager;
 import woo.core.exception.ProductKeyDuplicatedException;
+import woo.core.exception.SupplierUnknownException;
 
 /**
  * Register book.
@@ -32,13 +34,15 @@ public class DoRegisterProductBook extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DuplicateProductKeyException {
+  public final void execute() throws DuplicateProductKeyException, UnknownSupplierKeyException {
     _form.parse();
     try{
       _receiver.registarLivro(_idLivro.value(), _autor.value(), _titulo.value(), _ISBN.value(),
               _preco.value(), _valorCritico.value(), _idFornecedorLivro.value());
     }catch (ProductKeyDuplicatedException e){
       throw new DuplicateProductKeyException(e.getMessage());
+    }catch(SupplierUnknownException e){
+      throw new UnknownSupplierKeyException(_idFornecedorLivro.value());
     }
   }
 }

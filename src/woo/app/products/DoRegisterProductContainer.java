@@ -5,10 +5,12 @@ import pt.tecnico.po.ui.Input;
 import woo.app.exception.DuplicateProductKeyException;
 import woo.app.exception.UnknownServiceLevelException;
 import woo.app.exception.UnknownServiceTypeException;
+import woo.app.exception.UnknownSupplierKeyException;
 import woo.core.StoreManager;
 import woo.core.exception.ProductKeyDuplicatedException;
 import woo.core.exception.ServiceLevelUnknownException;
 import woo.core.exception.ServiceTypeUnknownException;
+import woo.core.exception.SupplierUnknownException;
 
 /**
  * Register container.
@@ -33,7 +35,8 @@ public class DoRegisterProductContainer extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DuplicateProductKeyException, UnknownServiceTypeException, UnknownServiceLevelException {
+  public final void execute() throws DuplicateProductKeyException, UnknownServiceTypeException, UnknownServiceLevelException,
+          UnknownSupplierKeyException{
     _form.parse();
     try{
       _receiver.registarContentor(_idContentor.value(), _preco.value(), _valorCritico.value(),
@@ -45,6 +48,8 @@ public class DoRegisterProductContainer extends Command<StoreManager> {
       throw new UnknownServiceTypeException(_tipoTransporte.value());
     } catch (ServiceLevelUnknownException e){
       throw new UnknownServiceLevelException(_qualidadeServico.value());
+    } catch(SupplierUnknownException e){
+      throw new UnknownSupplierKeyException(_idFornecedorContentor.value());
     }
   }
 }

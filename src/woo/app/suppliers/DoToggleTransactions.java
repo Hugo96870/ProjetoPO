@@ -3,7 +3,9 @@ package woo.app.suppliers;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
+import woo.app.exception.UnknownSupplierKeyException;
 import woo.core.StoreManager;
+import woo.core.exception.SupplierUnknownException;
 //FIXME import other classes
 
 /**
@@ -19,11 +21,15 @@ public class DoToggleTransactions extends Command<StoreManager> {
   }
 
   @Override
-  public void execute() throws DialogException {
+  public void execute() throws UnknownSupplierKeyException {
     _form.parse();
-    String s = _receiver.mudarEstadoFornecedor(_id.value());
-    _display.addLine(s);
-    _display.display();
+    try {
+      String s = _receiver.mudarEstadoFornecedor(_id.value());
+      _display.addLine(s);
+      _display.display();
+    } catch(SupplierUnknownException e){
+      throw new UnknownSupplierKeyException(_id.value());
+    }
   }
 
 }

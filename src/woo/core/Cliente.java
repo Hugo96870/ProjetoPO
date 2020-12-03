@@ -12,7 +12,7 @@ public class Cliente implements Serializable{
     private int _valorPago;
     private int _valorComprado;
     private int _pontos;
-    private List<Transacao> _transacoes;
+    private List<Venda> _transacoes;
     
     public Cliente(String id, String nome, String morada){
         _idCliente = id;
@@ -58,7 +58,7 @@ public class Cliente implements Serializable{
         return _pontos;
     }
     
-    public List<Transacao> getTransacoes(){
+    public List<Venda> getTransacoes(){
         return _transacoes;
     }
     public void adicionarTransacao(Venda v){

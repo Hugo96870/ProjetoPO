@@ -1,0 +1,19 @@
+*** tests/A-14-04-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-14-04-M-ok.outhyp	2020-12-03 15:05:29.669027100 +0000
+***************
+*** 32,38 ****
+  4 - Registar Livro
+  5 - Alterar Preço
+  0 - Sair
+! Escolha uma opção: Identificador do produto: Preço: Valor crítico para as existências: Identificador do fornecedor: Tipo de serviço: Qualidade de serviço: Registar Contentor: Operação inválida: Nível de serviço desconhecido: 'ddl'.
+  Gestão de Produtos
+  1 - Visualizar
+  2 - Registar Caixa
+--- 32,38 ----
+  4 - Registar Livro
+  5 - Alterar Preço
+  0 - Sair
+! Escolha uma opção: Identificador do produto: Preço: Valor crítico para as existências: Identificador do fornecedor: Tipo de serviço: Tipo de serviço: Registar Contentor: Operação inválida: Nível de serviço desconhecido: 'ddl'.
+  Gestão de Produtos
+  1 - Visualizar
+  2 - Registar Caixa

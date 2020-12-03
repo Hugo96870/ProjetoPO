@@ -1,0 +1,37 @@
+*** tests/A-18-06-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-18-06-M-ok.outhyp	2020-12-03 15:27:49.488147000 +0000
+***************
+*** 22,28 ****
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: 0|R2|B|7|2800|2800|3
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+--- 22,29 ----
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: BOX|B|P2|400|20|100|AIR
+! BOX|B|P2|400|20|100|AIR0|R2|B|7|2800|0.0|3|NÃO|0
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+***************
+*** 54,60 ****
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|ELITE|2800|2800
+  S2|Ricardo Figueiredo|Lisboa|NORMAL|0|0
+  Gestão de Clientes
+  1 - Mostrar cliente
+--- 55,61 ----
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+  S2|Ricardo Figueiredo|Lisboa|NORMAL|0|0
+  Gestão de Clientes
+  1 - Mostrar cliente

@@ -1,8 +1,9 @@
 package woo.core;
 
+import java.io.Serializable;
 import woo.app.suppliers.Message;
 
-public class Venda extends Transacao{
+public class Venda extends Transacao implements Serializable{
     private Produto _produto;
     private int _quantidade;
     private int _dataLimite;

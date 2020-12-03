@@ -28,11 +28,11 @@ public class DoSave extends Command<StoreManager> {
    */
   @Override
   public final void execute() throws FileOpenFailedException {
-    _form.parse();
     try {
       _receiver.save();
     } catch (FileNotFoundException e) {
       try {
+        _form.parse();
         _receiver.setFilename(_output.value());
         _receiver.saveAs(_output.value());
       } catch (MissingFileAssociationException q) {

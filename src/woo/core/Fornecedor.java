@@ -14,7 +14,7 @@ public class Fornecedor implements Serializable{
     private String _morada;
     private boolean _estadoAtividade;
     private List<String> _produtos;
-    private List<Transacao> _transacoes;
+    private List<Encomenda> _transacoes;
 
     public Fornecedor(String id, String nome, String morada){
         _idFornecedor = id;
@@ -67,5 +67,9 @@ public class Fornecedor implements Serializable{
             return Message.transactionsOff(this.getId());
         else
             return Message.transactionsOn(this.getId());
+    }
+
+    public List<Encomenda> getTransacoes(){
+        return _transacoes;
     }
 }

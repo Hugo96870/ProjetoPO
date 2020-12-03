@@ -67,18 +67,18 @@ public class StoreManager implements Serializable{
   }
 
   public void registarLivro(String id, String autor, String titulo, String ISBN, int preco, int valorCritico,
-                            String idFornecedor) throws ProductKeyDuplicatedException{
+                            String idFornecedor) throws ProductKeyDuplicatedException, SupplierUnknownException{
     _store.registarLivro(id, autor, titulo, ISBN, preco, valorCritico, idFornecedor, 0);
   }
 
   public void registarContentor(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte,
                                 String nivelServico) throws ProductKeyDuplicatedException, ServiceLevelUnknownException,
-                                ServiceTypeUnknownException{
+                                ServiceTypeUnknownException, SupplierUnknownException{
     _store.registarContentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, 0);
   }
 
   public void registarCaixa(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte)
-          throws ProductKeyDuplicatedException, ServiceTypeUnknownException{
+          throws ProductKeyDuplicatedException, ServiceTypeUnknownException, SupplierUnknownException{
     _store.registarCaixa(id, preco, valorCritico, idFornecedor, tipoTransporte, 0);
   }
 
@@ -107,7 +107,7 @@ public class StoreManager implements Serializable{
     return _store.getVendas();
   }
 
-  public String mudarEstadoFornecedor(String id){
+  public String mudarEstadoFornecedor(String id) throws SupplierUnknownException{
     return _store.mudarEstadoFornecedor(id);
   }
 
@@ -132,9 +132,9 @@ public class StoreManager implements Serializable{
     try(FileOutputStream fpout = new FileOutputStream(_filename)){
       obOut = new ObjectOutputStream(fpout);
       obOut.writeObject(_store);
-      fpout.close();
+    }finally {
       obOut.close();
-      }
+    }
   }
 
   /**
@@ -159,13 +159,9 @@ public class StoreManager implements Serializable{
    * @throws UnavailableFileException
    */
   public void load(String filename) throws IOException, UnavailableFileException {
-    ObjectInputStream obIN = null;
-    try(FileInputStream fpin = new FileInputStream(filename)) {
-      obIN = new ObjectInputStream(fpin);
+    try(ObjectInputStream obIN = new ObjectInputStream(new FileInputStream(filename))) {
       Object obj = obIN.readObject();
       _store = (Store)obj;
-      fpin.close();
-      obIN.close();
     } catch(ClassNotFoundException | IOException e){
       throw new UnavailableFileException(filename);
     }
@@ -177,7 +173,7 @@ public class StoreManager implements Serializable{
    */
   public void importFile(String textfile) throws ImportFileException, DuplicateClientKeyException,
           DuplicateSupplierKeyException, DuplicateProductKeyException, UnknownServiceLevelException,
-          UnknownServiceTypeException {
+          UnknownServiceTypeException, UnknownSupplierKeyException {
     try {
       _store.importFile(textfile);
     } catch (IOException | BadEntryException e) {

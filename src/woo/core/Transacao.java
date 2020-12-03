@@ -1,6 +1,7 @@
 package woo.core;
+import java.io.Serializable;
 
-public class Transacao{
+public class Transacao implements Serializable{
     protected int _id;
     protected static int _idContador = 0;
 
