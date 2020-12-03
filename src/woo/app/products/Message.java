@@ -30,7 +30,7 @@ public class Message {
    * @return string prompting for service level.
    */
   public static String requestServiceLevel() {
-    return "Tipo de serviço: ";
+    return "Qualidade de serviço: ";
   }
 
   /**

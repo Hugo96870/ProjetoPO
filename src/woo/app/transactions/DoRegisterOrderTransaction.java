@@ -4,9 +4,11 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.UnauthorizedSupplierException;
+import woo.app.exception.UnknownProductKeyException;
 import woo.app.exception.WrongSupplierException;
 import woo.core.StoreManager;
 import woo.core.*;
+import woo.core.exception.ProductKeyUnknownException;
 import woo.core.exception.SupplierUnauthorizedException;
 import woo.core.exception.SupplierWrongException;
 
@@ -29,7 +31,7 @@ public class DoRegisterOrderTransaction extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws UnauthorizedSupplierException, WrongSupplierException {
+  public final void execute() throws UnauthorizedSupplierException, WrongSupplierException, UnknownProductKeyException {
     List<String> produtos = new LinkedList<>();
     List<Integer> quantidades = new LinkedList<>();
     int custoTotal = 0;
@@ -43,7 +45,11 @@ public class DoRegisterOrderTransaction extends Command<StoreManager> {
       _form.parse();
       produtos.add(_idProduto.value());
       quantidades.add(_quantidade.value());
-      p = _receiver.getProduto(_idProduto.value());
+      try {
+        p = _receiver.getProduto(_idProduto.value());
+      } catch (ProductKeyUnknownException e) {
+        throw new UnknownProductKeyException(_idProduto.value());
+      }
       p.removerQuantidade(_quantidade.value());
       custoTotal += p.getPreco()*_quantidade.value();
       _form.clear();

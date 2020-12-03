@@ -1,0 +1,22 @@
+*** tests/A-13-05-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-13-05-M-ok.outhyp	2020-12-03 16:57:00.741501100 +0000
+***************
+*** 44,50 ****
+  5 - Mostrar transacções do cliente
+  0 - Sair
+  Escolha uma opção: Identificador do cliente: C1|R2-D2|somewhere|NORMAL|0|0
+- BARGAIN|PB1256|30
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+--- 44,49 ----
+***************
+*** 53,59 ****
+  5 - Mostrar transacções do cliente
+  0 - Sair
+  Escolha uma opção: Identificador do cliente: C2|C3PO|with R2-D2|NORMAL|0|0
+- BARGAIN|PB1256|30
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+--- 52,57 ----

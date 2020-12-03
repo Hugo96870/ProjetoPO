@@ -1,0 +1,82 @@
+*** tests/A-18-01-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-18-01-M-ok.outhyp	2020-12-03 16:57:11.620969000 +0000
+***************
+*** 16,49 ****
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: Data limite de pagamento: Identificador do produto: Quantidade: Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: Pagar: Operação inválida: A transacção '-1' não existe.
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: Pagar: Operação inválida: A transacção '30' não existe.
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: Pagar: Operação inválida: A transacção '2' não existe.
+! Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+--- 16,58 ----
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: Identificador do fornecedor: Identificador do produto: Quantidade: Quantidade: Registar encomenda: Operação inválida: O produto '10' não existe.
+! Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Opção inválida!
+! Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Identificador da transacção: Visualizar: Operação inválida: A transacção '4' não existe.
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Opção inválida!
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: Gestão de Transacções
+! 1 - Visualizar
+! 2 - Registar venda
+! 3 - Registar encomenda
+! 4 - Pagar
+! 0 - Sair
+! Escolha uma opção: Identificador da transacção: Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda

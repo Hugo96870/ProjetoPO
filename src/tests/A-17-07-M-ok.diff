@@ -1,0 +1,61 @@
+*** tests/A-17-07-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-17-07-M-ok.outhyp	2020-12-03 16:57:11.375131800 +0000
+***************
+*** 16,27 ****
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+  Escolha uma opção: Menu Principal
+  1 - Abrir
+  2 - Guardar
+--- 16,38 ----
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: Identificador do fornecedor: Identificador do produto: Quantidade: Quantidade: Quantidade: Registar encomenda: Operação inválida: O produto '303' não existe.
+! Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
++ Escolha uma opção: Número inválido!
++ Escolha uma opção: Número inválido!
++ Escolha uma opção: Opção inválida!
++ Gestão de Transacções
++ 1 - Visualizar
++ 2 - Registar venda
++ 3 - Registar encomenda
++ 4 - Pagar
++ 0 - Sair
++ Escolha uma opção: Número inválido!
+  Escolha uma opção: Menu Principal
+  1 - Abrir
+  2 - Guardar
+***************
+*** 40,50 ****
+  3 - Permitir/inibir transacções
+  4 - Consultar transacções
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: 0|P2|2616|0
+! 2H2|303
+! 3O3|125
+! 6M2|101
+! Gestão de Fornecedores
+  1 - Mostrar fornecedores
+  2 - Registar
+  3 - Permitir/inibir transacções
+--- 51,57 ----
+  3 - Permitir/inibir transacções
+  4 - Consultar transacções
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: Gestão de Fornecedores
+  1 - Mostrar fornecedores
+  2 - Registar
+  3 - Permitir/inibir transacções

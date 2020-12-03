@@ -61,7 +61,7 @@ public class Store implements Serializable {
   }
 
   public void registarFornecedor(String id, String nome, String morada) throws SupplierKeyDuplicatedException {
-    if (_fornecedores.containsKey(id)) {
+    if (_fornecedores.containsKey(id.toUpperCase())) {
       throw new SupplierKeyDuplicatedException(id);
     }
     else {
@@ -72,7 +72,7 @@ public class Store implements Serializable {
 
   public void registarLivro(String id, String autor, String titulo, String ISBN, int preco, int valorCritico, String idFornecedor,
                             int quantidade) throws ProductKeyDuplicatedException, SupplierUnknownException{
-    if(_produtos.containsKey(id)){
+    if(_produtos.containsKey(id.toUpperCase())){
       throw new ProductKeyDuplicatedException(id);
     }
     else{
@@ -86,7 +86,7 @@ public class Store implements Serializable {
   public void registarContentor(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte,
                                 String nivelServico, int quantidade) throws ProductKeyDuplicatedException, ServiceTypeUnknownException,
                                 ServiceLevelUnknownException, SupplierUnknownException{
-    if(_produtos.containsKey(id)){
+    if(_produtos.containsKey(id.toUpperCase())){
       throw new ProductKeyDuplicatedException(id);
     }
     else{
@@ -99,7 +99,7 @@ public class Store implements Serializable {
 
   public void registarCaixa(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte, int quantidade)
           throws ProductKeyDuplicatedException, ServiceTypeUnknownException,SupplierUnknownException{
-    if(_produtos.containsKey(id)){
+    if(_produtos.containsKey(id.toUpperCase())){
       throw new ProductKeyDuplicatedException(id);
     }
     else{
@@ -144,10 +144,14 @@ public class Store implements Serializable {
     return _saldoDisponivel;
   }
 
-  public Produto getProduto(String id){
-    for(Produto p: _produtos.values()){
-      if(id.equals(p.getId()))
-        return p;
+  public Produto getProduto(String id) throws ProductKeyUnknownException{
+    if(!_produtos.containsKey(id.toUpperCase()))
+      throw new ProductKeyUnknownException(id);
+    else {
+      for (Produto p : _produtos.values()) {
+        if (id.toUpperCase().equals(p.getId().toUpperCase()))
+          return p;
+      }
     }
     return null;
   }
@@ -339,11 +343,11 @@ public class Store implements Serializable {
   }
 
   public Fornecedor getFornecedor(String id) throws SupplierUnknownException{
-    if(!_fornecedores.containsKey(id))
+    if(!_fornecedores.containsKey(id.toUpperCase()))
       throw new SupplierUnknownException(id);
     else {
       for (Fornecedor f : _fornecedores.values()) {
-        if (id.equals(f.getId()))
+        if (id.toUpperCase().equals(f.getId().toUpperCase()))
           return f;
       }
     }

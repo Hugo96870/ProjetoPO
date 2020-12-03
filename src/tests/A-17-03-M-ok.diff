@@ -1,0 +1,26 @@
+*** tests/A-17-03-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-17-03-M-ok.outhyp	2020-12-03 16:57:10.030485500 +0000
+***************
+*** 16,29 ****
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Gestão de Transacções
+! 1 - Visualizar
+! 2 - Registar venda
+! 3 - Registar encomenda
+! 4 - Pagar
+! 0 - Sair
+! Escolha uma opção: Identificador da transacção: 0|P1|50|0
+! B1937|10
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+--- 16,22 ----
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador do fornecedor: Identificador do fornecedor: Identificador do produto: Quantidade: Quantidade: Registar encomenda: Operação inválida: O produto '10' não existe.
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda

@@ -1,0 +1,53 @@
+*** tests/A-18-15-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-18-15-M-ok.outhyp	2020-12-03 16:57:15.983322200 +0000
+***************
+*** 53,59 ****
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|SELECTION|2600|540
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+--- 53,59 ----
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+***************
+*** 85,91 ****
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: 2|R2|B|5|2000|1800|10|0
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+--- 85,91 ----
+  3 - Registar encomenda
+  4 - Pagar
+  0 - Sair
+! Escolha uma opção: Identificador da transacção: Visualizar: Operação inválida: A transacção '2' não existe.
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda
+***************
+*** 111,117 ****
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|SELECTION|2600|2340
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+--- 111,117 ----
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes

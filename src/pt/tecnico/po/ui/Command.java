@@ -1,6 +1,9 @@
 /* $Id: Command.java,v 1.4 2017/09/05 16:28:29 david Exp $ */
 package pt.tecnico.po.ui;
 
+import woo.core.exception.ProductKeyUnknownException;
+import woo.core.exception.ProductUnavailableException;
+
 /**
  * Abstract class <code>Command</code> represents an operation that can be
  * carried out by or over an entity.

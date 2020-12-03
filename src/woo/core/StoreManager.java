@@ -22,7 +22,7 @@ public class StoreManager implements Serializable{
     _filename = nome;
   }
 
-  public Produto getProduto(String id){
+  public Produto getProduto(String id) throws ProductKeyUnknownException{
     Produto p = _store.getProduto(id);
     return p;
   }

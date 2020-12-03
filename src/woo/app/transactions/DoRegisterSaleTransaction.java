@@ -5,9 +5,11 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.UnavailableProductException;
 import woo.app.exception.UnknownClientKeyException;
+import woo.app.exception.UnknownProductKeyException;
 import woo.core.StoreManager;
 import woo.core.*;
 import woo.core.exception.InvalidClientKeyException;
+import woo.core.exception.ProductKeyUnknownException;
 import woo.core.exception.ProductUnavailableException;
 
 /**
@@ -29,7 +31,7 @@ public class DoRegisterSaleTransaction extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws UnavailableProductException, UnknownClientKeyException {
+  public final void execute() throws UnavailableProductException, UnknownClientKeyException, UnknownProductKeyException {
     _form.parse();
     try{
       Produto p = _receiver.getProduto(_idProduto.value());
@@ -40,6 +42,8 @@ public class DoRegisterSaleTransaction extends Command<StoreManager> {
       throw new UnknownClientKeyException(e.getMessage());
     }catch (ProductUnavailableException e){
       throw new UnavailableProductException(_idProduto.value());
+    }catch (ProductKeyUnknownException e){
+      throw new UnknownProductKeyException(_idProduto.value());
     }
   }
 

@@ -1,0 +1,40 @@
+*** tests/A-15-05-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-15-05-M-ok.outhyp	2020-12-03 16:50:48.359853200 +0000
+***************
+*** 14,28 ****
+  1 - Produtos com Preço Abaixo de Limite
+  2 - Facturas Pagas por Cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: Facturas Pagas por Cliente: Operação inválida: O cliente '-1' não existe.
+  Consultas
+  1 - Produtos com Preço Abaixo de Limite
+  2 - Facturas Pagas por Cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: Consultas
+  1 - Produtos com Preço Abaixo de Limite
+  2 - Facturas Pagas por Cliente
+  0 - Sair
+  Escolha uma opção: Menu Principal
+  1 - Abrir
+  2 - Guardar
+--- 14,33 ----
+  1 - Produtos com Preço Abaixo de Limite
+  2 - Facturas Pagas por Cliente
+  0 - Sair
+! Escolha uma opção: Consultas
+! 1 - Produtos com Preço Abaixo de Limite
+! 2 - Facturas Pagas por Cliente
+! 0 - Sair
+! Escolha uma opção: Opção inválida!
+  Consultas
+  1 - Produtos com Preço Abaixo de Limite
+  2 - Facturas Pagas por Cliente
+  0 - Sair
+! Escolha uma opção: Consultas
+  1 - Produtos com Preço Abaixo de Limite
+  2 - Facturas Pagas por Cliente
+  0 - Sair
++ Escolha uma opção: Número inválido!
+  Escolha uma opção: Menu Principal
+  1 - Abrir
+  2 - Guardar
