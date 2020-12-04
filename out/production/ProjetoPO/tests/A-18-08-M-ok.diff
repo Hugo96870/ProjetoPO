@@ -1,5 +1,5 @@
 *** tests/A-18-08-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-18-08-M-ok.outhyp	2020-12-03 16:50:57.612419800 +0000
+--- tests/A-18-08-M-ok.outhyp	2020-12-04 11:15:13.600010200 +0000
 ***************
 *** 22,28 ****
   3 - Registar encomenda
@@ -9,12 +9,11 @@
   Gestão de Transacções
   1 - Visualizar
   2 - Registar venda
---- 22,29 ----
+--- 22,28 ----
   3 - Registar encomenda
   4 - Pagar
   0 - Sair
-! Escolha uma opção: Identificador da transacção: CONTAINER|C|P2|30|20|100|AIR|C4
-! CONTAINER|C|P2|30|20|100|AIR|C40|R2|C|7|210|0.0|10|NÃO|0
+! Escolha uma opção: Identificador da transacção: 0|R2|C|7|210|210|10
   Gestão de Transacções
   1 - Visualizar
   2 - Registar venda
@@ -27,11 +26,11 @@
   S2|Ricardo Figueiredo|Lisboa|NORMAL|0|0
   Gestão de Clientes
   1 - Mostrar cliente
---- 55,61 ----
+--- 54,60 ----
   4 - Activa/desactivar notificações de um produto
   5 - Mostrar transacções do cliente
   0 - Sair
-! Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+! Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|210|0
   S2|Ricardo Figueiredo|Lisboa|NORMAL|0|0
   Gestão de Clientes
   1 - Mostrar cliente

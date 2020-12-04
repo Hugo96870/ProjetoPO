@@ -25,8 +25,8 @@ public class DoRegisterProductBook extends Command<StoreManager> {
   public DoRegisterProductBook(StoreManager receiver) {
     super(Label.REGISTER_BOOK, receiver);
     _idLivro = _form.addStringInput(Message.requestProductKey());
-    _autor = _form.addStringInput(Message.requestBookAuthor());
     _titulo = _form.addStringInput(Message.requestBookTitle());
+    _autor = _form.addStringInput(Message.requestBookAuthor());
     _ISBN = _form.addStringInput(Message.requestISBN());
     _preco = _form.addIntegerInput(Message.requestPrice());
     _valorCritico = _form.addIntegerInput(Message.requestStockCriticalValue());

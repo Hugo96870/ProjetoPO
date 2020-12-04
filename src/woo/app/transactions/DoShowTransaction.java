@@ -32,8 +32,6 @@ public class DoShowTransaction extends Command<StoreManager> {
     for(Venda v : _vendas){
       if(v.getID() == _idTransacao.value()){
         t = v;
-        Produto p = v.getProduto();
-        _display.popup(p.toStringProduto());
         _display.popup(v.toStringVenda());
         break;
       }

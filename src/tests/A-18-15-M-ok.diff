@@ -1,5 +1,5 @@
 *** tests/A-18-15-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-18-15-M-ok.outhyp	2020-12-03 16:57:15.983322200 +0000
+--- tests/A-18-15-M-ok.outhyp	2020-12-04 11:43:20.864814200 +0000
 ***************
 *** 53,59 ****
   4 - Activa/desactivar notificações de um produto
@@ -13,7 +13,7 @@
   4 - Activa/desactivar notificações de um produto
   5 - Mostrar transacções do cliente
   0 - Sair
-! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|2600|0
   Gestão de Clientes
   1 - Mostrar cliente
   2 - Mostrar clientes
@@ -47,7 +47,7 @@
   4 - Activa/desactivar notificações de um produto
   5 - Mostrar transacções do cliente
   0 - Sair
-! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+! Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|2600|0
   Gestão de Clientes
   1 - Mostrar cliente
   2 - Mostrar clientes

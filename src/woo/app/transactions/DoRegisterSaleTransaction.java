@@ -41,10 +41,13 @@ public class DoRegisterSaleTransaction extends Command<StoreManager> {
     }catch (InvalidClientKeyException e){
       throw new UnknownClientKeyException(e.getMessage());
     }catch (ProductUnavailableException e){
-      throw new UnavailableProductException(_idProduto.value());
+      try {
+        throw new UnavailableProductException(_idProduto.value(), _quantidade.value(), _receiver.getProduto(_idProduto.value()).getQuantidade());
+      } catch (ProductKeyUnknownException ex) {
+        throw new UnknownProductKeyException(_idProduto.value());
+      }
     }catch (ProductKeyUnknownException e){
       throw new UnknownProductKeyException(_idProduto.value());
     }
   }
-
 }

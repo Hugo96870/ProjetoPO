@@ -91,7 +91,7 @@ public class StoreManager implements Serializable{
   }
 
   public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
-          throws SupplierUnauthorizedException, SupplierWrongException{
+          throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException{
     _store.registarEncomenda(produtos, quantidades, idFornecedor, custo);
   }
 

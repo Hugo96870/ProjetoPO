@@ -1,63 +1,5 @@
 *** tests/A-16-11-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-16-11-M-ok.outhyp	2020-12-03 16:50:51.161276300 +0000
-***************
-*** 28,41 ****
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador da transacção: 0|R2|1C6H5OH|10|20|20|1
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador da transacção: 1|R2|6M2|30|120|120|1
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
---- 28,43 ----
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador da transacção: BOX|1C6H5OH|P1|2|20|100|NORMAL
-! BOX|1C6H5OH|P1|2|20|100|NORMAL0|R2|1C6H5OH|10|20|0.0|1|NÃO|0
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador da transacção: CONTAINER|6M2|P2|4|20|100|AIR|C4
-! CONTAINER|6M2|P2|4|20|100|AIR|C41|R2|6M2|30|120|0.0|1|NÃO|0
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
-***************
-*** 61,71 ****
-  4 - Registar Livro
-  5 - Alterar Preço
-  0 - Sair
-! Escolha uma opção: BOX|1C6H5OH|P1|2|20|90|NORMAL
-  BOX|2H2|P2|4|20|100|AIR
-  BOX|3O3|P2|8|20|100|EXPRESS
-  BOX|4CO2|P2|16|20|0|PERSONAL
-! CONTAINER|6M2|P2|4|20|70|AIR|C4
-  CONTAINER|7M5|P2|8|20|100|EXPRESS|B4
-  BOOK|8B1256|P1|58|2|5|Os Lusíadas|Luís de Camões|1234567890
-  BOOK|B1937|P1|5|2|5|How to fix almost everything|Satoshi Yamada|1928374650
---- 63,73 ----
-  4 - Registar Livro
-  5 - Alterar Preço
-  0 - Sair
-! Escolha uma opção: BOX|1C6H5OH|P1|2|20|100|NORMAL
-  BOX|2H2|P2|4|20|100|AIR
-  BOX|3O3|P2|8|20|100|EXPRESS
-  BOX|4CO2|P2|16|20|0|PERSONAL
-! CONTAINER|6M2|P2|4|20|100|AIR|C4
-  CONTAINER|7M5|P2|8|20|100|EXPRESS|B4
-  BOOK|8B1256|P1|58|2|5|Os Lusíadas|Luís de Camões|1234567890
-  BOOK|B1937|P1|5|2|5|How to fix almost everything|Satoshi Yamada|1928374650
+--- tests/A-16-11-M-ok.outhyp	2020-12-04 11:15:07.993786600 +0000
 ***************
 *** 95,101 ****
   4 - Activa/desactivar notificações de um produto
@@ -67,11 +9,11 @@
   S2|Ricardo Figueiredo|Lisboa|NORMAL|0|0
   Gestão de Clientes
   1 - Mostrar cliente
---- 97,103 ----
+--- 95,101 ----
   4 - Activa/desactivar notificações de um produto
   5 - Mostrar transacções do cliente
   0 - Sair
-! Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+! Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|120|0
   S2|Ricardo Figueiredo|Lisboa|NORMAL|0|0
   Gestão de Clientes
   1 - Mostrar cliente

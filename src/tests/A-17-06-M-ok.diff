@@ -1,45 +1,14 @@
 *** tests/A-17-06-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-17-06-M-ok.outhyp	2020-12-03 16:57:11.038727800 +0000
+--- tests/A-17-06-M-ok.outhyp	2020-12-04 11:43:16.201882300 +0000
 ***************
-*** 50,65 ****
-  3 - Registar encomenda
+*** 57,65 ****
   4 - Pagar
   0 - Sair
-! Escolha uma opção: Identificador do fornecedor: Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador da transacção: 0|P2|2616|0
-! 2H2|303
-! 3O3|125
-! 6M2|101
+  Escolha uma opção: Identificador da transacção: 0|P2|2616|0
+- 2H2|303
+- 3O3|125
+- 6M2|101
   Gestão de Transacções
   1 - Visualizar
   2 - Registar venda
---- 50,73 ----
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador do fornecedor: Identificador do fornecedor: Identificador do produto: Quantidade: Quantidade: Quantidade: Registar encomenda: Operação inválida: O produto '303' não existe.
-! Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar venda
-! 3 - Registar encomenda
-! 4 - Pagar
-! 0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Opção inválida!
-! Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Identificador da transacção: Visualizar: Operação inválida: A transacção '0' não existe.
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
+--- 57,62 ----

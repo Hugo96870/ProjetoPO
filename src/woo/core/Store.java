@@ -98,15 +98,19 @@ public class Store implements Serializable {
   }
 
   public void registarCaixa(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte, int quantidade)
-          throws ProductKeyDuplicatedException, ServiceTypeUnknownException,SupplierUnknownException{
+          throws ProductKeyDuplicatedException, ServiceTypeUnknownException, SupplierUnknownException{
     if(_produtos.containsKey(id.toUpperCase())){
       throw new ProductKeyDuplicatedException(id);
     }
     else{
-      Produto pr = new Caixa(id, preco, valorCritico, idFornecedor, tipoTransporte, quantidade);
-      _produtos.put(id.toUpperCase(),pr);
-      Fornecedor f = getFornecedor(idFornecedor);
-      f.adicionarProduto(pr.getId());
+      try {
+        Fornecedor f = getFornecedor(idFornecedor);
+        Produto pr = new Caixa(id, preco, valorCritico, idFornecedor, tipoTransporte, quantidade);
+        _produtos.put(id.toUpperCase(), pr);
+        f.adicionarProduto(pr.getId());
+      } catch(SupplierUnknownException e){
+        throw new SupplierUnknownException(idFornecedor);
+      }
     }
   }
 
@@ -170,20 +174,15 @@ public class Store implements Serializable {
     }
     int custoBase = p.getPreco()*quantidade;
     Venda v = new Venda(p, quantidade, dataLimite, dia, c.getIdCliente(), custoBase);
+    p.removerQuantidade(quantidade);
     c.adicionarTransacao(v);
+    c.aumentarValorComprado(custoBase);
     _transacoesV.put(v.getID(), v);
   }
 
   public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
-                                throws SupplierUnauthorizedException, SupplierWrongException{
-    Fornecedor fornecedor = null;
-    for(Fornecedor f: _fornecedores.values()){
-      if(idFornecedor.equals(f.getId()))
-        fornecedor = f;
-    }
-    if(fornecedor == null){
-      throw new NullPointerException();
-    }
+                                throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException{
+    Fornecedor fornecedor = getFornecedor(idFornecedor);
     if(!(fornecedor.getEstado()))
       throw new SupplierUnauthorizedException(fornecedor.getId());
 

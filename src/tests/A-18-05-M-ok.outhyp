@@ -28,16 +28,14 @@ Escolha uma opção: Identificador do cliente: Data limite de pagamento: Identif
 3 - Registar encomenda
 4 - Pagar
 0 - Sair
-Escolha uma opção: Identificador da transacção: BOOK|8B1256|P1|58|2|5|Os Lusíadas|Luís de Camões|1234567890
-BOOK|8B1256|P1|58|2|5|Os Lusíadas|Luís de Camões|12345678900|R2|8B1256|3|174|0.0|2|NÃO|0
+Escolha uma opção: Identificador da transacção: 0|R2|8B1256|3|174|174|2
 Gestão de Transacções
 1 - Visualizar
 2 - Registar venda
 3 - Registar encomenda
 4 - Pagar
 0 - Sair
-Escolha uma opção: Identificador da transacção: BOX|3O3|P2|8|20|100|EXPRESS
-BOX|3O3|P2|8|20|100|EXPRESS1|R2|3O3|4|32|0.0|4|NÃO|0
+Escolha uma opção: Identificador da transacção: 1|R2|3O3|4|32|32|4
 Gestão de Transacções
 1 - Visualizar
 2 - Registar venda
@@ -63,7 +61,7 @@ Escolha uma opção: Gestão de Clientes
 4 - Activa/desactivar notificações de um produto
 5 - Mostrar transacções do cliente
 0 - Sair
-Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|206|0
 Gestão de Clientes
 1 - Mostrar cliente
 2 - Mostrar clientes
@@ -114,7 +112,7 @@ Escolha uma opção: Gestão de Clientes
 4 - Activa/desactivar notificações de um produto
 5 - Mostrar transacções do cliente
 0 - Sair
-Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|206|0
 Gestão de Clientes
 1 - Mostrar cliente
 2 - Mostrar clientes
@@ -165,7 +163,7 @@ Escolha uma opção: Gestão de Clientes
 4 - Activa/desactivar notificações de um produto
 5 - Mostrar transacções do cliente
 0 - Sair
-Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+Escolha uma opção: Identificador do cliente: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|206|0
 Gestão de Clientes
 1 - Mostrar cliente
 2 - Mostrar clientes
@@ -173,7 +171,7 @@ Gestão de Clientes
 4 - Activa/desactivar notificações de um produto
 5 - Mostrar transacções do cliente
 0 - Sair
-Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|0|0
+Escolha uma opção: R2|Jorge Figueiredo|Lisboa, Portugal|NORMAL|206|0
 S2|Ricardo Figueiredo|Lisboa|NORMAL|0|0
 Gestão de Clientes
 1 - Mostrar cliente

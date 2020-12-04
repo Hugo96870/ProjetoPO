@@ -9,8 +9,8 @@ public class Cliente implements Serializable{
     private String _nome;
     private String _morada;
     private String _estatuto;
-    private int _valorPago;
-    private int _valorComprado;
+    private double _valorPago;
+    private double _valorComprado;
     private int _pontos;
     private List<Venda> _transacoes;
     
@@ -26,8 +26,8 @@ public class Cliente implements Serializable{
     }
 
     public String toStringCliente(){
-        return _idCliente + "|" + _nome + "|" + _morada + "|" + _estatuto + "|" + _valorComprado + "|"
-                + _valorPago;
+        return _idCliente + "|" + _nome + "|" + _morada + "|" + _estatuto + "|" + Math.round(_valorComprado) + "|"
+                + Math.round(_valorPago);
     }
 
     public String getNome(){
@@ -47,11 +47,11 @@ public class Cliente implements Serializable{
     }
 
     public int getValorPago(){
-        return _valorPago;
+        return (int)_valorPago;
     }
 
     public int getValorComprado(){
-        return _valorComprado;
+        return (int)_valorComprado;
     }
 
     public int getPontos(){
@@ -68,6 +68,10 @@ public class Cliente implements Serializable{
     public void mudarPontos(double pontos){
         _pontos += pontos;
         setEstatuto();
+    }
+
+    public void aumentarValorComprado(double valor){
+        _valorComprado += valor;
     }
 
     public void setEstatuto(){
