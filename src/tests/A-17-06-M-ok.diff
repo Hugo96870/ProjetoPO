@@ -1,14 +1,23 @@
 *** tests/A-17-06-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-17-06-M-ok.outhyp	2020-12-04 11:43:16.201882300 +0000
+--- tests/A-17-06-M-ok.outhyp	2020-12-04 13:03:17.315094000 +0000
 ***************
 *** 57,65 ****
   4 - Pagar
   0 - Sair
   Escolha uma opção: Identificador da transacção: 0|P2|2616|0
-- 2H2|303
-- 3O3|125
-- 6M2|101
+! 2H2|303
+! 3O3|125
+! 6M2|101
   Gestão de Transacções
   1 - Visualizar
   2 - Registar venda
---- 57,62 ----
+--- 57,65 ----
+  4 - Pagar
+  0 - Sair
+  Escolha uma opção: Identificador da transacção: 0|P2|2616|0
+! 2H2|-203
+! 2H2|-2033O3|-25
+! 2H2|-2033O3|-256M2|-1
+  Gestão de Transacções
+  1 - Visualizar
+  2 - Registar venda

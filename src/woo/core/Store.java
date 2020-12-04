@@ -203,9 +203,68 @@ public class Store implements Serializable {
     _saldoDisponivel -= valor;
   }
 
-  public void pagar(Venda v) throws InvalidClientKeyException{
-    v.mudarEstado();
-    v.setDataPagamento(getData());
+  public double atualizarCusto(Venda v) throws InvalidClientKeyException{
+    double custobase = v.getProduto().getPreco() * v.getQuantidade();
+    double custoreal = custobase;
+    if(v.getProduto().getTipo() == TipoDeProduto.BOOK) {
+      int dias = v.getDataLimite() - getData();
+      if (dias >= 3) {
+        custoreal *= 0.9;
+      }
+      else if(dias >= 0) {
+        double valor = pagamentoP2(v, custobase, dias);
+        custoreal -= valor;
+      }
+      else if(dias >= -3){
+        double valor = pagamentoP3(v, custobase, dias);
+        custoreal += valor;
+      }
+      else {
+        double valor = pagamentoP4(v, custobase, dias);
+        custoreal += valor;
+      }
+    }
+    else if(v.getProduto().getTipo() == TipoDeProduto.BOX) {
+      int dias = v.getDataLimite() - getData();
+      if (dias >= 5) {
+        custoreal *= 0.9;
+      }
+      else if(dias >= 0) {
+        double valor = pagamentoP2(v, custobase, dias);
+        custoreal -= valor;
+      }
+      else if(dias >= -5) {
+        double valor = pagamentoP3(v, custobase, dias);
+        custoreal += valor;
+      }
+      else {
+        double valor = pagamentoP4(v, custobase, dias);
+        custoreal += valor;
+      }
+    }
+    else if(v.getProduto().getTipo() == TipoDeProduto.CONTAINER) {
+      int dias = v.getDataLimite() - getData();
+      if (dias >= 8) {
+        custoreal *= 0.9;
+      }
+      else if(dias >= 0) {
+        double valor = pagamentoP2(v, custobase, dias);
+        custoreal -= valor;
+      }
+      else if(dias >= -8){
+        double valor = pagamentoP3(v, custobase, dias);
+        custoreal += valor;
+      }
+      else {
+        double valor = pagamentoP4(v, custobase, dias);
+        custoreal += valor;
+      }
+    }
+    return custoreal;
+  }
+
+
+  public double pagar(Venda v) throws InvalidClientKeyException{
     double custobase = v.getProduto().getPreco() * v.getQuantidade();
     double custoreal = custobase;
     if(v.getProduto().getTipo() == TipoDeProduto.BOOK) {
@@ -268,9 +327,7 @@ public class Store implements Serializable {
         custoreal += valor;
       }
     }
-
-
-    v.setValorFinal(custoreal);
+    return custoreal;
   }
 
   public double pagamentoP2(Venda v, double custoBase, int dias) throws InvalidClientKeyException{

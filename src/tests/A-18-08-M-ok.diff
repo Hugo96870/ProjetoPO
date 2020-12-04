@@ -1,22 +1,5 @@
 *** tests/A-18-08-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-18-08-M-ok.outhyp	2020-12-04 11:43:19.336404900 +0000
-***************
-*** 22,28 ****
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador da transacção: 0|R2|C|7|210|189|10
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
---- 22,28 ----
-  3 - Registar encomenda
-  4 - Pagar
-  0 - Sair
-! Escolha uma opção: Identificador da transacção: 0|R2|C|7|210|210|10
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar venda
+--- tests/A-18-08-M-ok.outhyp	2020-12-04 13:03:21.493911900 +0000
 ***************
 *** 54,60 ****
   4 - Activa/desactivar notificações de um produto

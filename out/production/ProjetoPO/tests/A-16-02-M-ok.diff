@@ -1,5 +1,5 @@
 *** tests/A-16-02-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-16-02-M-ok.outhyp	2020-12-04 11:15:06.055943800 +0000
+--- tests/A-16-02-M-ok.outhyp	2020-12-04 12:45:51.084558300 +0000
 ***************
 *** 28,77 ****
   3 - Registar encomenda
@@ -56,7 +56,7 @@
   3 - Registar encomenda
   4 - Pagar
   0 - Sair
-! Escolha uma opção: Identificador do cliente: Data limite de pagamento: Identificador do produto: Quantidade: Registar venda: Operação inválida: Produto '8B1256': pedido=0, existências=0
+! Escolha uma opção: Identificador do cliente: Data limite de pagamento: Identificador do produto: Quantidade: Registar venda: Operação inválida: Produto '8B1256': pedido=4, existências=-15
   Gestão de Transacções
   1 - Visualizar
   2 - Registar venda

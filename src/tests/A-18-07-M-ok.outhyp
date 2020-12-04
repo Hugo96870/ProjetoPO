@@ -52,7 +52,7 @@ Escolha uma opção: Gestão de Transacções
 3 - Registar encomenda
 4 - Pagar
 0 - Sair
-Escolha uma opção: Identificador da transacção: 0|R2|C|10|3000|3000|2
+Escolha uma opção: Identificador da transacção: 0|R2|C|10|3000|3600|2
 Gestão de Transacções
 1 - Visualizar
 2 - Registar venda

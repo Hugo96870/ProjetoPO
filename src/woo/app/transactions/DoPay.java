@@ -33,7 +33,10 @@ public class DoPay extends Command<StoreManager> {
       if (v.getID() == _id.value()) {
         if("NAO".equals(v.getEstado())) {
           try {
-            _receiver.pagar(v);
+            double valorReal = _receiver.pagar(v);
+            v.setValorFinal(valorReal);
+            v.mudarEstado();
+            v.setDataPagamento(_receiver.getData());
           } catch(InvalidClientKeyException e){
             throw new UnknownClientKeyException(e.getMessage());
           }

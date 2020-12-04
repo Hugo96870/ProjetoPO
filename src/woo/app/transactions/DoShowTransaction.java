@@ -1,11 +1,15 @@
 package woo.app.transactions;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
+import java.util.List;
 import pt.tecnico.po.ui.Input;
+import woo.app.exception.UnknownClientKeyException;
+import woo.app.exception.UnknownProductKeyException;
 import woo.app.exception.UnknownTransactionKeyException;
 import woo.core.StoreManager;
 import woo.core.*;
+import woo.core.exception.InvalidClientKeyException;
+import woo.core.exception.ProductKeyUnknownException;
 
 import java.util.Collection;
 
@@ -23,7 +27,7 @@ public class DoShowTransaction extends Command<StoreManager> {
   }
 
   @Override
-  public final void execute() throws DialogException {
+  public final void execute() throws UnknownProductKeyException, UnknownClientKeyException, UnknownTransactionKeyException {
     _form.parse();
     Collection<Venda> _vendas = _receiver.getVendas();
     Collection<Encomenda> _encomendas = _receiver.getEncomendas();
@@ -32,6 +36,11 @@ public class DoShowTransaction extends Command<StoreManager> {
     for(Venda v : _vendas){
       if(v.getID() == _idTransacao.value()){
         t = v;
+        try {
+          v.setValorFinal(_receiver.atualizarCusto(v));
+        } catch (InvalidClientKeyException es) {
+          throw new UnknownClientKeyException(v.getIDCliente());
+        }
         _display.popup(v.toStringVenda());
         break;
       }
@@ -41,6 +50,16 @@ public class DoShowTransaction extends Command<StoreManager> {
       if(e.getID() == _idTransacao.value()){
         t = e;
         _display.popup(e.toStringEncomenda());
+        _display.clear();
+        List<String> produtos = e.getProdutos();
+        for (String s: produtos){
+          try {
+            Produto p = _receiver.getProduto(s);
+            _display.popup(p.toStringProdutoTransacao());
+          } catch (ProductKeyUnknownException ex){
+            throw new UnknownProductKeyException(s);
+          }
+        }
         break;
       }
     }

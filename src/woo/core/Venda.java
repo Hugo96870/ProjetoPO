@@ -23,7 +23,6 @@ public class Venda extends Transacao implements Serializable{
         _dia = dia;
         _idCliente = idCliente;
         _custoBase = custo;
-        _custofinal = custo;
     }
 
     public int getDia(){
@@ -48,7 +47,7 @@ public class Venda extends Transacao implements Serializable{
 
     public String toStringVenda(){
         return this.getID() + "|" + this._idCliente + "|" + this._produto.getId() + "|" + this._quantidade +
-                "|" + this._custoBase + "|" + (int)this._custofinal + "|" + this._dataLimite;
+                "|" + this._custoBase + "|" + Math.round(_custofinal) + "|" + this._dataLimite;
 
     }
 

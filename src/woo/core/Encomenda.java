@@ -28,4 +28,8 @@ public class Encomenda extends Transacao implements Serializable{
         return _fornecedor;
     }
 
+    public List<String> getProdutos(){
+        return _produtos;
+    }
+
 }
