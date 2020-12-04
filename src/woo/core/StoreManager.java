@@ -116,7 +116,8 @@ public class StoreManager implements Serializable{
   }
 
   public double pagar(Venda v) throws InvalidClientKeyException{
-    return _store.pagar(v);
+    double custo = _store.pagar(v);
+    return custo;
   }
 
   public double atualizarCusto(Venda v) throws InvalidClientKeyException{

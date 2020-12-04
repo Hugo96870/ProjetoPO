@@ -173,7 +173,16 @@ public class Store implements Serializable {
       throw new ProductUnavailableException(p.getId());
     }
     int custoBase = p.getPreco()*quantidade;
-    Venda v = new Venda(p, quantidade, dataLimite, dia, c.getIdCliente(), custoBase);
+    int i = 0;
+    Collection<Venda> vendas = getVendas();
+    Collection<Encomenda> encomends = getEncomendas();
+
+    for(Venda vd: vendas)
+      i++;
+    for(Encomenda e: encomends)
+      i++;
+
+    Venda v = new Venda(p, quantidade, dataLimite, dia, c.getIdCliente(), custoBase, i);
     p.removerQuantidade(quantidade);
     c.adicionarTransacao(v);
     c.aumentarValorComprado(custoBase);
@@ -193,7 +202,16 @@ public class Store implements Serializable {
         throw new SupplierWrongException(idFornecedor, p);
     }
 
-    Encomenda e = new Encomenda(produtos, fornecedor, quantidades, custo, getData());
+    int i = 0;
+    Collection<Venda> vendas = getVendas();
+    Collection<Encomenda> encomends = getEncomendas();
+
+    for(Venda vd: vendas)
+      i++;
+    for(Encomenda e: encomends)
+      i++;
+
+    Encomenda e = new Encomenda(produtos, fornecedor, quantidades, custo, getData(), i);
     fornecedor.adicionarTransacao(e);
     _transacoesE.put(e.getID(), e);
   }
@@ -207,60 +225,99 @@ public class Store implements Serializable {
     double custobase = v.getProduto().getPreco() * v.getQuantidade();
     double custoreal = custobase;
     if(v.getProduto().getTipo() == TipoDeProduto.BOOK) {
-      int dias = v.getDataLimite() - getData();
-      if (dias >= 3) {
+      int dias1 = v.getDataLimite() - getData();
+      int dias2 = - v.getDataLimite() + getData();
+      if (dias1 >= 3) {
         custoreal *= 0.9;
       }
-      else if(dias >= 0) {
-        double valor = pagamentoP2(v, custobase, dias);
+      else if(dias2 >= 0 && dias2 < 3) {
+        double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
       }
-      else if(dias >= -3){
-        double valor = pagamentoP3(v, custobase, dias);
+      else if(dias2 > 1 && dias2 <= 3){
+        double valor = pagamentoP3SemPontos(v, custobase, dias1);
         custoreal += valor;
       }
-      else {
-        double valor = pagamentoP4(v, custobase, dias);
+      else if(dias2 > 3){
+        double valor = pagamentoP4SemPontos(v, custobase, dias1);
         custoreal += valor;
       }
     }
     else if(v.getProduto().getTipo() == TipoDeProduto.BOX) {
-      int dias = v.getDataLimite() - getData();
-      if (dias >= 5) {
+      int dias1 = v.getDataLimite() - getData();
+      int dias2 = - v.getDataLimite() + getData();
+      if (dias1 >= 5) {
         custoreal *= 0.9;
       }
-      else if(dias >= 0) {
-        double valor = pagamentoP2(v, custobase, dias);
+      else if(dias2 >= 0 && dias2 < 5) {
+        double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
       }
-      else if(dias >= -5) {
-        double valor = pagamentoP3(v, custobase, dias);
+      else if(dias2 > 1 && dias2 <= 5) {
+        double valor = pagamentoP3SemPontos(v, custobase, dias1);
         custoreal += valor;
       }
-      else {
-        double valor = pagamentoP4(v, custobase, dias);
+      else if(dias2 > 5){
+        double valor = pagamentoP4SemPontos(v, custobase, dias1);
         custoreal += valor;
       }
     }
     else if(v.getProduto().getTipo() == TipoDeProduto.CONTAINER) {
-      int dias = v.getDataLimite() - getData();
-      if (dias >= 8) {
+      int dias1 = v.getDataLimite() - getData();
+      int dias2 = - v.getDataLimite() + getData();
+      if (dias1 >= 8) {
         custoreal *= 0.9;
       }
-      else if(dias >= 0) {
-        double valor = pagamentoP2(v, custobase, dias);
+      else if(dias2 >= 0 && dias2 < 8) {
+        double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
       }
-      else if(dias >= -8){
-        double valor = pagamentoP3(v, custobase, dias);
+      else if(dias2 > 1 && dias2 <= 8){
+        double valor = pagamentoP3SemPontos(v, custobase, dias1);
         custoreal += valor;
       }
-      else {
-        double valor = pagamentoP4(v, custobase, dias);
+      else if(dias2 > 8){
+        double valor = pagamentoP4SemPontos(v, custobase, dias1);
         custoreal += valor;
       }
     }
     return custoreal;
+  }
+
+  public double pagamentoP3SemPontos(Venda v, double custoBase, int dias) throws InvalidClientKeyException{
+    double valor = 0;
+    if("NORMAL".equals(getCliente(v.getIDCliente()).getEstatuto())) {
+      double multa = (-1 * dias) * 0.05;
+      valor = custoBase * multa;
+    }
+    else if("SELECTION".equals(getCliente(v.getIDCliente()).getEstatuto())) {
+      if (dias == -1)
+        valor = 0;
+      else {
+        double multa = 0.02 * (-1 * (dias + 1));
+        valor = custoBase * multa;
+      }
+    }
+    else{
+      valor = -1 *custoBase*0.05;
+    }
+    return valor;
+  }
+
+  public double pagamentoP4SemPontos(Venda v, double custoBase, int dias) throws InvalidClientKeyException{
+    double valor = 0;
+    if("NORMAL".equals(getCliente(v.getIDCliente()).getEstatuto())) {
+      double multa = (-1 * dias) * 0.1;
+      valor = custoBase * multa;
+    }
+    else if("SELECTION".equals(getCliente(v.getIDCliente()).getEstatuto())){
+      double multa = (-1 * dias) * 0.05;
+      valor = custoBase * multa;
+    }
+    else {
+      valor = 0;
+    }
+    return valor;
   }
 
 
@@ -268,62 +325,65 @@ public class Store implements Serializable {
     double custobase = v.getProduto().getPreco() * v.getQuantidade();
     double custoreal = custobase;
     if(v.getProduto().getTipo() == TipoDeProduto.BOOK) {
-      int dias = v.getDataLimite() - getData();
-      if (dias >= 3) {
+      int dias1 = v.getDataLimite() - getData();
+      int dias2 = - v.getDataLimite() + getData();
+      if (dias1 >= 3) {
         custoreal *= 0.9;
         getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
       }
-      else if(dias >= 0) {
-        double valor = pagamentoP2(v, custobase, dias);
+      else if(dias1 >= 0 && dias1 < 3) {
+        double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
         getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
       }
-      else if(dias >= -3){
-        double valor = pagamentoP3(v, custobase, dias);
+      else if(dias2 > 1 && dias2 <= 3){
+        double valor = pagamentoP3(v, custobase, dias1);
         custoreal += valor;
       }
-      else {
-        double valor = pagamentoP4(v, custobase, dias);
+      else if(dias2 > 3){
+        double valor = pagamentoP4(v, custobase, dias1);
         custoreal += valor;
       }
     }
     else if(v.getProduto().getTipo() == TipoDeProduto.BOX) {
-      int dias = v.getDataLimite() - getData();
-      if (dias >= 5) {
+      int dias1 = v.getDataLimite() - getData();
+      int dias2 = - v.getDataLimite() + getData();
+      if (dias1 >= 5) {
         custoreal *= 0.9;
         getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
       }
-      else if(dias >= 0) {
-        double valor = pagamentoP2(v, custobase, dias);
+      else if(dias1 >= 0 && dias1 < 5) {
+        double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
         getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
       }
-      else if(dias >= -5) {
-        double valor = pagamentoP3(v, custobase, dias);
+      else if(dias2 > 1 && dias2 <= 5) {
+        double valor = pagamentoP3(v, custobase, dias1);
         custoreal += valor;
       }
-      else {
-        double valor = pagamentoP4(v, custobase, dias);
+      else if(dias2 > 5){
+        double valor = pagamentoP4(v, custobase, dias1);
         custoreal += valor;
       }
     }
     else if(v.getProduto().getTipo() == TipoDeProduto.CONTAINER) {
-      int dias = v.getDataLimite() - getData();
-      if (dias >= 8) {
+      int dias1 = v.getDataLimite() - getData();
+      int dias2 = - v.getDataLimite() + getData();
+      if (dias1 >= 8) {
         custoreal *= 0.9;
         getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
       }
-      else if(dias >= 0) {
-        double valor = pagamentoP2(v, custobase, dias);
+      else if(dias1 >= 0 && dias1 < 8) {
+        double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
         getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
       }
-      else if(dias >= -8){
-        double valor = pagamentoP3(v, custobase, dias);
+      else if(dias2 > 1 && dias2 <= 8){
+        double valor = pagamentoP3(v, custobase, dias1);
         custoreal += valor;
       }
-      else {
-        double valor = pagamentoP4(v, custobase, dias);
+      else if(dias2 > 8){
+        double valor = pagamentoP4(v, custobase, dias1);
         custoreal += valor;
       }
     }

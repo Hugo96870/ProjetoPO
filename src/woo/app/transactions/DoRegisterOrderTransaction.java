@@ -54,7 +54,7 @@ public class DoRegisterOrderTransaction extends Command<StoreManager> {
       } catch (ProductKeyUnknownException e) {
         throw new UnknownProductKeyException(_idProduto.value());
       }
-      p.removerQuantidade(_quantidade.value());
+      p.adicionarQuantidade(_quantidade.value());
       custoTotal += p.getPreco()*_quantidade.value();
       if("n".equals(estado.value()))
         break;

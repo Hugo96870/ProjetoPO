@@ -24,8 +24,8 @@ public abstract class Produto implements Serializable {
                 "|" + _precoCritico + "|" + _quantidade + "|";
     }
 
-    public String toStringProdutoTransacao(){
-        return _idProduto+ "|" + _quantidade;
+    public String toStringProdutoTransacao(int quantidade){
+        return _idProduto+ "|" + quantidade;
     }
 
     public int getPreco(){
@@ -57,6 +57,10 @@ public abstract class Produto implements Serializable {
     }
 
     public void removerQuantidade(int quantidade){
-        _quantidade-=quantidade;
+        _quantidade -= quantidade;
+    }
+
+    public void adicionarQuantidade(int quantidade){
+        _quantidade += quantidade;
     }
 }

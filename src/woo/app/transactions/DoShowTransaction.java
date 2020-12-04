@@ -32,6 +32,7 @@ public class DoShowTransaction extends Command<StoreManager> {
     Collection<Venda> _vendas = _receiver.getVendas();
     Collection<Encomenda> _encomendas = _receiver.getEncomendas();
     Transacao t = null;
+    int i = 0;
 
     for(Venda v : _vendas){
       if(v.getID() == _idTransacao.value()){
@@ -55,7 +56,10 @@ public class DoShowTransaction extends Command<StoreManager> {
         for (String s: produtos){
           try {
             Produto p = _receiver.getProduto(s);
-            _display.popup(p.toStringProdutoTransacao());
+            int quantidade = e.buscarQuantidade(i);
+            _display.popup(p.toStringProdutoTransacao(quantidade));
+            _display.clear();
+            i++;
           } catch (ProductKeyUnknownException ex){
             throw new UnknownProductKeyException(s);
           }

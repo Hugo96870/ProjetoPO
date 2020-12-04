@@ -61,6 +61,7 @@ public class Cliente implements Serializable{
     public List<Venda> getTransacoes(){
         return _transacoes;
     }
+
     public void adicionarTransacao(Venda v){
         _transacoes.add(v);
     }
@@ -72,6 +73,10 @@ public class Cliente implements Serializable{
 
     public void aumentarValorComprado(double valor){
         _valorComprado += valor;
+    }
+
+    public void aumentarValorPago(double valor){
+        _valorPago += valor;
     }
 
     public void setEstatuto(){

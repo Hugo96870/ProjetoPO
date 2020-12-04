@@ -14,8 +14,8 @@ public class Venda extends Transacao implements Serializable{
     private double _custofinal;
     private int _dataPagamento;
 
-    public Venda(Produto p, int quantidade, int data, int dia, String idCliente, int custo){
-        super();
+    public Venda(Produto p, int quantidade, int data, int dia, String idCliente, int custo, int nrID){
+        super(nrID);
         _produto = p;
         _quantidade = quantidade;
         _dataLimite = data;
@@ -46,9 +46,15 @@ public class Venda extends Transacao implements Serializable{
     }
 
     public String toStringVenda(){
-        return this.getID() + "|" + this._idCliente + "|" + this._produto.getId() + "|" + this._quantidade +
-                "|" + this._custoBase + "|" + Math.round(_custofinal) + "|" + this._dataLimite;
-
+        if(Message.no().equals(_paga)) {
+            return this.getID() + "|" + this._idCliente + "|" + this._produto.getId() + "|" + this._quantidade +
+                    "|" + this._custoBase + "|" + Math.round(_custofinal) + "|" + this._dataLimite;
+        }
+        else {
+            return this.getID() + "|" + this._idCliente + "|" + this._produto.getId() + "|" + this._quantidade +
+                    "|" + this._custoBase + "|" + Math.round(_custofinal) + "|" + this._dataLimite + "|"
+                    + this._dataPagamento;
+        }
     }
 
     public void mudarEstado(){

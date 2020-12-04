@@ -5,7 +5,8 @@ public class Transacao implements Serializable{
     protected int _id;
     protected static int _idContador = 0;
 
-    public Transacao() {
+    public Transacao(int nrID) {
+        _idContador = nrID;
         _id = _idContador;
         _idContador += 1;
     }
