@@ -37,10 +37,12 @@ public class DoShowTransaction extends Command<StoreManager> {
     for(Venda v : _vendas){
       if(v.getID() == _idTransacao.value()){
         t = v;
-        try {
-          v.setValorFinal(_receiver.atualizarCusto(v));
-        } catch (InvalidClientKeyException es) {
-          throw new UnknownClientKeyException(v.getIDCliente());
+        if("NÃO".equals(v.getEstado())) {
+          try {
+            v.setValorFinal(_receiver.atualizarCusto(v));
+          } catch (InvalidClientKeyException es) {
+            throw new UnknownClientKeyException(v.getIDCliente());
+          }
         }
         _display.popup(v.toStringVenda());
         break;

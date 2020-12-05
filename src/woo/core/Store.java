@@ -230,7 +230,7 @@ public class Store implements Serializable {
       if (dias1 >= 3) {
         custoreal *= 0.9;
       }
-      else if(dias2 >= 0 && dias2 < 3) {
+      else if(dias1 >= 0 && dias1 < 3) {
         double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
       }
@@ -249,7 +249,7 @@ public class Store implements Serializable {
       if (dias1 >= 5) {
         custoreal *= 0.9;
       }
-      else if(dias2 >= 0 && dias2 < 5) {
+      else if(dias1 >= 0 && dias1 < 5) {
         double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
       }
@@ -268,7 +268,7 @@ public class Store implements Serializable {
       if (dias1 >= 8) {
         custoreal *= 0.9;
       }
-      else if(dias2 >= 0 && dias2 < 8) {
+      else if(dias1 >= 0 && dias1 < 8) {
         double valor = pagamentoP2(v, custobase, dias1);
         custoreal -= valor;
       }
@@ -294,7 +294,7 @@ public class Store implements Serializable {
       if (dias == -1)
         valor = 0;
       else {
-        double multa = 0.02 * (-1 * (dias + 1));
+        double multa = 0.02 * (-1 * (dias));
         valor = custoBase * multa;
       }
     }
@@ -395,7 +395,7 @@ public class Store implements Serializable {
     if("NORMAL".equals(getCliente(v.getIDCliente()).getEstatuto()))
       valor = 0;
     else if("SELECTION".equals(getCliente(v.getIDCliente()).getEstatuto()))
-      if (dias > 2)
+      if (dias >= 2)
         valor = 0.05*custoBase;
     else
       valor = 0.1*custoBase;
@@ -414,7 +414,7 @@ public class Store implements Serializable {
       else {
         if(dias <= -2)
           getCliente(v.getIDCliente()).mudarPontos(-(getCliente(v.getIDCliente()).getPontos() * 0.9));
-        double multa = 0.02 * (-1 * (dias + 1));
+        double multa = 0.02 * (-1 * (dias));
         valor = custoBase * multa;
       }
     }
