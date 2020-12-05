@@ -23,11 +23,12 @@ public class DoShowTransaction extends Command<StoreManager> {
 
   public DoShowTransaction(StoreManager receiver) {
     super(Label.SHOW_TRANSACTION, receiver);
-    _idTransacao = _form.addIntegerInput(Message.requestTransactionKey());
   }
 
   @Override
   public final void execute() throws UnknownProductKeyException, UnknownClientKeyException, UnknownTransactionKeyException {
+    _form.clear();
+    _idTransacao = _form.addIntegerInput(Message.requestTransactionKey());
     _form.parse();
     Collection<Venda> _vendas = _receiver.getVendas();
     Collection<Encomenda> _encomendas = _receiver.getEncomendas();

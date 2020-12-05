@@ -34,7 +34,14 @@ Escolha uma opção: Identificador do cliente: Data limite de pagamento: Identif
 3 - Registar encomenda
 4 - Pagar
 0 - Sair
-Escolha uma opção: Identificador do produto: Quantidade: Quantidade: Encomendar mais produtos? (s/n) Identificador do produto: Quantidade: Encomendar mais produtos? (s/n) Registar encomenda: Operação inválida: O produto '1' não existe.
+Escolha uma opção: Identificador do produto: Quantidade: Quantidade: Encomendar mais produtos? (s/n) Registar encomenda: Operação inválida: O produto 'P2' não existe.
+Gestão de Transacções
+1 - Visualizar
+2 - Registar venda
+3 - Registar encomenda
+4 - Pagar
+0 - Sair
+Escolha uma opção: Identificador da transacção: 0|R2|B1937|1|5|5|1
 Gestão de Transacções
 1 - Visualizar
 2 - Registar venda
@@ -50,15 +57,21 @@ Gestão de Transacções
 3 - Registar encomenda
 4 - Pagar
 0 - Sair
-Escolha uma opção: Identificador do cliente: Data limite de pagamento: Identificador do produto: Quantidade: Registar venda: Operação inválida: O produto '0' não existe.
+Escolha uma opção: Identificador da transacção: 2|S2|8B1256|4|232|232|1
 Gestão de Transacções
 1 - Visualizar
 2 - Registar venda
 3 - Registar encomenda
 4 - Pagar
 0 - Sair
-Escolha uma opção: Fim de entrada de dados (R-EOF): pt.tecnico.po.io.RuntimeEOFException: Fim do fluxo de dados de entrada
-Menu Principal
+Escolha uma opção: Identificador da transacção: Visualizar: Operação inválida: A transacção '3' não existe.
+Gestão de Transacções
+1 - Visualizar
+2 - Registar venda
+3 - Registar encomenda
+4 - Pagar
+0 - Sair
+Escolha uma opção: Menu Principal
 1 - Abrir
 2 - Guardar
 3 - Mostrar Data
@@ -70,4 +83,4 @@ Menu Principal
 9 - Menu de Consultas
 10 - Ver Saldo Global
 0 - Sair
-Escolha uma opção: Fim de entrada de dados (R-EOF): pt.tecnico.po.io.RuntimeEOFException: Fim do fluxo de dados de entrada
+Escolha uma opção: 

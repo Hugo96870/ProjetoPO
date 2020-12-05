@@ -29,18 +29,19 @@ public class DoRegisterOrderTransaction extends Command<StoreManager> {
 
   public DoRegisterOrderTransaction(StoreManager receiver) {
     super(Label.REGISTER_ORDER_TRANSACTION, receiver);
-    _idFornecedor = _form.addStringInput(Message.requestSupplierKey());
   }
 
   @Override
   public final void execute() throws UnauthorizedSupplierException, WrongSupplierException, UnknownProductKeyException,
           UnknownSupplierKeyException{
+    _form.clear();
+    _idFornecedor = _form.addStringInput(Message.requestSupplierKey());
+    _form.parse();
     List<String> produtos = new LinkedList<>();
     List<Integer> quantidades = new LinkedList<>();
     int custoTotal = 0;
     Produto p;
     Input<String> estado;
-    _form.parse();
     _form.clear();
     while(true){
       _idProduto = _form.addStringInput(Message.requestProductKey());
@@ -63,6 +64,7 @@ public class DoRegisterOrderTransaction extends Command<StoreManager> {
     try {
       _receiver.registarEncomenda(produtos, quantidades, _idFornecedor.value(), custoTotal);
       _receiver.adicionarSaldo(custoTotal);
+      _form.clear();
     } catch(SupplierUnauthorizedException e){
       throw new UnauthorizedSupplierException(_idFornecedor.value());
     } catch(SupplierWrongException q){
