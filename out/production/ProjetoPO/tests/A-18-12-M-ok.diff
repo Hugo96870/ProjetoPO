@@ -1,7 +1,7 @@
-*** tests/A-01-09-M-ok.out	2020-12-01 16:55:11.000000000 +0000
---- tests/A-01-09-M-ok.outhyp	2020-12-05 18:25:29.987517400 +0000
+*** tests/A-18-12-M-ok.out	2020-12-01 16:55:11.000000000 +0000
+--- tests/A-18-12-M-ok.outhyp	2020-12-05 18:25:48.792072500 +0000
 ***************
-*** 77,83 ****
+*** 170,176 ****
   9 - Menu de Consultas
   10 - Ver Saldo Global
   0 - Sair
@@ -9,7 +9,7 @@
   1 - Abrir
   2 - Guardar
   3 - Mostrar Data
---- 77,84 ----
+--- 170,177 ----
   9 - Menu de Consultas
   10 - Ver Saldo Global
   0 - Sair

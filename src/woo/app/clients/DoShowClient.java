@@ -7,10 +7,12 @@ import woo.core.StoreManager;
 import woo.core.Cliente;
 import woo.core.exception.InvalidClientKeyException;
 
+import java.io.Serializable;
+
 /**
  * Show client.
  */
-public class DoShowClient extends Command<StoreManager> {
+public class DoShowClient extends Command<StoreManager> implements Serializable {
 
   private Input<String> _idCliente;
 
@@ -25,6 +27,14 @@ public class DoShowClient extends Command<StoreManager> {
     try {
       Cliente cl = _receiver.getCliente(_idCliente.value());
       _display.popup(cl.toStringCliente());
+      _display.clear();
+      int i = cl.getNrNotificacoes();
+      while(i > 0){
+        _display.addLine(cl.toStringNotificacoes());
+        i--;
+      }
+      cl.resetNrNotificacoes();
+      _display.display();
     } catch (InvalidClientKeyException e) {
       throw new UnknownClientKeyException(e.getMessage());
     }

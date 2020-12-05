@@ -57,6 +57,7 @@ Escolha uma opção: Gestão de Clientes
 5 - Mostrar transacções do cliente
 0 - Sair
 Escolha uma opção: Identificador do cliente: C1|R2-D2|somewhere|NORMAL|0|0
+BARGAIN|H2|2
 Gestão de Clientes
 1 - Mostrar cliente
 2 - Mostrar clientes
@@ -76,7 +77,8 @@ Escolha uma opção: Menu Principal
 9 - Menu de Consultas
 10 - Ver Saldo Global
 0 - Sair
-Escolha uma opção: Ficheiro sem nome. Guardar ficheiro como: Menu Principal
+Escolha uma opção: Ficheiro sem nome. Guardar ficheiro como: Guardar: Operação inválida: Problema ao abrir 'null'.
+Menu Principal
 1 - Abrir
 2 - Guardar
 3 - Mostrar Data

@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.io.Serializable;
 
-public class Cliente implements Serializable{
+public class Cliente implements Serializable, Observer{
     private String _idCliente;
     private String _nome;
     private String _morada;
@@ -13,6 +13,8 @@ public class Cliente implements Serializable{
     private double _valorComprado;
     private int _pontos;
     private List<Venda> _transacoes;
+    private List<String> _notificcoes;
+    private int _nrNotificacoes;
     
     public Cliente(String id, String nome, String morada){
         _idCliente = id;
@@ -23,6 +25,8 @@ public class Cliente implements Serializable{
         _valorComprado = 0;
         _valorPago = 0;
         _transacoes = new LinkedList<>();
+        _notificcoes = new LinkedList<>();
+        _nrNotificacoes = 0;
     }
 
     public String toStringCliente(){
@@ -86,5 +90,27 @@ public class Cliente implements Serializable{
             _estatuto = "SELECTION";
         else
             _estatuto = "NORMAL";
+    }
+
+    public void adicionarNotificacao(String mensagem){
+        _notificcoes.add(mensagem);
+        _nrNotificacoes += 1;
+    }
+
+    public String toStringNotificacoes(){
+        String mensagem = _notificcoes.get(0);
+        _notificcoes.remove(mensagem);
+        return mensagem;
+    }
+
+    public int getNrNotificacoes(){
+        return _nrNotificacoes;
+    }
+
+    public void resetNrNotificacoes(){
+        _nrNotificacoes = 0;
+    }
+
+    public void update(int preco, int quantidade){
     }
 }

@@ -2,6 +2,7 @@ package woo.core;
 
 import java.io.*;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import woo.app.exception.*;
@@ -91,7 +92,7 @@ public class StoreManager implements Serializable{
   }
 
   public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
-          throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException{
+          throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException, UnknownProductKeyException{
     _store.registarEncomenda(produtos, quantidades, idFornecedor, custo);
   }
 
@@ -122,6 +123,10 @@ public class StoreManager implements Serializable{
 
   public double atualizarCusto(Venda v) throws InvalidClientKeyException{
     return _store.atualizarCusto(v);
+  }
+
+  public HashMap<String, List<Observer>> getObservers(){
+    return _store.getObservers();
   }
 
   /**

@@ -24,6 +24,7 @@ public class Store implements Serializable {
     private Map<String, Fornecedor> _fornecedores;
     private Map<Integer, Venda> _transacoesV;
     private Map<Integer, Encomenda> _transacoesE;
+    private GestorNotificacoes _gestorN;
 
   public Store(){
     _clientes = new TreeMap<>();
@@ -32,6 +33,7 @@ public class Store implements Serializable {
     _transacoesE = new TreeMap<>();
     _transacoesV = new TreeMap<>();
     _filename = "";
+    _gestorN = new GestorNotificacoes();
   }
 
   public String getFileName(){
@@ -56,6 +58,7 @@ public class Store implements Serializable {
     }
     else{
       Cliente cl = new Cliente(id, nome, morada);
+      _gestorN.adicionarCliente(cl);
       _clientes.put(id.toUpperCase(), cl);
     }
   }
@@ -78,6 +81,7 @@ public class Store implements Serializable {
     else{
       Produto pr = new Livro(id, preco, valorCritico, idFornecedor, autor, ISBN, titulo, quantidade);
       _produtos.put(id.toUpperCase(),pr);
+      adicionarProdutoObserver(id);
       Fornecedor f = getFornecedor(idFornecedor);
       f.adicionarProduto(pr.getId());
     }
@@ -92,6 +96,7 @@ public class Store implements Serializable {
     else{
       Produto pr = new Contentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, quantidade);
       _produtos.put(id.toUpperCase(),pr);
+      adicionarProdutoObserver(id);
       Fornecedor f = getFornecedor(idFornecedor);
       f.adicionarProduto(pr.getId());
     }
@@ -107,6 +112,7 @@ public class Store implements Serializable {
         Fornecedor f = getFornecedor(idFornecedor);
         Produto pr = new Caixa(id, preco, valorCritico, idFornecedor, tipoTransporte, quantidade);
         _produtos.put(id.toUpperCase(), pr);
+        adicionarProdutoObserver(id);
         f.adicionarProduto(pr.getId());
       } catch(SupplierUnknownException e){
         throw new SupplierUnknownException(idFornecedor);
@@ -135,6 +141,9 @@ public class Store implements Serializable {
   public void mudarPreco(int preco, String id){
     for (Produto p: _produtos.values()){
       if(id.equals(p.getId())){
+        int precoAntigo = p.getPreco();
+        if (preco < precoAntigo)
+          _gestorN.notificacaoBargain(id, preco);
         p.mudarPreco(preco);
       }
     }
@@ -190,7 +199,8 @@ public class Store implements Serializable {
   }
 
   public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
-                                throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException{
+                                throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException,
+                                UnknownProductKeyException{
     Fornecedor fornecedor = getFornecedor(idFornecedor);
     if(!(fornecedor.getEstado()))
       throw new SupplierUnauthorizedException(fornecedor.getId());
@@ -214,6 +224,7 @@ public class Store implements Serializable {
     Encomenda e = new Encomenda(produtos, fornecedor, quantidades, custo, getData(), i);
     fornecedor.adicionarTransacao(e);
     _transacoesE.put(e.getID(), e);
+    enviarNotificacaoNew(Collections.unmodifiableList(produtos), Collections.unmodifiableList(quantidades), produtos.size());
   }
 
   public void adicionarSaldo(int valor){
@@ -468,6 +479,40 @@ public class Store implements Serializable {
       }
     }
     return null;
+  }
+
+  public HashMap<String, List<Observer>> getObservers(){
+    return _gestorN.getObservers();
+  }
+
+  public void adicionarProdutoObserver(String id){
+    _gestorN.adicionarObservers(id, _clientes.values());
+  }
+
+  public void enviarNotificacaoNew(List<String> produtos, List<Integer> quantidades, int size) throws
+          UnknownProductKeyException{
+    List<String> produtosParaDestruir = new LinkedList<>();
+    List<Integer> quantidadesParaDestruir = new LinkedList<>();
+    int i = size;
+    for(String id: produtos)
+      produtosParaDestruir.add(id);
+    for(Integer quantidade: quantidades)
+      quantidadesParaDestruir.add(quantidade);
+
+    while(i > 0){
+      int quantidade = quantidadesParaDestruir.get(0);
+      String id = produtosParaDestruir.get(0);
+      try {
+        Produto p = getProduto(id);
+        if((p.getQuantidade()-quantidade) == 0)
+          _gestorN.notificacaoNew(id, p.getPreco());
+        quantidadesParaDestruir.remove(0);
+        produtosParaDestruir.remove(0);
+        i--;
+      } catch (ProductKeyUnknownException e){
+        throw new UnknownProductKeyException(id);
+      }
+    }
   }
 
   /**

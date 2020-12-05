@@ -1,6 +1,5 @@
 package woo.core;
 
 public interface Observer{
-    void updateQuantidade(int quantidade);
-    void updatePreco(int preco);
+    void update(int preco,int quantidade);
 }
