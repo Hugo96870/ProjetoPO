@@ -129,6 +129,14 @@ public class StoreManager implements Serializable{
     return _store.getObservers();
   }
 
+
+  public double getSaldoDisponivel(){
+    return getSaldoDisponivel();
+  }
+
+  public double getSaldoContabilistico(){
+    return getSaldoContabilistico();
+  }
   /**
    * @throws IOException
    * @throws FileNotFoundException
