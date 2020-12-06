@@ -232,65 +232,72 @@ public class Store implements Serializable {
     _saldoDisponivel -= valor;
   }
 
-  public double atualizarCusto(Venda v) throws InvalidClientKeyException{
+  public double atualizarCusto(Venda v) throws InvalidClientKeyException {
     double custobase = v.getProduto().getPreco() * v.getQuantidade();
-    double custoreal = custobase;
-    if(v.getProduto().getTipo() == TipoDeProduto.BOOK) {
-      int dias1 = v.getDataLimite() - getData();
-      int dias2 = - v.getDataLimite() + getData();
-      if (dias1 >= 3) {
-        custoreal *= 0.9;
-      }
-      else if(dias1 >= 0 && dias1 < 3) {
-        double valor = pagamentoP2(v, custobase, dias1);
-        custoreal -= valor;
-      }
-      else if(dias2 > 1 && dias2 <= 3){
-        double valor = pagamentoP3SemPontos(v, custobase, dias1);
-        custoreal += valor;
-      }
-      else if(dias2 > 3){
-        double valor = pagamentoP4SemPontos(v, custobase, dias1);
-        custoreal += valor;
-      }
+    int dias1 = v.getDataLimite() - getData();
+    int dias2 = -v.getDataLimite() + getData();
+    double custoreal = 0;
+    if(TipoDeProduto.BOOK.equals(v.getProduto().getTipo()))
+      custoreal = atualizarCustoLivro(v, dias1, dias2, custobase);
+    else if(TipoDeProduto.BOX.equals(v.getProduto().getTipo()))
+      custoreal = atualizarCustoCaixa(v, dias1, dias2, custobase);
+    else
+      custoreal = atualizarCustoContentor(v, dias1, dias2, custobase);
+    return custoreal;
+  }
+
+  public double atualizarCustoLivro(Venda v, int dias1, int dias2, double custoreal) throws InvalidClientKeyException{
+    if (dias1 >= 3) {
+      custoreal *= 0.9;
     }
-    else if(v.getProduto().getTipo() == TipoDeProduto.BOX) {
-      int dias1 = v.getDataLimite() - getData();
-      int dias2 = - v.getDataLimite() + getData();
-      if (dias1 >= 5) {
-        custoreal *= 0.9;
-      }
-      else if(dias1 >= 0 && dias1 < 5) {
-        double valor = pagamentoP2(v, custobase, dias1);
-        custoreal -= valor;
-      }
-      else if(dias2 > 1 && dias2 <= 5) {
-        double valor = pagamentoP3SemPontos(v, custobase, dias1);
-        custoreal += valor;
-      }
-      else if(dias2 > 5){
-        double valor = pagamentoP4SemPontos(v, custobase, dias1);
-        custoreal += valor;
-      }
+    else if(dias1 >= 0 && dias1 < 3) {
+      double valor = pagamentoP2(v, custoreal, dias1);
+      custoreal -= valor;
     }
-    else if(v.getProduto().getTipo() == TipoDeProduto.CONTAINER) {
-      int dias1 = v.getDataLimite() - getData();
-      int dias2 = - v.getDataLimite() + getData();
-      if (dias1 >= 8) {
-        custoreal *= 0.9;
-      }
-      else if(dias1 >= 0 && dias1 < 8) {
-        double valor = pagamentoP2(v, custobase, dias1);
-        custoreal -= valor;
-      }
-      else if(dias2 > 1 && dias2 <= 8){
-        double valor = pagamentoP3SemPontos(v, custobase, dias1);
-        custoreal += valor;
-      }
-      else if(dias2 > 8){
-        double valor = pagamentoP4SemPontos(v, custobase, dias1);
-        custoreal += valor;
-      }
+    else if(dias2 > 1 && dias2 <= 3){
+      double valor = pagamentoP3SemPontos(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    else if(dias2 > 3){
+      double valor = pagamentoP4SemPontos(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    return custoreal;
+  }
+  public double atualizarCustoCaixa(Venda v, int dias1, int dias2, double custoreal) throws InvalidClientKeyException{
+    if (dias1 >= 5) {
+      custoreal *= 0.9;
+    }
+    else if(dias1 >= 0 && dias1 < 5) {
+      double valor = pagamentoP2(v, custoreal, dias1);
+      custoreal -= valor;
+    }
+    else if(dias2 > 1 && dias2 <= 5) {
+      double valor = pagamentoP3SemPontos(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    else if(dias2 > 5){
+      double valor = pagamentoP4SemPontos(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    return custoreal;
+  }
+
+  public double atualizarCustoContentor(Venda v, int dias1, int dias2, double custoreal) throws InvalidClientKeyException{
+    if (dias1 >= 8) {
+      custoreal *= 0.9;
+    }
+    else if(dias1 >= 0 && dias1 < 8) {
+      double valor = pagamentoP2(v, custoreal, dias1);
+      custoreal -= valor;
+    }
+    else if(dias2 > 1 && dias2 <= 8){
+      double valor = pagamentoP3SemPontos(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    else if(dias2 > 8){
+      double valor = pagamentoP4SemPontos(v, custoreal, dias1);
+      custoreal += valor;
     }
     return custoreal;
   }
@@ -332,71 +339,79 @@ public class Store implements Serializable {
   }
 
 
-  public double pagar(Venda v) throws InvalidClientKeyException{
-    double custobase = v.getProduto().getPreco() * v.getQuantidade();
-    double custoreal = custobase;
-    if(v.getProduto().getTipo() == TipoDeProduto.BOOK) {
+  public double pagar(Venda v) throws InvalidClientKeyException {
+      double custobase = v.getProduto().getPreco() * v.getQuantidade();
       int dias1 = v.getDataLimite() - getData();
-      int dias2 = - v.getDataLimite() + getData();
-      if (dias1 >= 3) {
-        custoreal *= 0.9;
-        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
-      }
-      else if(dias1 >= 0 && dias1 < 3) {
-        double valor = pagamentoP2(v, custobase, dias1);
-        custoreal -= valor;
-        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
-      }
-      else if(dias2 > 1 && dias2 <= 3){
-        double valor = pagamentoP3(v, custobase, dias1);
-        custoreal += valor;
-      }
-      else if(dias2 > 3){
-        double valor = pagamentoP4(v, custobase, dias1);
-        custoreal += valor;
-      }
+      int dias2 = -v.getDataLimite() + getData();
+      double custoreal = 0;
+      if(TipoDeProduto.BOOK.equals(v.getProduto().getTipo()))
+          custoreal = pagarLivro(v, dias1, dias2, custobase);
+      else if(TipoDeProduto.BOX.equals(v.getProduto().getTipo()))
+          custoreal = pagarCaixa(v, dias1, dias2, custobase);
+      else
+          custoreal = pagarContentor(v, dias1, dias2, custobase);
+      return custoreal;
+  }
+
+  public double pagarLivro(Venda v, int dias1, int dias2, double custoreal) throws InvalidClientKeyException{
+    if (dias1 >= 3) {
+      custoreal *= 0.9;
+      getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
     }
-    else if(v.getProduto().getTipo() == TipoDeProduto.BOX) {
-      int dias1 = v.getDataLimite() - getData();
-      int dias2 = - v.getDataLimite() + getData();
-      if (dias1 >= 5) {
-        custoreal *= 0.9;
-        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
-      }
-      else if(dias1 >= 0 && dias1 < 5) {
-        double valor = pagamentoP2(v, custobase, dias1);
-        custoreal -= valor;
-        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
-      }
-      else if(dias2 > 1 && dias2 <= 5) {
-        double valor = pagamentoP3(v, custobase, dias1);
-        custoreal += valor;
-      }
-      else if(dias2 > 5){
-        double valor = pagamentoP4(v, custobase, dias1);
-        custoreal += valor;
-      }
+    else if(dias1 >= 0 && dias1 < 3) {
+      double valor = pagamentoP2(v, custoreal, dias1);
+      custoreal -= valor;
+      getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
     }
-    else if(v.getProduto().getTipo() == TipoDeProduto.CONTAINER) {
-      int dias1 = v.getDataLimite() - getData();
-      int dias2 = - v.getDataLimite() + getData();
-      if (dias1 >= 8) {
-        custoreal *= 0.9;
-        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
-      }
-      else if(dias1 >= 0 && dias1 < 8) {
-        double valor = pagamentoP2(v, custobase, dias1);
-        custoreal -= valor;
-        getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
-      }
-      else if(dias2 > 1 && dias2 <= 8){
-        double valor = pagamentoP3(v, custobase, dias1);
-        custoreal += valor;
-      }
-      else if(dias2 > 8){
-        double valor = pagamentoP4(v, custobase, dias1);
-        custoreal += valor;
-      }
+    else if(dias2 > 1 && dias2 <= 3){
+      double valor = pagamentoP3(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    else if(dias2 > 3){
+      double valor = pagamentoP4(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    return custoreal;
+  }
+
+  public double pagarCaixa(Venda v, int dias1, int dias2, double custoreal) throws InvalidClientKeyException{
+    if (dias1 >= 5) {
+      custoreal *= 0.9;
+      getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+    }
+    else if(dias1 >= 0 && dias1 < 5) {
+      double valor = pagamentoP2(v, custoreal, dias1);
+      custoreal -= valor;
+      getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+    }
+    else if(dias2 > 1 && dias2 <= 5) {
+      double valor = pagamentoP3(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    else if(dias2 > 5){
+      double valor = pagamentoP4(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    return custoreal;
+  }
+
+  public double pagarContentor(Venda v, int dias1, int dias2, double custoreal) throws InvalidClientKeyException{
+    if (dias1 >= 8) {
+      custoreal *= 0.9;
+      getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+    }
+    else if(dias1 >= 0 && dias1 < 8) {
+      double valor = pagamentoP2(v, custoreal, dias1);
+      custoreal -= valor;
+      getCliente(v.getIDCliente()).mudarPontos(custoreal * 10);
+    }
+    else if(dias2 > 1 && dias2 <= 8){
+      double valor = pagamentoP3(v, custoreal, dias1);
+      custoreal += valor;
+    }
+    else if(dias2 > 8){
+      double valor = pagamentoP4(v, custoreal, dias1);
+      custoreal += valor;
     }
     return custoreal;
   }
