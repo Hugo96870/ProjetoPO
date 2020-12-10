@@ -10,15 +10,6 @@ public class GestorNotificacoes implements Serializable {
 
     HashMap<String, List<Observer>> _observers = new HashMap<>();
 
-    public int getPreco(Produto p){
-        return p.getPreco();
-    }
-
-    public int getQuantidade(Produto p){
-        return p.getQuantidade();
-    }
-
-
     public void adicionarObservers(String id, Collection<Cliente> clientes){
         List<Observer> observers = new LinkedList<>();
         for(Cliente cl: clientes)
@@ -30,20 +21,6 @@ public class GestorNotificacoes implements Serializable {
         return _observers;
     }
 
-    public void removerObserversP(Observer o){
-        _observers.remove(o);
-    }
-
-    public void removerObserversQ(Observer o){
-        _observers.remove(o);
-    }
-
-    private void notifyObserversQ() {
-
-    }
-    private void notifyObserversP() {
-
-    }
     public void notificacaoNew(String id, int preco){
         List<Observer> observers = _observers.get(id);
         for(Observer obs: observers){
@@ -66,11 +43,4 @@ public class GestorNotificacoes implements Serializable {
         }
     }
 
-    public void NotificaPreco(Produto p){
-        int preco = getPreco(p);
-        notifyObserversP();
-    }
-    public void NotificaQuantidade(int q){
-        notifyObserversQ();
-    }
 }

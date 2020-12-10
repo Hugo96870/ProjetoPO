@@ -1,7 +1,6 @@
 package woo.app.clients;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.UnknownClientKeyException;
 import woo.app.exception.UnknownProductKeyException;
@@ -39,7 +38,7 @@ public class DoToggleProductNotifications extends Command<StoreManager>{
           if(_observers.get(id).contains(cl))
             _observers.get(id).remove(cl);
           else
-            _observers.get(id).add((Observer)cl);
+            _observers.get(id).add(cl);
         }
       }
     } catch (InvalidClientKeyException e){

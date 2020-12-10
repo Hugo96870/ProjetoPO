@@ -25,10 +25,6 @@ public class Venda extends Transacao implements Serializable{
         _custoBase = custo;
     }
 
-    public int getDia(){
-        return _dia;
-    }
-
     public String getEstado(){
         return _paga;
     }

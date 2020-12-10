@@ -3,8 +3,6 @@ package woo.core;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.security.Provider;
-import java.time.chrono.IsoChronology;
 import java.io.Serializable;
 
 import woo.app.exception.*;
@@ -72,9 +70,6 @@ public class MyParser implements Serializable{
     } catch(SupplierKeyDuplicatedException e){
       throw new DuplicateSupplierKeyException(e.getMessage());
     }
-    // create/register supplier?
-    // for example, _store.registerSupplier(id, name, address);
-    // or use _store.registerSupplier(components[1];, components[2], components[3]);;
   }
 
   // Format: CLIENT|id|nome|endereço
@@ -114,7 +109,6 @@ public class MyParser implements Serializable{
       throw new UnknownSupplierKeyException(fornecedor);
     }
 
-    // add code here
   }
 
   // Format: BOOK|id|título|autor|isbn|id-fornecedor|preço|valor-crítico|exemplares

@@ -36,20 +36,9 @@ public class Store implements Serializable {
     _gestorN = new GestorNotificacoes();
   }
 
-  public String getFileName(){
-    return _filename;
-  }
-
+  /***************************************  CLIENTE  ************************************************/
   public Collection<Cliente> getTodosClientes(){
     return _clientes.values();
-  }
-
-  public Collection<Fornecedor> getTodosFornecedores(){
-    return _fornecedores.values();
-  }
-
-  public Collection<Produto> getTodosProdutos(){
-    return _produtos.values();
   }
 
   public void registarCliente(String id, String nome, String morada) throws ClientKeyDuplicatedException{
@@ -63,6 +52,14 @@ public class Store implements Serializable {
     }
   }
 
+  public Cliente getCliente(String id) throws InvalidClientKeyException{
+    if(!(_clientes.containsKey(id.toUpperCase()))){
+      throw new InvalidClientKeyException(id);
+    }
+    return _clientes.get(id.toUpperCase());
+  }
+
+  /***************************************  FORNECEDOR  ************************************************/
   public void registarFornecedor(String id, String nome, String morada) throws SupplierKeyDuplicatedException {
     if (_fornecedores.containsKey(id.toUpperCase())) {
       throw new SupplierKeyDuplicatedException(id);
@@ -71,6 +68,37 @@ public class Store implements Serializable {
       Fornecedor fr = new Fornecedor(id, nome, morada);
       _fornecedores.put(id.toUpperCase(), fr);
     }
+  }
+
+  public String mudarEstadoFornecedor(String id) throws SupplierUnknownException{
+    String s;
+    Fornecedor f = getFornecedor(id);
+    if(f.getEstado() == true)
+      s = f.setEstado(false);
+    else
+      s = f.setEstado(true);
+    return s;
+  }
+
+  public Collection<Fornecedor> getTodosFornecedores(){
+    return _fornecedores.values();
+  }
+
+  public Fornecedor getFornecedor(String id) throws SupplierUnknownException{
+    if(!_fornecedores.containsKey(id.toUpperCase()))
+      throw new SupplierUnknownException(id);
+    else {
+      for (Fornecedor f : _fornecedores.values()) {
+        if (id.toUpperCase().equals(f.getId().toUpperCase()))
+          return f;
+      }
+    }
+    return null;
+  }
+
+  /***************************************  PRODUTOS  ************************************************/
+  public Collection<Produto> getTodosProdutos(){
+    return _produtos.values();
   }
 
   public void registarLivro(String id, String autor, String titulo, String ISBN, int preco, int valorCritico, String idFornecedor,
@@ -120,24 +148,6 @@ public class Store implements Serializable {
     }
   }
 
-  public int getData(){
-    return _data;
-  }
-
-  public Cliente getCliente(String id) throws InvalidClientKeyException{
-    if(!(_clientes.containsKey(id.toUpperCase()))){
-      throw new InvalidClientKeyException(id);
-    }
-    return _clientes.get(id.toUpperCase());
-  }
-
-  public void avancarData(int dias) throws InvalidDateToAdvanceException {
-    if(dias < 0){
-      throw new InvalidDateToAdvanceException(dias);
-    }
-    _data += dias;
-  }
-
   public void mudarPreco(int preco, String id){
     for (Produto p: _produtos.values()){
       if(id.equals(p.getId())){
@@ -147,14 +157,6 @@ public class Store implements Serializable {
         p.mudarPreco(preco);
       }
     }
-  }
-
-  public double getSaldoContabilistico(){
-    return _saldoContabilistico;
-  }
-
-  public double getSaldoDisponivel(){
-    return _saldoDisponivel;
   }
 
   public Produto getProduto(String id) throws ProductKeyUnknownException{
@@ -168,7 +170,7 @@ public class Store implements Serializable {
     }
     return null;
   }
-
+  /***************************************  TRANSACOES  ************************************************/
   public Collection<Venda> getVendas(){
     return _transacoesV.values();
   }
@@ -199,8 +201,8 @@ public class Store implements Serializable {
   }
 
   public void registarEncomenda(List<String> produtos, List<Integer> quantidades, String idFornecedor, int custo)
-                                throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException,
-                                UnknownProductKeyException{
+          throws SupplierUnauthorizedException, SupplierWrongException, SupplierUnknownException,
+          UnknownProductKeyException{
     Fornecedor fornecedor = getFornecedor(idFornecedor);
     if(!(fornecedor.getEstado()))
       throw new SupplierUnauthorizedException(fornecedor.getId());
@@ -225,11 +227,6 @@ public class Store implements Serializable {
     fornecedor.adicionarTransacao(e);
     _transacoesE.put(e.getID(), e);
     enviarNotificacaoNew(Collections.unmodifiableList(produtos), Collections.unmodifiableList(quantidades), produtos.size());
-  }
-
-  public void adicionarSaldo(int valor){
-    _saldoContabilistico -= valor;
-    _saldoDisponivel -= valor;
   }
 
   public double atualizarCusto(Venda v) throws InvalidClientKeyException {
@@ -340,17 +337,17 @@ public class Store implements Serializable {
 
 
   public double pagar(Venda v) throws InvalidClientKeyException {
-      double custobase = v.getProduto().getPreco() * v.getQuantidade();
-      int dias1 = v.getDataLimite() - getData();
-      int dias2 = -v.getDataLimite() + getData();
-      double custoreal = 0;
-      if(TipoDeProduto.BOOK.equals(v.getProduto().getTipo()))
-          custoreal = pagarLivro(v, dias1, dias2, custobase);
-      else if(TipoDeProduto.BOX.equals(v.getProduto().getTipo()))
-          custoreal = pagarCaixa(v, dias1, dias2, custobase);
-      else
-          custoreal = pagarContentor(v, dias1, dias2, custobase);
-      return custoreal;
+    double custobase = v.getProduto().getPreco() * v.getQuantidade();
+    int dias1 = v.getDataLimite() - getData();
+    int dias2 = -v.getDataLimite() + getData();
+    double custoreal = 0;
+    if(TipoDeProduto.BOOK.equals(v.getProduto().getTipo()))
+      custoreal = pagarLivro(v, dias1, dias2, custobase);
+    else if(TipoDeProduto.BOX.equals(v.getProduto().getTipo()))
+      custoreal = pagarCaixa(v, dias1, dias2, custobase);
+    else
+      custoreal = pagarContentor(v, dias1, dias2, custobase);
+    return custoreal;
   }
 
   public double pagarLivro(Venda v, int dias1, int dias2, double custoreal) throws InvalidClientKeyException{
@@ -423,8 +420,8 @@ public class Store implements Serializable {
     else if("SELECTION".equals(getCliente(v.getIDCliente()).getEstatuto()))
       if (dias >= 2)
         valor = 0.05*custoBase;
-    else
-      valor = 0.1*custoBase;
+      else
+        valor = 0.1*custoBase;
     return valor;
   }
 
@@ -470,31 +467,27 @@ public class Store implements Serializable {
     return valor;
   }
 
-  public String mudarEstadoFornecedor(String id) throws SupplierUnknownException{
-    String s;
-    Fornecedor f = getFornecedor(id);
-    if(f.getEstado() == true)
-      s = f.setEstado(false);
-    else
-      s = f.setEstado(true);
-    return s;
+  /***************************************  LOJA  ************************************************/
+  public int getData(){
+    return _data;
+  }
+
+  public void avancarData(int dias) throws InvalidDateToAdvanceException {
+    if(dias < 0){
+      throw new InvalidDateToAdvanceException(dias);
+    }
+    _data += dias;
+  }
+
+  public void adicionarSaldo(int valor){
+    _saldoContabilistico -= valor;
+    _saldoDisponivel -= valor;
   }
 
   public void adicionarSaldoContabilistico(int valor){
     _saldoContabilistico += valor;
   }
-
-  public Fornecedor getFornecedor(String id) throws SupplierUnknownException{
-    if(!_fornecedores.containsKey(id.toUpperCase()))
-      throw new SupplierUnknownException(id);
-    else {
-      for (Fornecedor f : _fornecedores.values()) {
-        if (id.toUpperCase().equals(f.getId().toUpperCase()))
-          return f;
-      }
-    }
-    return null;
-  }
+  /***************************************  NOTIFICACOES  ************************************************/
 
   public HashMap<String, List<Observer>> getObservers(){
     return _gestorN.getObservers();

@@ -1,9 +1,7 @@
 package woo.app.lookups;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
-import woo.app.products.DoShowAllProducts;
 import woo.core.Produto;
 import woo.core.StoreManager;
 

@@ -10,9 +10,7 @@ import woo.core.Fornecedor;
 import woo.core.StoreManager;
 import woo.core.exception.ProductKeyUnknownException;
 import woo.core.exception.SupplierUnknownException;
-
 import java.util.List;
-//FIXME import other classes
 
 /**
  * Show all transactions for specific supplier.

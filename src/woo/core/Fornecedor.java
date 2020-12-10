@@ -40,10 +40,6 @@ public class Fornecedor implements Serializable{
     public String getId(){
         return _idFornecedor;
     }
-
-    public String getMorada(){
-        return _morada;
-    }
     
     public boolean getEstado(){
         return _estadoAtividade;

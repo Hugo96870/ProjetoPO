@@ -1,16 +1,12 @@
 package woo.app.transactions;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.UnknownClientKeyException;
 import woo.app.exception.UnknownTransactionKeyException;
 import woo.core.*;
 import woo.core.exception.InvalidClientKeyException;
-
-import javax.print.DocFlavor;
 import java.util.Collection;
-//FIXME import other classes
 
 /**
  * Pay transaction (sale).

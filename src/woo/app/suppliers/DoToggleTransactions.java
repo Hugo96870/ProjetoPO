@@ -1,12 +1,10 @@
 package woo.app.suppliers;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.UnknownSupplierKeyException;
 import woo.core.StoreManager;
 import woo.core.exception.SupplierUnknownException;
-//FIXME import other classes
 
 /**
  * Enable/disable supplier transactions.
@@ -31,5 +29,4 @@ public class DoToggleTransactions extends Command<StoreManager> {
       throw new UnknownSupplierKeyException(_id.value());
     }
   }
-
 }

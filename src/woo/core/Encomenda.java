@@ -1,8 +1,6 @@
 package woo.core;
 import java.io.Serializable;
-import woo.core.*;
 import java.util.List;
-import java.util.LinkedList;
 
 public class Encomenda extends Transacao implements Serializable{
     private Fornecedor _fornecedor;

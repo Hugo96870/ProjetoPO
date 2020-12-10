@@ -1,8 +1,6 @@
 package woo.app.main;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
-import pt.tecnico.po.ui.Input;
 import woo.core.StoreManager;
 
 /**

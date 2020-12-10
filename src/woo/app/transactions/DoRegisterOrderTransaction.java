@@ -1,7 +1,6 @@
 package woo.app.transactions;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.app.exception.UnauthorizedSupplierException;
 import woo.app.exception.UnknownProductKeyException;
@@ -14,7 +13,6 @@ import woo.core.exception.SupplierUnauthorizedException;
 import woo.core.exception.SupplierUnknownException;
 import woo.core.exception.SupplierWrongException;
 
-import java.lang.invoke.WrongMethodTypeException;
 import java.util.List;
 import java.util.LinkedList;
 

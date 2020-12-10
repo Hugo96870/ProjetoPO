@@ -19,63 +19,39 @@ public class StoreManager implements Serializable{
   /** The actual store. */
   private Store _store;
 
-  public void setFilename(String nome){
-    _filename = nome;
-  }
-
-  public Produto getProduto(String id) throws ProductKeyUnknownException{
-    Produto p = _store.getProduto(id);
-    return p;
-  }
-
   public StoreManager(){
       _store = new Store();
   }
 
-  public Store getStore(){
-    return _store;
+  /****************************************** CLIENTE **************************************************/
+  public void registarCliente(String id, String nome, String morada) throws ClientKeyDuplicatedException{
+    _store.registarCliente(id, nome, morada);
+  }
+
+  public Collection<Cliente> getTodosClientes(){
+    return _store.getTodosClientes();
   }
 
   public Cliente getCliente(String id) throws InvalidClientKeyException{
     return _store.getCliente(id);
   }
 
-  public int getData(){
-    return _store.getData();
+  /***************************************  FORNECEDOR  ************************************************/
+  public void registarFornecedor(String id, String nome, String morada) throws SupplierKeyDuplicatedException{
+    _store.registarFornecedor(id, nome, morada);
   }
 
-  public void avancarData(int dias) throws InvalidDateToAdvanceException{
-      _store.avancarData(dias);
-  }
-  public Collection<Cliente> getTodosClientes(){
-    return _store.getTodosClientes();
+  public String mudarEstadoFornecedor(String id) throws SupplierUnknownException{
+    return _store.mudarEstadoFornecedor(id);
   }
 
   public Collection<Fornecedor> getTodosFornecedores(){
     return _store.getTodosFornecedores();
   }
-
-  public Collection<Produto> getTodosProdutos(){
-    return _store.getTodosProdutos();
-  }
-
-  public void registarCliente(String id, String nome, String morada) throws ClientKeyDuplicatedException{
-    _store.registarCliente(id, nome, morada);
-  }
-
-  public void registarFornecedor(String id, String nome, String morada) throws SupplierKeyDuplicatedException{
-    _store.registarFornecedor(id, nome, morada);
-  }
-
+  /***************************************  PRODUTOS ************************************************/
   public void registarLivro(String id, String autor, String titulo, String ISBN, int preco, int valorCritico,
                             String idFornecedor) throws ProductKeyDuplicatedException, SupplierUnknownException{
     _store.registarLivro(id, autor, titulo, ISBN, preco, valorCritico, idFornecedor, 0);
-  }
-
-  public void registarContentor(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte,
-                                String nivelServico) throws ProductKeyDuplicatedException, ServiceLevelUnknownException,
-                                ServiceTypeUnknownException, SupplierUnknownException{
-    _store.registarContentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, 0);
   }
 
   public void registarCaixa(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte)
@@ -83,9 +59,25 @@ public class StoreManager implements Serializable{
     _store.registarCaixa(id, preco, valorCritico, idFornecedor, tipoTransporte, 0);
   }
 
+  public void registarContentor(String id, int preco, int valorCritico, String idFornecedor, String tipoTransporte,
+                                String nivelServico) throws ProductKeyDuplicatedException, ServiceLevelUnknownException,
+          ServiceTypeUnknownException, SupplierUnknownException{
+    _store.registarContentor(id, preco, valorCritico, idFornecedor, tipoTransporte, nivelServico, 0);
+  }
+
   public void mudarPreco(int preco, String id){
     _store.mudarPreco(preco, id);
   }
+
+  public Produto getProduto(String id) throws ProductKeyUnknownException{
+    Produto p = _store.getProduto(id);
+    return p;
+  }
+
+  public Collection<Produto> getTodosProdutos(){
+    return _store.getTodosProdutos();
+  }
+  /***************************************  TRANSACOES  ************************************************/
 
   public void registarVenda(Cliente c, int dataLimite, Produto p, int quantidade) throws ProductUnavailableException{
     _store.registarVenda(c, dataLimite, p, quantidade, getData());
@@ -96,20 +88,8 @@ public class StoreManager implements Serializable{
     _store.registarEncomenda(produtos, quantidades, idFornecedor, custo);
   }
 
-  public void adicionarSaldo(int valor){
-    _store.adicionarSaldo(valor);
-  }
-
-  public void adicionarSaldoContabilistico(int valor){
-    _store.adicionarSaldoContabilistico(valor);
-  }
-
   public Collection<Venda> getVendas(){
     return _store.getVendas();
-  }
-
-  public String mudarEstadoFornecedor(String id) throws SupplierUnknownException{
-    return _store.mudarEstadoFornecedor(id);
   }
 
   public Collection<Encomenda> getEncomendas(){
@@ -125,10 +105,27 @@ public class StoreManager implements Serializable{
     return _store.atualizarCusto(v);
   }
 
+  /***************************************  NOTIFICACOES  ************************************************/
+
   public HashMap<String, List<Observer>> getObservers(){
     return _store.getObservers();
   }
+  /***************************************  LOJA  ************************************************/
+  public Store getStore(){
+    return _store;
+  }
 
+  public void setFilename(String nome){
+    _filename = nome;
+  }
+
+  public void adicionarSaldo(int valor){
+    _store.adicionarSaldo(valor);
+  }
+
+  public void adicionarSaldoContabilistico(int valor){
+    _store.adicionarSaldoContabilistico(valor);
+  }
 
   public double getSaldoDisponivel(){
     return getSaldoDisponivel();
@@ -137,6 +134,16 @@ public class StoreManager implements Serializable{
   public double getSaldoContabilistico(){
     return getSaldoContabilistico();
   }
+
+  public int getData(){
+    return _store.getData();
+  }
+
+  public void avancarData(int dias) throws InvalidDateToAdvanceException{
+    _store.avancarData(dias);
+  }
+
+  /***************************************  GUARDAR E ABRIR  ************************************************/
   /**
    * @throws IOException
    * @throws FileNotFoundException

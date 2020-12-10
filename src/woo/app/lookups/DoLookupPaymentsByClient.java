@@ -8,7 +8,6 @@ import woo.core.StoreManager;
 import woo.core.*;
 
 import java.util.Collection;
-import java.util.List;
 import woo.core.exception.InvalidClientKeyException;
 
 /**
